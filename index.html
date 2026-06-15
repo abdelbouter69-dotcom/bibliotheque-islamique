@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المكتبة الإسلامية الذكية — Bibliothèque Islamique Intelligente</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D4AF37; --gold-l:#FFD700; --gold-d:#A08020;
+  --teal:#40E0D0; --teal-d:#20B2AA;
+  --emerald:#2ECC71; --ruby:#C0392B;
+  --black:#07070e; --dark:#110e1c; --dark2:#1a1535; --dark3:#231e3a;
+  --cream:#F5E6C8; --dim:#9e8a6e; --muted:#6b5f4a;
+  --ff-title:'Playfair Display',Georgia,serif;
+  --ff-arabic:'Noto Naskh Arabic','Amiri','Arabic Typesetting',serif;
+  --ff-body:'Cormorant Garamond',Georgia,serif;
+  --r:8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100%;background:var(--black);color:var(--cream);font-family:var(--ff-body);overflow-x:hidden;font-size:16px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:rgba(212,175,55,.3);border-radius:2px}
+
+/* ══ SPLASH ══ */
+#splash{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;background:var(--black);transition:opacity 1s ease,transform 1s ease}
+#splash.hide{opacity:0;pointer-events:none;transform:scale(1.04)}
+.splash-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%, rgba(212,175,55,.08) 0%, transparent 65%), radial-gradient(ellipse at 80% 80%, rgba(64,224,208,.05) 0%, transparent 50%)}
+.splash-inner{position:relative;text-align:center;padding:2rem;max-width:560px}
+.splash-ornament{font-family:var(--ff-arabic);font-size:3.5rem;color:var(--gold);opacity:.6;margin-bottom:.5rem;line-height:1;text-shadow:0 0 60px rgba(212,175,55,.4)}
+.splash-title{font-family:var(--ff-title);font-size:clamp(1.8rem,5vw,3.2rem);font-weight:900;color:var(--gold);letter-spacing:.04em;text-shadow:0 0 50px rgba(212,175,55,.5);line-height:1.1;margin-bottom:.3rem}
+.splash-arabic-title{font-family:var(--ff-arabic);font-size:clamp(1.4rem,4vw,2.2rem);color:var(--cream);direction:rtl;margin-bottom:.8rem;opacity:.9}
+.splash-sub{font-size:1rem;color:var(--teal);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.5rem;opacity:.8}
+.splash-desc{font-size:1.05rem;color:var(--dim);margin-bottom:2.5rem;line-height:1.6}
+.enter-btn{background:linear-gradient(135deg,var(--gold-d),var(--gold),var(--gold-l));color:var(--black);border:none;padding:.9rem 2.8rem;font-family:var(--ff-title);font-size:1.05rem;font-weight:700;letter-spacing:.12em;cursor:pointer;border-radius:2px;transition:all .3s;box-shadow:0 4px 30px rgba(212,175,55,.35);position:relative;overflow:hidden}
+.enter-btn::after{content:'';position:absolute;top:-50%;left:-70%;width:20%;height:200%;background:rgba(255,255,255,.3);transform:skewX(-15deg);animation:shine 3s 2s infinite}
+@keyframes shine{0%{left:-70%}100%{left:140%}}
+.enter-btn:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(212,175,55,.55)}
+.splash-basmala{font-family:var(--ff-arabic);font-size:1.6rem;color:var(--gold);opacity:.5;margin-top:2rem;direction:rtl}
+
+/* ══ APP ══ */
+#app{display:none;min-height:100vh;flex-direction:column}
+#app.show{display:flex}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(7,7,14,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(212,175,55,.18);padding:.7rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-brand{display:flex;align-items:center;gap:.7rem;cursor:pointer;flex-shrink:0}
+.nav-brand-ar{font-family:var(--ff-arabic);font-size:1.2rem;color:var(--gold);direction:rtl}
+.nav-brand-fr{font-family:var(--ff-title);font-size:.75rem;color:var(--dim);letter-spacing:.1em}
+.nav-links{display:flex;gap:.3rem;flex-wrap:wrap}
+.nav-btn{background:none;border:1px solid transparent;color:var(--dim);padding:.45rem .9rem;font-family:var(--ff-body);font-size:.9rem;cursor:pointer;border-radius:var(--r);transition:all .25s;letter-spacing:.03em}
+.nav-btn:hover{color:var(--cream);border-color:rgba(212,175,55,.3)}
+.nav-btn.active{color:var(--gold);border-color:rgba(212,175,55,.5);background:rgba(212,175,55,.07)}
+
+/* SECTIONS */
+.section{display:none;flex:1;padding:2rem 1.5rem;max-width:1200px;width:100%;margin:0 auto}
+.section.active{display:block}
+
+/* ══ HOME ══ */
+.home-hero{text-align:center;padding:3rem 1rem 2rem;border-bottom:1px solid rgba(212,175,55,.12);margin-bottom:2.5rem}
+.home-hero h1{font-family:var(--ff-title);font-size:clamp(1.6rem,4vw,2.8rem);font-weight:900;color:var(--gold);margin-bottom:.5rem}
+.home-hero-ar{font-family:var(--ff-arabic);font-size:clamp(1.3rem,3vw,2rem);color:var(--cream);direction:rtl;margin-bottom:1rem}
+.home-hero p{color:var(--dim);font-size:1.05rem;max-width:680px;margin:0 auto 2rem;line-height:1.7}
+.home-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem}
+.home-card{background:var(--dark2);border:1px solid rgba(212,175,55,.15);border-radius:var(--r);padding:1.5rem;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.home-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,175,55,.05),transparent);opacity:0;transition:opacity .3s}
+.home-card:hover::before{opacity:1}
+.home-card:hover{border-color:rgba(212,175,55,.4);transform:translateY(-3px);box-shadow:0 8px 30px rgba(212,175,55,.12)}
+.hc-icon{font-size:2.2rem;margin-bottom:.8rem}
+.hc-title{font-family:var(--ff-title);font-size:1.15rem;color:var(--gold);margin-bottom:.3rem}
+.hc-ar{font-family:var(--ff-arabic);font-size:1rem;color:var(--teal);direction:rtl;margin-bottom:.5rem}
+.hc-desc{color:var(--dim);font-size:.88rem;line-height:1.5}
+
+/* ══ BIBLIOTHÈQUE ══ */
+.library-header{margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid rgba(212,175,55,.12)}
+.library-header h2{font-family:var(--ff-title);font-size:1.8rem;color:var(--gold)}
+.library-header p{color:var(--dim);margin-top:.4rem}
+.lib-cats{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.2rem 0}
+.lib-cat{padding:.35rem .9rem;border:1px solid rgba(212,175,55,.25);border-radius:20px;font-size:.82rem;color:var(--dim);cursor:pointer;transition:all .2s}
+.lib-cat.on{background:rgba(212,175,55,.15);color:var(--gold);border-color:var(--gold-d)}
+.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.book-card{background:var(--dark2);border:1px solid rgba(212,175,55,.12);border-radius:var(--r);padding:1.2rem;transition:all .3s;cursor:pointer}
+.book-card:hover{border-color:rgba(212,175,55,.4);background:var(--dark3);transform:translateY(-2px)}
+.book-icon{font-size:1.8rem;margin-bottom:.6rem}
+.book-title-ar{font-family:var(--ff-arabic);font-size:1.05rem;color:var(--cream);direction:rtl;margin-bottom:.3rem;line-height:1.4}
+.book-title-fr{font-size:.8rem;color:var(--teal);margin-bottom:.4rem}
+.book-author{font-size:.78rem;color:var(--dim)}
+.book-tag{display:inline-block;background:rgba(212,175,55,.1);color:var(--gold-d);font-size:.7rem;padding:.15rem .5rem;border-radius:10px;margin-top:.5rem}
+
+/* ══ AGENT ══ */
+.agent-layout{display:grid;grid-template-columns:280px 1fr;gap:1.5rem;height:calc(100vh - 130px)}
+@media(max-width:768px){.agent-layout{grid-template-columns:1fr;height:auto}}
+.agent-sidebar{background:var(--dark2);border:1px solid rgba(212,175,55,.15);border-radius:var(--r);overflow-y:auto;display:flex;flex-direction:column}
+.sidebar-head{padding:1rem;border-bottom:1px solid rgba(212,175,55,.12)}
+.sidebar-head h3{font-family:var(--ff-title);font-size:1rem;color:var(--gold)}
+.sidebar-head p{font-size:.78rem;color:var(--dim);margin-top:.2rem}
+.lesson-list{padding:.5rem}
+.lesson-item{padding:.6rem .8rem;border-radius:6px;cursor:pointer;transition:all .2s;margin-bottom:.2rem}
+.lesson-item:hover{background:rgba(212,175,55,.08)}
+.lesson-item.active{background:rgba(212,175,55,.12);border-left:2px solid var(--gold)}
+.lesson-num{font-size:.7rem;color:var(--teal);letter-spacing:.05em}
+.lesson-title-ar{font-family:var(--ff-arabic);font-size:.95rem;color:var(--cream);direction:rtl}
+.lesson-title-fr{font-size:.75rem;color:var(--dim)}
+.agent-main{display:flex;flex-direction:column;background:var(--dark2);border:1px solid rgba(212,175,55,.15);border-radius:var(--r);overflow:hidden}
+.agent-header{padding:1rem 1.2rem;border-bottom:1px solid rgba(212,175,55,.12);display:flex;align-items:center;gap:.8rem}
+.agent-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold-d),var(--gold));display:flex;align-items:center;justify-content:center;font-family:var(--ff-arabic);font-size:1.2rem;color:var(--black);font-weight:700;flex-shrink:0}
+.agent-info h3{font-family:var(--ff-title);font-size:1rem;color:var(--gold)}
+.agent-info p{font-size:.75rem;color:var(--teal)}
+.agent-status{margin-left:auto;display:flex;align-items:center;gap:.4rem;font-size:.75rem;color:var(--emerald)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--emerald);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.chat-area{flex:1;overflow-y:auto;padding:1.2rem;display:flex;flex-direction:column;gap:1rem;min-height:300px;max-height:calc(100vh - 310px)}
+.msg{display:flex;gap:.7rem;align-items:flex-start;max-width:90%}
+.msg.user{flex-direction:row-reverse;align-self:flex-end}
+.msg-avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-family:var(--ff-arabic)}
+.msg.agent .msg-avatar{background:linear-gradient(135deg,var(--gold-d),var(--gold));color:var(--black)}
+.msg.user .msg-avatar{background:var(--dark3);border:1px solid rgba(64,224,208,.3);color:var(--teal)}
+.msg-bubble{background:var(--dark3);border:1px solid rgba(212,175,55,.1);border-radius:var(--r);padding:.8rem 1rem;max-width:100%}
+.msg.user .msg-bubble{background:rgba(64,224,208,.07);border-color:rgba(64,224,208,.2)}
+.msg-ar{font-family:var(--ff-arabic);font-size:1.1rem;direction:rtl;color:var(--cream);line-height:1.8;margin-bottom:.5rem}
+.msg-fr{font-size:.9rem;color:var(--dim);line-height:1.6;border-top:1px solid rgba(212,175,55,.1);padding-top:.5rem;margin-top:.3rem}
+.msg-text{font-size:.93rem;color:var(--cream);line-height:1.6}
+.msg-actions{display:flex;gap:.5rem;margin-top:.6rem}
+.btn-tts{background:none;border:1px solid rgba(212,175,55,.25);color:var(--dim);padding:.25rem .6rem;font-size:.75rem;border-radius:4px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.3rem}
+.btn-tts:hover{border-color:var(--gold);color:var(--gold)}
+.example-box{background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.15);border-radius:6px;padding:.6rem .8rem;margin-top:.5rem}
+.example-box .ex-label{font-size:.72rem;color:var(--teal);letter-spacing:.05em;margin-bottom:.3rem}
+.example-box .ex-ar{font-family:var(--ff-arabic);font-size:1rem;direction:rtl;color:var(--gold)}
+.example-box .ex-fr{font-size:.8rem;color:var(--dim);margin-top:.2rem}
+.typing{display:flex;align-items:center;gap:.35rem;padding:.5rem}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--gold-d);animation:blink 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.chat-input-area{padding:.8rem 1rem;border-top:1px solid rgba(212,175,55,.12);display:flex;gap:.6rem}
+.chat-input{flex:1;background:var(--dark3);border:1px solid rgba(212,175,55,.2);border-radius:6px;padding:.65rem .9rem;color:var(--cream);font-family:var(--ff-body);font-size:.93rem;outline:none;transition:border .2s}
+.chat-input:focus{border-color:rgba(212,175,55,.5)}
+.chat-input::placeholder{color:var(--muted)}
+.send-btn{background:linear-gradient(135deg,var(--gold-d),var(--gold));border:none;color:var(--black);padding:.65rem 1.1rem;border-radius:6px;cursor:pointer;font-weight:700;font-size:.9rem;transition:all .2s;flex-shrink:0}
+.send-btn:hover{opacity:.9;transform:scale(1.03)}
+.quick-btns{padding:.4rem 1rem .6rem;display:flex;gap:.4rem;flex-wrap:wrap;border-top:1px solid rgba(212,175,55,.08)}
+.qbtn{background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);color:var(--dim);padding:.3rem .7rem;font-size:.75rem;border-radius:15px;cursor:pointer;transition:all .2s;font-family:var(--ff-arabic);direction:rtl}
+.qbtn:hover{background:rgba(212,175,55,.12);color:var(--gold)}
+
+/* ══ NOMS DIVINS ══ */
+.names-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;margin-top:1.5rem}
+.name-card{background:var(--dark2);border:1px solid rgba(212,175,55,.15);border-radius:var(--r);padding:1.4rem;transition:all .3s;cursor:pointer;position:relative;overflow:hidden}
+.name-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .3s}
+.name-card:hover::after{opacity:1}
+.name-card:hover{border-color:rgba(212,175,55,.4);transform:translateY(-2px);box-shadow:0 6px 25px rgba(212,175,55,.1)}
+.name-num{font-size:.72rem;color:var(--teal);letter-spacing:.1em;margin-bottom:.4rem}
+.name-ar{font-family:var(--ff-arabic);font-size:1.8rem;color:var(--gold);direction:rtl;margin-bottom:.3rem;text-shadow:0 0 20px rgba(212,175,55,.3)}
+.name-fr{font-size:.9rem;color:var(--cream);margin-bottom:.4rem}
+.name-meaning{font-size:.8rem;color:var(--dim);line-height:1.5}
+.name-verse{background:rgba(212,175,55,.05);border-left:2px solid var(--gold-d);padding:.4rem .6rem;margin-top:.6rem;font-family:var(--ff-arabic);font-size:.88rem;direction:rtl;color:var(--dim);line-height:1.6}
+
+/* Section headers */
+.sec-head{margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid rgba(212,175,55,.12)}
+.sec-head h2{font-family:var(--ff-title);font-size:1.9rem;color:var(--gold)}
+.sec-head p{color:var(--dim);margin-top:.3rem}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.8);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.show{display:flex}
+.modal{background:var(--dark2);border:1px solid rgba(212,175,55,.25);border-radius:var(--r);max-width:640px;width:100%;max-height:85vh;overflow-y:auto;padding:1.8rem}
+.modal h3{font-family:var(--ff-title);font-size:1.4rem;color:var(--gold);margin-bottom:.4rem}
+.modal .modal-ar{font-family:var(--ff-arabic);font-size:1.5rem;direction:rtl;color:var(--cream);margin-bottom:1rem}
+.modal-close{float:right;background:none;border:1px solid rgba(212,175,55,.3);color:var(--dim);padding:.3rem .8rem;border-radius:4px;cursor:pointer;margin-top:-.3rem}
+.modal-close:hover{color:var(--gold)}
+.modal-body p{color:var(--dim);line-height:1.7;margin-bottom:.8rem;font-size:.93rem}
+.modal-body .ar-block{font-family:var(--ff-arabic);font-size:1.1rem;direction:rtl;color:var(--cream);background:rgba(212,175,55,.04);border:1px solid rgba(212,175,55,.12);border-radius:6px;padding:.8rem;margin:.6rem 0;line-height:1.9}
+
+/* Responsive */
+@media(max-width:600px){.home-cards{grid-template-columns:1fr 1fr}.books-grid{grid-template-columns:1fr 1fr}.agent-layout{height:auto}}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-bg"></div>
+  <div class="splash-inner">
+    <div class="splash-ornament">۞</div>
+    <div class="splash-title">Bibliothèque Islamique</div>
+    <div class="splash-arabic-title">الْمَكْتَبَةُ الإِسْلَامِيَّةُ الذَّكِيَّةُ</div>
+    <div class="splash-sub">Agent • Grammaire • Noms Divins</div>
+    <div class="splash-desc">Un espace d'apprentissage de la langue arabe fondé sur l'Ajrûmiyya et les grands classiques de la tradition islamique</div>
+    <button class="enter-btn" onclick="enterApp()">بِسْمِ اللَّهِ — Entrer</button>
+    <div class="splash-basmala">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <nav>
+    <div class="nav-brand" onclick="showSection('home')">
+      <div>
+        <div class="nav-brand-ar">المكتبة</div>
+        <div class="nav-brand-fr">ISLAMIQUE</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-btn active" onclick="showSection('home')">Accueil</button>
+      <button class="nav-btn" onclick="showSection('agent')">🤖 Agent Grammatical</button>
+      <button class="nav-btn" onclick="showSection('library')">📚 Bibliothèque</button>
+      <button class="nav-btn" onclick="showSection('names')">✨ Noms Divins</button>
+    </div>
+  </nav>
+
+  <!-- HOME -->
+  <div class="section active" id="sec-home">
+    <div class="home-hero">
+      <h1>المكتبة الإسلامية الذكية</h1>
+      <div class="home-hero-ar">تَعَلَّمِ الْعَرَبِيَّةَ مَعَ الشَّيْخِ آجُرُّوم</div>
+      <p>Apprenez la grammaire arabe classique avec un agent intelligent fondé sur la <em>Muqaddima al-Âjurrûmiyya</em> — réponses en arabe vocalisé et en français.</p>
+    </div>
+    <div class="home-cards">
+      <div class="home-card" onclick="showSection('agent')">
+        <div class="hc-icon">🎓</div>
+        <div class="hc-title">Agent Grammatical</div>
+        <div class="hc-ar">الشَّيْخُ الْمُعَلِّمُ</div>
+        <div class="hc-desc">Posez vos questions en français ou en arabe. L'agent vous répond avec du texte arabe vocalisé (tashkîl complet) et une explication en français.</div>
+      </div>
+      <div class="home-card" onclick="showSection('library')">
+        <div class="hc-icon">📚</div>
+        <div class="hc-title">Bibliothèque Classique</div>
+        <div class="hc-ar">الْمَكْتَبَةُ الْكَلَاسِيكِيَّة</div>
+        <div class="hc-desc">Catalogue des grands ouvrages : Ajrûmiyya, Alfiyya d'Ibn Mâlik, hadith, tafsîr, fiqh — avec fiches de présentation.</div>
+      </div>
+      <div class="home-card" onclick="showSection('names')">
+        <div class="hc-icon">✨</div>
+        <div class="hc-title">Les 99 Noms Divins</div>
+        <div class="hc-ar">أَسْمَاءُ اللَّهِ الْحُسْنَى</div>
+        <div class="hc-desc">Chaque Nom avec verset coranique, hadith authentique et explication — d'après le Dr. Sa'îd al-Qahtânî.</div>
+      </div>
+      <div class="home-card" onclick="startLesson(0)">
+        <div class="hc-icon">📖</div>
+        <div class="hc-title">Leçon 1 — L'Ajrûmiyya</div>
+        <div class="hc-ar">الْمُقَدِّمَةُ الآجُرُّومِيَّة</div>
+        <div class="hc-desc">Commencez par le début : qu'est-ce que la parole arabe ? Nom, verbe, particule — les trois piliers de la langue.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AGENT -->
+  <div class="section" id="sec-agent">
+    <div class="agent-layout">
+      <!-- Sidebar -->
+      <div class="agent-sidebar">
+        <div class="sidebar-head">
+          <h3>📖 Chapitres — الأَبْوَاب</h3>
+          <p>Ajrûmiyya & classiques</p>
+        </div>
+        <div class="lesson-list" id="lessonList"></div>
+      </div>
+      <!-- Chat -->
+      <div class="agent-main">
+        <div class="agent-header">
+          <div class="agent-avatar">م</div>
+          <div class="agent-info">
+            <h3>الشَّيْخُ المُعَلِّم — Le Maître</h3>
+            <p>Spécialiste Ajrûmiyya · Grammaire Arabe Classique</p>
+          </div>
+          <div class="agent-status"><div class="status-dot"></div>En ligne</div>
+        </div>
+        <div class="chat-area" id="chatArea"></div>
+        <div class="quick-btns" id="quickBtns"></div>
+        <div class="chat-input-area">
+          <input class="chat-input" id="chatInput" placeholder="Posez votre question en français ou en arabe…" onkeydown="if(event.key==='Enter')sendMsg()">
+          <button class="send-btn" onclick="sendMsg()">إرسال</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BIBLIOTHÈQUE -->
+  <div class="section" id="sec-library">
+    <div class="sec-head">
+      <h2>📚 Bibliothèque Islamique</h2>
+      <p>Catalogues des grands ouvrages classiques présents dans votre collection</p>
+    </div>
+    <div class="lib-cats" id="libCats"></div>
+    <div class="books-grid" id="booksGrid"></div>
+  </div>
+
+  <!-- NOMS DIVINS -->
+  <div class="section" id="sec-names">
+    <div class="sec-head">
+      <h2>✨ أَسْمَاءُ اللَّهِ الْحُسْنَى</h2>
+      <p>Les 99 Noms d'Allah — Versets, Hadiths, Explications — d'après Dr. Sa'îd al-Qahtânî</p>
+    </div>
+    <div class="names-grid" id="namesGrid"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+//  DONNÉES — NOMS DIVINS (extrait des 19 premiers + squelette)
+// ══════════════════════════════════════════════════════════
+const NAMES = [
+  {num:1,ar:'اللَّهُ',fr:'Allah',trans:'Le Nom Suprême',meaning:'L\'Être qui seul mérite l\'adoration absolue — source de tous les 99 Noms.',verse:'قُلْ هُوَ اللَّهُ أَحَدٌ',verseRef:'Al-Ikhlâs 112:1',hadith:'«أَحَبُّ الأَسْمَاءِ إِلَى اللَّهِ عَبْدُ اللَّهِ وَعَبْدُ الرَّحْمَنِ»',hadithRef:'Muslim 2132'},
+  {num:2,ar:'الرَّحْمَٰنُ',fr:'Ar-Rahmân',trans:'Le Tout-Miséricordieux',meaning:'La miséricorde universelle qui embrasse toute la création sans exception.',verse:'قُلِ ادْعُوا اللَّهَ أَوِ ادْعُوا الرَّحْمَٰنَ',verseRef:'Al-Isrâ 17:110',hadith:'«اللَّهُ أَرْحَمُ بِعِبَادِهِ مِنْ هَذِهِ بِوَلَدِهَا»',hadithRef:'Bukhârî 5999'},
+  {num:3,ar:'الرَّحِيمُ',fr:'Ar-Rahîm',trans:'Le Très-Miséricordieux',meaning:'La miséricorde spéciale accordée aux croyants le Jour du Jugement.',verse:'وَكَانَ بِالْمُؤْمِنِينَ رَحِيمًا',verseRef:'Al-Ahzâb 33:43',hadith:'«إِنَّ اللَّهَ خَلَقَ الرَّحْمَةَ يَوْمَ خَلَقَهَا مِئَةَ رَحْمَةٍ»',hadithRef:'Bukhârî 6000'},
+  {num:4,ar:'الْمَلِكُ',fr:'Al-Malik',trans:'Le Roi Absolu',meaning:'Le Souverain dont le règne est sans partage, sur les cieux et la terre.',verse:'فَتَعَالَى اللَّهُ الْمَلِكُ الْحَقُّ',verseRef:'Tâ Hâ 20:114',hadith:'«يَقْبِضُ اللَّهُ الأَرْضَ يَوْمَ الْقِيَامَةِ وَيَطْوِي السَّمَاءَ بِيَمِينِهِ»',hadithRef:'Bukhârî 4812'},
+  {num:5,ar:'الْقُدُّوسُ',fr:'Al-Quddûs',trans:'Le Très-Saint',meaning:'Celui qui est absolument pur, exempt de tout défaut et de toute imperfection.',verse:'يُسَبِّحُ لِلَّهِ مَا فِي السَّمَاوَاتِ وَمَا فِي الأَرْضِ الْمَلِكِ الْقُدُّوسِ',verseRef:'Al-Jumu\'a 62:1',hadith:'«سُبُّوحٌ قُدُّوسٌ رَبُّ الْمَلَائِكَةِ وَالرُّوحِ»',hadithRef:'Muslim 487'},
+  {num:6,ar:'السَّلَامُ',fr:'As-Salâm',trans:'La Paix',meaning:'Celui dont l\'essence est exempte de toute imperfection, source de sécurité pour Sa création.',verse:'هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْمَلِكُ الْقُدُّوسُ السَّلَامُ',verseRef:'Al-Hashr 59:23',hadith:'«اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ»',hadithRef:'Muslim 591'},
+  {num:7,ar:'الْمُؤْمِنُ',fr:'Al-Mu\'min',trans:'Le Garant — Celui qui accorde la sécurité',meaning:'Celui qui atteste Sa propre unicité, accorde la sécurité à Ses serviteurs.',verse:'هُوَ اللَّهُ... الْمُؤْمِنُ الْمُهَيْمِنُ',verseRef:'Al-Hashr 59:23',hadith:'«الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ»',hadithRef:'Bukhârî 10'},
+  {num:8,ar:'الْمُهَيْمِنُ',fr:'Al-Muhaymin',trans:'Le Gardien Suprême',meaning:'Celui qui observe, protège et surveille toute chose avec une vigilance parfaite.',verse:'وَأَنزَلْنَا إِلَيْكَ الْكِتَابَ بِالْحَقِّ مُهَيْمِنًا عَلَيْهِ',verseRef:'Al-Mâ\'ida 5:48',hadith:'«إِنَّ اللَّهَ لَا يَنَامُ وَلَا يَنْبَغِي لَهُ أَنْ يَنَامَ»',hadithRef:'Muslim 179'},
+  {num:9,ar:'الْعَزِيزُ',fr:'Al-\'Azîz',trans:'Le Tout-Puissant',meaning:'L\'Inaccessible dont la puissance est absolue et à qui rien ne peut résister.',verse:'وَهُوَ الْعَزِيزُ الْحَكِيمُ',verseRef:'Al-Baqara 2:129',hadith:'«اللَّهُ أَكْبَرُ، اللَّهُمَّ أَنْتَ الْأَعَزُّ وَأَنَا الذَّلِيلُ»',hadithRef:'Ahmad'},
+  {num:10,ar:'الْجَبَّارُ',fr:'Al-Jabbâr',trans:'Le Tout-Contraignant',meaning:'Celui qui répare les cœurs brisés et contraint toute chose à Sa volonté.',verse:'هُوَ اللَّهُ... الْعَزِيزُ الْجَبَّارُ الْمُتَكَبِّرُ',verseRef:'Al-Hashr 59:23',hadith:'«الْكِبْرِيَاءُ رِدَائِي وَالْعَظَمَةُ إِزَارِي»',hadithRef:'Muslim 2620'},
+  {num:11,ar:'الْمُتَكَبِّرُ',fr:'Al-Mutakabbir',trans:'Le Superbe',meaning:'Celui qui possède la grandeur absolue, au-dessus de toute comparaison.',verse:'هُوَ اللَّهُ... الْجَبَّارُ الْمُتَكَبِّرُ',verseRef:'Al-Hashr 59:23',hadith:'«مَنْ جَرَّ ثَوْبَهُ خُيَلَاءَ لَمْ يَنْظُرِ اللَّهُ إِلَيْهِ»',hadithRef:'Bukhârî 3665'},
+  {num:12,ar:'الْخَالِقُ',fr:'Al-Khâliq',trans:'Le Créateur',meaning:'Celui qui crée de rien, qui donne l\'existence à tout ce qui existe.',verse:'هُوَ اللَّهُ الْخَالِقُ الْبَارِئُ الْمُصَوِّرُ',verseRef:'Al-Hashr 59:24',hadith:'«قَالَ اللَّهُ تَعَالَى: وَمَنْ أَظْلَمُ مِمَّنْ ذَهَبَ يَخْلُقُ كَخَلْقِي»',hadithRef:'Bukhârî 5953'},
+  {num:13,ar:'الْبَارِئُ',fr:'Al-Bâri\'',trans:'Le Créateur qui distingue',meaning:'Celui qui crée les êtres distincts les uns des autres selon Sa sagesse.',verse:'هُوَ اللَّهُ الْخَالِقُ الْبَارِئُ الْمُصَوِّرُ',verseRef:'Al-Hashr 59:24',hadith:'',hadithRef:''},
+  {num:14,ar:'الْمُصَوِّرُ',fr:'Al-Musawwir',trans:'Le Formateur',meaning:'Celui qui donne à chaque créature sa forme propre et unique.',verse:'يُصَوِّرُكُمْ فِي الأَرْحَامِ كَيْفَ يَشَاءُ',verseRef:'Âl \'Imrân 3:6',hadith:'',hadithRef:''},
+  {num:15,ar:'الْغَفَّارُ',fr:'Al-Ghaffâr',trans:'Le Grand Pardonneur',meaning:'Celui qui pardonne les péchés à répétition, qui voile les fautes.',verse:'إِنَّنِي أَنَا اللَّهُ لَا إِلَٰهَ إِلَّا أَنَا فَاعْبُدْنِي',verseRef:'Tâ Hâ 20:14',hadith:'«لَوْ لَمْ تُذْنِبُوا لَذَهَبَ اللَّهُ بِكُمْ وَلَجَاءَ بِقَوْمٍ يُذْنِبُونَ فَيَغْفِرُ لَهُمْ»',hadithRef:'Muslim 2748'},
+  {num:16,ar:'الْقَهَّارُ',fr:'Al-Qahhâr',trans:'Le Dominateur',meaning:'Celui qui domine toute chose et à qui rien ne peut résister.',verse:'قُلِ اللَّهُ خَالِقُ كُلِّ شَيْءٍ وَهُوَ الْوَاحِدُ الْقَهَّارُ',verseRef:'Ar-Ra\'d 13:16',hadith:'',hadithRef:''},
+  {num:17,ar:'الْوَهَّابُ',fr:'Al-Wahhâb',trans:'Le Grand Donateur',meaning:'Celui qui donne sans contrepartie ni condition, la source de tous les dons.',verse:'رَبَّنَا لَا تُزِغْ قُلُوبَنَا... وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً',verseRef:'Âl \'Imrân 3:8',hadith:'',hadithRef:''},
+  {num:18,ar:'الرَّزَّاقُ',fr:'Ar-Razzâq',trans:'Le Pourvoyeur',meaning:'Celui qui pourvoit à tous les besoins de Sa création sans exception.',verse:'إِنَّ اللَّهَ هُوَ الرَّزَّاقُ ذُو الْقُوَّةِ الْمَتِينُ',verseRef:'Adh-Dhâriyât 51:58',hadith:'«يَا ابْنَ آدَمَ أَنْفِقْ أُنْفِقْ عَلَيْكَ»',hadithRef:'Bukhârî 5352'},
+  {num:19,ar:'الْفَتَّاحُ',fr:'Al-Fattâh',trans:'Celui qui ouvre',meaning:'L\'Arbitre Suprême qui tranche entre le vrai et le faux, ouvre les cœurs à Sa guidance.',verse:'قُلْ يَجْمَعُ بَيْنَنَا رَبُّنَا ثُمَّ يَفْتَحُ بَيْنَنَا بِالْحَقِّ',verseRef:'Saba\' 34:26',hadith:'',hadithRef:''},
+];
+
+// ══════════════════════════════════════════════════════════
+//  DONNÉES — BIBLIOTHÈQUE
+// ══════════════════════════════════════════════════════════
+const BOOKS = [
+  {cat:'grammaire',icon:'📖',ar:'الْمُقَدِّمَةُ الآجُرُّومِيَّة',fr:'Al-Muqaddima al-Âjurrûmiyya',author:'Ibn Âjurrûm (672-723 H)',desc:'Le traité de grammaire arabe le plus étudié dans le monde islamique. Base de cet agent.',tag:'Grammaire fondamentale'},
+  {cat:'grammaire',icon:'📗',ar:'أَلْفِيَّةُ ابْنِ مَالِك',fr:'L\'Alfiyya d\'Ibn Mâlik',author:'Ibn Mâlik (600-672 H)',desc:'Mille vers de poésie couvrant toute la grammaire arabe — le niveau suivant après l\'Âjurrûmiyya.',tag:'Grammaire avancée'},
+  {cat:'grammaire',icon:'📘',ar:'شَرْحُ ابْنِ عَقِيل',fr:'Charh Ibn \'Aqîl',author:'Ibn \'Aqîl (698-769 H)',desc:'Commentaire classique de l\'Alfiyya, parmi les plus utilisés dans les universités islamiques.',tag:'Commentaire'},
+  {cat:'grammaire',icon:'📙',ar:'قَطْرُ النَّدَى',fr:'Qatr an-Nadâ',author:'Ibn Hichâm (708-761 H)',desc:'Introduction claire à la grammaire arabe par le grand grammairien Ibn Hichâm al-Ansârî.',tag:'Grammaire'},
+  {cat:'hadith',icon:'📕',ar:'صَحِيحُ الْبُخَارِي',fr:'Sahîh al-Bukhârî',author:'Al-Bukhârî (194-256 H)',desc:'Le recueil de hadiths le plus authentique selon les savants de l\'islam sunnite.',tag:'Hadith sahîh'},
+  {cat:'hadith',icon:'📕',ar:'صَحِيحُ مُسْلِم',fr:'Sahîh Muslim',author:'Muslim ibn al-Hajjâj (204-261 H)',desc:'Second recueil par excellence, souvent cité avec Bukhârî sous le nom "les deux Sahîh".',tag:'Hadith sahîh'},
+  {cat:'hadith',icon:'📒',ar:'سُنَنُ أَبِي دَاوُد',fr:'Sunan Abî Dâwûd',author:'Abû Dâwûd (202-275 H)',desc:'Recueil spécialisé dans les hadiths juridiques — référence majeure du fiqh.',tag:'Sunan'},
+  {cat:'tafsir',icon:'📜',ar:'تَفْسِيرُ ابْنِ كَثِير',fr:'Tafsîr Ibn Kathîr',author:'Ibn Kathîr (701-774 H)',desc:'Commentaire coranique de référence, fondé sur le hadith et les avis des Compagnons.',tag:'Tafsîr'},
+  {cat:'tafsir',icon:'📜',ar:'تَفْسِيرُ الطَّبَرِي',fr:'Tafsîr al-Tabarî',author:'Al-Tabarî (224-310 H)',desc:'La grande encyclopédie du tafsîr — l\'œuvre fondatrice de l\'exégèse coranique classique.',tag:'Tafsîr'},
+  {cat:'aqida',icon:'🌙',ar:'كِتَابُ التَّوْحِيد',fr:'Kitâb at-Tawhîd',author:'Ibn \'Abd al-Wahhâb (1115-1206 H)',desc:'Traité fondamental sur l\'unicité divine, étudié dans les madrasas du monde entier.',tag:'\'Aqîda'},
+  {cat:'aqida',icon:'🌙',ar:'الْعَقِيدَةُ الطَّحَاوِيَّة',fr:'Al-\'Aqîda al-Tahâwiyya',author:'Al-Tahâwî (239-321 H)',desc:'Exposé de la croyance sunnite, commenté par des générations de savants.',tag:'\'Aqîda'},
+  {cat:'fiqh',icon:'⚖️',ar:'بُلُوغُ الْمَرَام',fr:'Bulûgh al-Marâm',author:'Ibn Hajar al-\'Asqalânî (773-852 H)',desc:'Recueil de hadiths juridiques couvrant tous les chapitres du fiqh.',tag:'Fiqh'},
+  {cat:'akhlaq',icon:'💎',ar:'إِحْيَاءُ عُلُومِ الدِّين',fr:'Ihyâ\' \'Ulûm al-Dîn',author:'Al-Ghazâlî (450-505 H)',desc:'Chef-d\'œuvre de la spiritualité islamique couvrant l\'éthique, les actes d\'adoration et la purification du cœur.',tag:'Akhlâq'},
+  {cat:'akhlaq',icon:'💎',ar:'رِيَاضُ الصَّالِحِين',fr:'Riyâd al-Sâlihîn',author:'An-Nawawî (631-676 H)',desc:'Compilation de hadiths sur l\'éthique et les vertus islamiques — référence mondiale.',tag:'Akhlâq'},
+  {cat:'biographie',icon:'🌟',ar:'السِّيرَةُ النَّبَوِيَّة',fr:'Sîra d\'Ibn Hichâm',author:'Ibn Hichâm (m. 218 H)',desc:'La biographie prophétique la plus complète — vie du Prophète ﷺ de sa naissance au décès.',tag:'Sîra'},
+];
+
+// ══════════════════════════════════════════════════════════
+//  BASE DE CONNAISSANCES — AGENT GRAMMATICAL (Ajrûmiyya)
+// ══════════════════════════════════════════════════════════
+const LESSONS = [
+  {id:0,numAr:'١',titleAr:'الْكَلَامُ',titleFr:'La parole arabe',chap:'Chapitre 1'},
+  {id:1,numAr:'٢',titleAr:'أَقْسَامُ الْكَلِمَة',titleFr:'Les parties du discours',chap:'Chapitre 2'},
+  {id:2,numAr:'٣',titleAr:'الإِعْرَابُ',titleFr:'La déclinaison',chap:'Chapitre 3'},
+  {id:3,numAr:'٤',titleAr:'عَلَامَاتُ الإِعْرَاب',titleFr:'Signes de déclinaison',chap:'Chapitre 4'},
+  {id:4,numAr:'٥',titleAr:'الأَفْعَالُ',titleFr:'Les verbes',chap:'Chapitre 5'},
+  {id:5,numAr:'٦',titleAr:'الْمَرْفُوعَاتُ',titleFr:'Les nominatifs',chap:'Chapitre 6'},
+  {id:6,numAr:'٧',titleAr:'الْفَاعِلُ',titleFr:'Le sujet (fâ\'il)',chap:'Chapitre 7'},
+  {id:7,numAr:'٨',titleAr:'الْمُبْتَدَأُ وَالْخَبَرُ',titleFr:'Sujet nominal et prédicat',chap:'Chapitre 8'},
+  {id:8,numAr:'٩',titleAr:'الْمَنْصُوبَاتُ',titleFr:'Les accusatifs',chap:'Chapitre 9'},
+  {id:9,numAr:'١٠',titleAr:'الْمَجْرُورَاتُ',titleFr:'Les génitifs',chap:'Chapitre 10'},
+  {id:10,numAr:'١١',titleAr:'النَّعْتُ',titleFr:'L\'épithète (adjectif)',chap:'Chapitre 11'},
+  {id:11,numAr:'١٢',titleAr:'الضَّمَائِرُ',titleFr:'Les pronoms',chap:'Classiques'},
+  {id:12,numAr:'١٣',titleAr:'الإِضَافَة',titleFr:'La construction d\'annexion',chap:'Classiques'},
+];
+
+const KB = {
+  // ── LEÇON 0 : AL-KALÂM ──
+  0: {
+    intro: {
+      ar: `قَالَ ابْنُ آجُرُّوم رَحِمَهُ اللَّهُ:\nالْكَلَامُ هُوَ اللَّفْظُ الْمُرَكَّبُ الْمُفِيدُ بِالْوَضْعِ`,
+      fr: `Ibn Âjurrûm (rahimahu Llâh) dit :\n« La parole est l'expression composée, utile (porteuse de sens complet), par convention. »`,
+      expl: `La parole arabe (الكلام) doit réunir 4 conditions :\n1. **لَفْظ** (lafz) — être prononcée (sons articulés)\n2. **مُرَكَّب** (murakkab) — être composée d'au moins 2 éléments\n3. **مُفِيد** (mufîd) — avoir un sens complet (phrase utile)\n4. **بِالْوَضْع** (bil-wad') — être en langue arabe (par convention des Arabes)`,
+      examples:[
+        {ar:'مُحَمَّدٌ رَسُولٌ',fr:'Muhammad est un messager — phrase complète ✓'},
+        {ar:'إِنْ جَاءَ...',fr:'Si tu viens... — incomplet, pas de kalâm ✗'},
+      ]
+    },
+    qa:[
+      {q:['kalâm','kalam','parole','discours','qu est ce que','qu\'est-ce que','définition'],
+       ar:'الْكَلَامُ هُوَ اللَّفْظُ الْمُرَكَّبُ الْمُفِيدُ بِالْوَضْعِ',
+       fr:'La parole (al-kalâm) est l\'expression composée, porteuse d\'un sens complet, en langue arabe.',
+       examples:[{ar:'زَيْدٌ قَائِمٌ',fr:'Zayd est debout — kalâm valide'}]},
+    ]
+  },
+  // ── LEÇON 1 : AQSÂM AL-KALIMA ──
+  1: {
+    intro:{
+      ar:`أَقْسَامُ الْكَلِمَةِ ثَلَاثَةٌ: اسْمٌ، وَفِعْلٌ، وَحَرْفٌ جَاءَ لِمَعْنًى`,
+      fr:`Les parties du discours sont au nombre de trois :\n1. اسْم (ism) — le nom\n2. فِعْل (fi'l) — le verbe\n3. حَرْف (harf) — la particule (qui apporte un sens)`,
+      expl:`Ces trois catégories suffisent à analyser toute la langue arabe.\n\n**L'ism (nom)** : désigne une personne, chose, lieu, idée. Reconnaissable car il peut prendre l'article (ال), le tanwîn, et les prépositions.\n**Le fi'l (verbe)** : exprime une action liée au temps (passé, présent-futur, impératif).\n**Le harf (particule)** : mot sans sens propre — son sens n'apparaît qu'en phrase (ex: في = dans, لَم = négation du passé).`,
+      examples:[
+        {ar:'كِتَابٌ — مَدْرَسَةٌ — مُحَمَّدٌ',fr:'Noms (ism) : livre, école, Muhammad'},
+        {ar:'كَتَبَ — يَكْتُبُ — اكْتُبْ',fr:'Verbes (fi\'l) : il a écrit / il écrit / écris !'},
+        {ar:'فِي — مِنْ — إِلَى — لَمْ',fr:'Particules (harf) : dans / de / vers / ne…pas'},
+      ]
+    },
+    qa:[
+      {q:['ism','nom','اسم','parties','trois','3','catégorie'],
+       ar:'الاسْمُ: هُوَ مَا دَلَّ عَلَى مَعْنًى فِي نَفْسِهِ غَيْرَ مُقْتَرِنٍ بِزَمَانٍ',
+       fr:'Le nom (ism) est ce qui indique un sens par lui-même, sans être lié à un temps.',
+       examples:[{ar:'رَجُلٌ — بَيْتٌ — عِلْمٌ',fr:'Un homme — une maison — la connaissance'}]},
+      {q:['fi\'l','verb','فعل','verbe','action'],
+       ar:'الْفِعْلُ: هُوَ مَا دَلَّ عَلَى مَعْنًى فِي نَفْسِهِ مُقْتَرِنٍ بِأَحَدِ الأَزْمِنَةِ الثَّلَاثَة',
+       fr:'Le verbe (fi\'l) indique un sens lié à l\'un des trois temps : passé, présent ou impératif.',
+       examples:[{ar:'ذَهَبَ / يَذْهَبُ / اذْهَبْ',fr:'Il est parti / il part / pars !'}]},
+      {q:['harf','particule','حرف','lettre'],
+       ar:'الْحَرْفُ: مَا لَا يَصِحُّ أَنْ يُقَالَ فِيهِ اسْمٌ وَلَا فِعْل',
+       fr:'La particule (harf) n\'est ni nom ni verbe — son sens ne se réalise qu\'en combinaison.',
+       examples:[{ar:'هَلْ — مَا — إِنَّ — لَكِنْ',fr:'Est-ce que… / ne pas… / certes… / mais…'}]},
+    ]
+  },
+  // ── LEÇON 2 : AL-I'RÂB ──
+  2:{
+    intro:{
+      ar:`الإِعْرَابُ هُوَ تَغْيِيرُ أَوَاخِرِ الْكَلِمِ لاِخْتِلَافِ الْعَوَامِلِ الدَّاخِلَةِ عَلَيْهَا`,
+      fr:`L'i'râb (déclinaison) est le changement de la fin des mots selon les agents grammaticaux qui leur sont appliqués.`,
+      expl:`C'est le cœur de la grammaire arabe. La terminaison d'un mot change selon sa fonction dans la phrase :\n\n• **Nominatif (مَرْفُوع)** — sujet, prédicat → terminaison en -u (ضمة)\n• **Accusatif (مَنْصُوب)** — complément d'objet, circonstanciel → -a (فتحة)\n• **Génitif (مَجْرُور)** — après préposition, en annexion → -i (كسرة)\n• **Apocopé (مَجْزُوم)** — verbe nié ou conditionnel → -Ø (سكون)`,
+      examples:[
+        {ar:'جَاءَ مُحَمَّدٌ — رَأَيْتُ مُحَمَّدًا — مَرَرْتُ بِمُحَمَّدٍ',fr:'Muhammad est venu / j\'ai vu Muhammad / je suis passé par Muhammad'}
+      ]
+    },
+    qa:[
+      {q:['i\'rab','irab','إعراب','déclinaison','déclin','terminaison'],
+       ar:'الإِعْرَابُ هُوَ تَغْيِيرُ أَوَاخِرِ الْكَلِمِ لاِخْتِلَافِ الْعَوَامِلِ',
+       fr:'L\'i\'râb est le changement des terminaisons des mots selon la fonction grammaticale.',
+       examples:[{ar:'مُحَمَّدٌ / مُحَمَّدًا / مُحَمَّدٍ',fr:'Muhammad : nominatif / accusatif / génitif'}]},
+      {q:['raf','rafa','رفع','nominatif','marf'],
+       ar:'الرَّفْعُ: حَالَةُ الاسْمِ الْمَرْفُوعِ، وَعَلَامَتُهُ الأَصْلِيَّةُ الضَّمَّةُ (ُ)',
+       fr:'Le cas nominatif (raf\') — signe principal : la damma ُ — pour le sujet, le prédicat nominal.',
+       examples:[{ar:'الْوَلَدُ ذَكِيٌّ',fr:'L\'enfant (sujet) est intelligent (prédicat)'}]},
+      {q:['nasb','naçb','نصب','accusatif','mans'],
+       ar:'النَّصْبُ: حَالَةُ الاسْمِ الْمَنْصُوبِ، وَعَلَامَتُهُ الأَصْلِيَّةُ الْفَتْحَةُ (َ)',
+       fr:'Le cas accusatif (nasb) — signe principal : la fatha َ — pour l\'objet direct et les circonstanciels.',
+       examples:[{ar:'قَرَأَ الطَّالِبُ الْكِتَابَ',fr:'L\'étudiant a lu le livre (objet direct → accusatif)'}]},
+      {q:['jarr','جر','génitif','majr','khafd'],
+       ar:'الْجَرُّ: حَالَةُ الاسْمِ الْمَجْرُورِ، وَعَلَامَتُهُ الأَصْلِيَّةُ الْكَسْرَةُ (ِ)',
+       fr:'Le cas génitif (jarr) — signe principal : la kasra ِ — après préposition ou en annexion (idâfa).',
+       examples:[{ar:'ذَهَبْتُ إِلَى الْمَسْجِدِ',fr:'Je suis allé à la mosquée (après إلى → génitif)'}]},
+    ]
+  },
+  // ── LEÇON 3 : SIGNES D'I'RÂB ──
+  3:{
+    intro:{
+      ar:`لِلرَّفْعِ أَرْبَعُ عَلَامَاتٍ: الضَّمَّةُ، الْوَاوُ، الأَلِفُ، النُّونُ`,
+      fr:`Les signes d'i'râb varient selon le type de mot. Le nominatif a 4 signes, l'accusatif 5, le génitif 2.`,
+      expl:`**Signes du NOMINATIF (raf') :**\n1. الضَّمَّة (damma ُ) — nom singulier, pluriel brisé\n2. الوَاو (wâw و) — duel, pluriel masculin sain\n3. الأَلِف (alif ا) — les cinq noms (أبوك، أخوك...)\n4. النُّون (nûn ن) — duel et pluriel masculin sain\n\n**Signes de l'ACCUSATIF (nasb) :**\n1. الفَتْحَة (fatha َ) — singulier, pluriel brisé\n2. الكَسْرَة (kasra ِ) — pluriel féminin sain\n3. الياء (yâ ي) — duel, pluriel masc. sain, cinq noms\n4. الأَلِف (alif) — pour les cinq noms\n5. حَذْفُ النُّون (suppression nûn) — verbe mudhâri'`,
+      examples:[
+        {ar:'الطُّلَّابُ نَجَحُوا',fr:'Les étudiants (pl. masc. sain) ont réussi — wâw du nominatif'},
+        {ar:'رَأَيْتُ الطُّلَّابَ',fr:'J\'ai vu les étudiants — fatha de l\'accusatif'},
+      ]
+    },
+    qa:[
+      {q:['damma','ضمة','signe','marque'],
+       ar:'الضَّمَّةُ (ُ) هِيَ الْعَلَامَةُ الأَصْلِيَّةُ لِلرَّفْعِ',
+       fr:'La damma (ُ) est le signe de base du nominatif. Elle se place sur le dernier radical du mot.',
+       examples:[{ar:'الْبَيْتُ — كِتَابٌ — مَسْجِدٌ',fr:'La maison / un livre / une mosquée (tous nominatifs)'}]},
+      {q:['tanwin','تنوين','nunation'],
+       ar:'التَّنْوِينُ: نُونٌ سَاكِنَةٌ زَائِدَةٌ تَلْحَقُ آخِرَ الاسْمِ النَّكِرَةِ لَفْظًا لَا خَطًّا',
+       fr:'Le tanwîn est un "n" ajouté à la fin du nom indéfini, prononcé mais noté par le doublement du signe.',
+       examples:[{ar:'كِتَابٌ / كِتَابًا / كِتَابٍ',fr:'Un livre (nominatif / accusatif / génitif avec tanwîn)'}]},
+    ]
+  },
+  // ── LEÇON 4 : AL-AF'ÂL ──
+  4:{
+    intro:{
+      ar:`الأَفْعَالُ ثَلَاثَةٌ: مَاضٍ، وَمُضَارِعٌ، وَأَمْرٌ`,
+      fr:`Les verbes arabes sont de trois types :\n1. الفِعْلُ الْمَاضِي — le passé\n2. الفِعْلُ الْمُضَارِعُ — le présent-futur\n3. فِعْلُ الأَمْرِ — l'impératif`,
+      expl:`**Passé (مَاضِي)** : se termine par une fatha stable. Toujours marbnî (indéclinable). Ex: كَتَبَ (il a écrit).\n\n**Présent-futur (مُضَارِع)** : commence par une des 4 lettres أنيت (hamza, nûn, yâ, tâ). C'est le seul verbe déclinable (معرب) en général. Ex: يَكْتُبُ (il écrit).\n\n**Impératif (أَمْر)** : toujours marbnî sur le sukûn. Ex: اكْتُبْ (écris !)`,
+      examples:[
+        {ar:'كَتَبَ — يَكْتُبُ — اكْتُبْ',fr:'Racine ك-ت-ب : il a écrit / il écrit / écris !'},
+        {ar:'قَرَأَ — يَقْرَأُ — اقْرَأْ',fr:'Racine ق-ر-أ : il a lu / il lit / lis !'},
+      ]
+    },
+    qa:[
+      {q:['madi','ماض','passé','past'],
+       ar:'الْفِعْلُ الْمَاضِي: مَا دَلَّ عَلَى حُدُوثِ شَيْءٍ قَبْلَ زَمَانِ التَّكَلُّم',
+       fr:'Le passé désigne un acte accompli avant le moment de la parole. Il est toujours mabni (indéclinable) sur la fatha.',
+       examples:[{ar:'نَجَحَ الطَّالِبُ',fr:'L\'étudiant a réussi'}]},
+      {q:['mudhara','مضارع','présent','présent-futur'],
+       ar:'الْفِعْلُ الْمُضَارِعُ: مَا دَلَّ عَلَى حُدُوثِ شَيْءٍ فِي زَمَانِ التَّكَلُّمِ أَوْ بَعْدَهُ',
+       fr:'Le mudhâri\' couvre le présent et le futur. Il commence par أ ن ي ت et est déclinable (معرب).',
+       examples:[{ar:'يَدْرُسُ الطَّالِبُ الآنَ',fr:'L\'étudiant étudie maintenant'}]},
+      {q:['amr','امر','impératif'],
+       ar:'فِعْلُ الأَمْرِ: مَا يُطْلَبُ بِهِ الْفِعْلُ مِنَ الْمُخَاطَب',
+       fr:'L\'impératif exprime un ordre adressé à l\'interlocuteur. Il est mabni (indéclinable) sur le sukûn.',
+       examples:[{ar:'ادْرُسْ جَيِّدًا',fr:'Étudie bien !'}]},
+    ]
+  },
+  // ── LEÇON 5 : MARFÛ'ÂT ──
+  5:{
+    intro:{
+      ar:`الْمَرْفُوعَاتُ سَبْعَةٌ: الْفَاعِلُ، وَالْمَفْعُولُ الَّذِي لَمْ يُسَمَّ فَاعِلُهُ، وَالْمُبْتَدَأُ، وَالْخَبَرُ، وَاسْمُ كَانَ، وَخَبَرُ إِنَّ، وَالتَّابِعُ لِلْمَرْفُوع`,
+      fr:`Les noms au nominatif sont au nombre de 7 :\n1. الفَاعِل — le sujet actif\n2. نَائِبُ الفَاعِل — le sujet passif\n3. الْمُبْتَدَأ — le sujet nominal\n4. الْخَبَر — le prédicat nominal\n5. اسْمُ كَانَ — le nom de kâna\n6. خَبَرُ إِنَّ — le prédicat de inna\n7. التَّابِع — l'apposé à un nominatif`,
+      expl:`Ces 7 cas constituent tous les contextes où un nom reçoit le cas nominatif (damma) en arabe classique.`,
+      examples:[
+        {ar:'كَتَبَ **الطَّالِبُ** الدَّرْسَ',fr:'L\'étudiant [fâ\'il, nominatif] a écrit la leçon'},
+        {ar:'**الْعِلْمُ** نُورٌ',fr:'La connaissance [mubtada\'] est une lumière [khabar]'},
+      ]
+    },
+    qa:[
+      {q:['marfou','مرفوع','nominatif','7 nominatif'],
+       ar:'الْمَرْفُوعَاتُ مِنَ الأَسْمَاءِ سَبْعَةٌ',
+       fr:'Les noms au cas nominatif sont au nombre de sept, listés dans la Muqaddima.',
+       examples:[{ar:'الْفَاعِلُ — الْمُبْتَدَأُ — الْخَبَرُ — اسْمُ كَانَ — خَبَرُ إِنَّ — التَّوَابِع',fr:'Sujet actif — sujet nominal — prédicat — nom de kâna — préd. de inna — apposés'}]},
+    ]
+  },
+  // ── LEÇON 6 : AL-FÂ'IL ──
+  6:{
+    intro:{
+      ar:`الْفَاعِلُ: هُوَ الاسْمُ الْمَرْفُوعُ الْمَذْكُورُ قَبْلَهُ فِعْلُهُ`,
+      fr:`Le sujet (fâ'il) est le nom au nominatif qui précède le verbe et accomplit l'action.`,
+      expl:`Règles du fâ'il :\n• Toujours après le verbe en phrase verbale\n• Toujours au nominatif\n• Le verbe s'accorde en genre avec lui\n• Peut être un pronom rattaché au verbe\n\n**Attention** : En arabe, l'ordre canonique est : VERBE → SUJET → OBJET (VSO)`,
+      examples:[
+        {ar:'نَجَحَ **الطَّالِبُ**',fr:'L\'étudiant (fâ\'il) a réussi'},
+        {ar:'كَتَبَتِ **الطَّالِبَةُ** الدَّرْسَ',fr:'L\'étudiante (fâ\'il) a écrit la leçon'},
+      ]
+    },
+    qa:[
+      {q:['fa\'il','فاعل','sujet','agent','acteur'],
+       ar:'الْفَاعِلُ: اسْمٌ مَرْفُوعٌ يَدُلُّ عَلَى مَنْ فَعَلَ الْفِعْل',
+       fr:'Le fâ\'il est le nom au nominatif qui désigne l\'exécutant de l\'action.',
+       examples:[{ar:'قَرَأَ **عُمَرُ** الْقُرْآنَ',fr:'\'Umar (fâ\'il) a récité le Coran'}]},
+    ]
+  },
+  // ── LEÇON 7 : MUBTADA' & KHABAR ──
+  7:{
+    intro:{
+      ar:`الْمُبْتَدَأُ: هُوَ الاسْمُ الْمَرْفُوعُ الْعَارِي عَنِ الْعَوَامِلِ اللَّفْظِيَّة\nوَالْخَبَرُ: هُوَ الاسْمُ الْمَرْفُوعُ الْمُسْنَدُ إِلَيْهِ`,
+      fr:`Le mubtada' est le sujet d'une phrase nominale.\nLe khabar est le prédicat (ce qu'on dit du sujet).`,
+      expl:`La **phrase nominale** (الْجُمْلَةُ الاسْمِيَّة) commence par un nom.\nLes deux éléments sont au nominatif.\n\nTypes de khabar :\n1. مُفْرَد — un seul mot : اللَّهُ **أَحَدٌ**\n2. جُمْلَة — une phrase : الطَّالِبُ **يَدْرُسُ**\n3. شِبْهُ جُمْلَة — semi-phrase : الْكِتَابُ **عَلَى الطَّاوِلَةِ**`,
+      examples:[
+        {ar:'**اللَّهُ** أَحَدٌ',fr:'Allah (mubtada\') est Unique (khabar)'},
+        {ar:'**الْعِلْمُ** نُورٌ وَالْجَهْلُ ظُلْمَةٌ',fr:'La connaissance est lumière et l\'ignorance est obscurité'},
+      ]
+    },
+    qa:[
+      {q:['mubtada','مبتدأ','sujet nominal','phrase nominale'],
+       ar:'الْمُبْتَدَأُ: اسْمٌ مَرْفُوعٌ فِي أَوَّلِ الْجُمْلَةِ الاسْمِيَّة',
+       fr:'Le mubtada\' est un nom au nominatif qui ouvre la phrase nominale.',
+       examples:[{ar:'**الْقُرْآنُ** كَلَامُ اللَّه',fr:'Le Coran [mubtada\'] est la parole d\'Allah [khabar]'}]},
+      {q:['khabar','خبر','prédicat'],
+       ar:'الْخَبَرُ: مَا يُتِمُّ مَعَ الْمُبْتَدَأِ فَائِدَةً',
+       fr:'Le khabar complète le sens du mubtada\' pour former une phrase complète.',
+       examples:[{ar:'الطَّالِبُ **مُجْتَهِدٌ**',fr:'L\'étudiant est appliqué [khabar au nominatif]'}]},
+    ]
+  },
+  // ── LEÇON 8 : MANSÛBÂT ──
+  8:{
+    intro:{
+      ar:`الْمَنْصُوبَاتُ خَمْسَةَ عَشَر`,
+      fr:`Les accusatifs (mansûbât) sont au nombre de 15 en arabe classique.`,
+      expl:`Les principaux accusatifs :\n1. **الْمَفْعُولُ بِهِ** — objet direct\n2. **الْمَفْعُولُ الْمُطْلَق** — infinitif interne (مَشَى مَشْيًا)\n3. **الْمَفْعُولُ لِأَجْلِهِ** — cause (جِئْتُ طَلَبًا لِلْعِلْمِ)\n4. **الْمَفْعُولُ فِيهِ** — complément de lieu/temps (جَلَسْتُ أَمَامَكَ)\n5. **الْحَال** — complément de manière (جَاءَ مُبْتَسِمًا)\n6. **التَّمْيِيز** — spécification (اشْتَرَيْتُ رِطْلًا زَيْتًا)\n7. **الْمُسْتَثْنَى** — l'exception (جَاءَ الطُّلَّابُ إِلَّا زَيْدًا)`,
+      examples:[
+        {ar:'قَرَأَ الطَّالِبُ **الْكِتَابَ**',fr:'L\'étudiant a lu le livre [objet direct, accusatif]'},
+        {ar:'جَاءَ **مُسْرِعًا**',fr:'Il est venu en se dépêchant [hâl, accusatif]'},
+      ]
+    },
+    qa:[
+      {q:['maf\'ul','مفعول','objet','accusatif','nasb'],
+       ar:'الْمَفْعُولُ بِهِ: اسْمٌ مَنْصُوبٌ وَقَعَ عَلَيْهِ فِعْلُ الْفَاعِل',
+       fr:'L\'objet direct (maf\'ûl bihi) est le nom accusatif sur lequel porte l\'action du sujet.',
+       examples:[{ar:'ضَرَبَ زَيْدٌ **عَمْرًا**',fr:'Zayd a frappé \'Amr [objet → accusatif]'}]},
+      {q:['hal','حال','manière','circonstanciel'],
+       ar:'الْحَالُ: وَصْفٌ مَنْصُوبٌ يُبَيِّنُ هَيْئَةَ صَاحِبِه',
+       fr:'Le hâl est un accusatif descriptif qui précise l\'état ou la manière du sujet/objet.',
+       examples:[{ar:'جَاءَ الْوَلَدُ **ضَاحِكًا**',fr:'L\'enfant est venu en riant [hâl]'}]},
+    ]
+  },
+  // ── LEÇON 9 : MAJRÛRÂT ──
+  9:{
+    intro:{
+      ar:`يُجَرُّ الاسْمُ بِثَلَاثَةِ أَشْيَاء: بِالْحَرْفِ، وَبِالإِضَافَةِ، وَبِتَبَعِيَّةِ الْمَجْرُور`,
+      fr:`Le nom est mis au génitif dans trois situations :\n1. Après une préposition (حُرُوفُ الْجَرِّ)\n2. En annexion (إِضَافَة)\n3. Lorsqu'il suit un nom déjà au génitif (apposé)`,
+      expl:`**Prépositions principales :**\nمِنْ (de), إِلَى (vers), عَنْ (à propos de), عَلَى (sur), فِي (dans), رُبَّ (combien de), الْبَاء (avec/par), الكَاف (comme), اللَّام (pour), وَ/تَ/بَ (serment)`,
+      examples:[
+        {ar:'ذَهَبْتُ **إِلَى الْمَسْجِدِ**',fr:'Je suis allé à la mosquée [إلى → génitif]'},
+        {ar:'كِتَابُ **اللَّهِ**',fr:'Le Livre d\'Allah [idâfa → génitif]'},
+      ]
+    },
+    qa:[
+      {q:['jarr','جر','génitif','préposition','حرف جر'],
+       ar:'حُرُوفُ الْجَرِّ: مِنْ — إِلَى — عَنْ — عَلَى — فِي — رُبَّ — الْبَاء — الْكَاف — اللَّام',
+       fr:'Les prépositions arabes principales qui mettent le nom suivant au génitif.',
+       examples:[{ar:'صَلَّيْتُ **فِي الْمَسْجِدِ**',fr:'J\'ai prié dans la mosquée'}]},
+      {q:['idafa','إضافة','annexion','construit'],
+       ar:'الإِضَافَةُ: نِسْبَةُ اسْمٍ إِلَى آخَرَ، يُجَرُّ بِهَا الاسْمُ الثَّانِي',
+       fr:'L\'idâfa est la construction d\'annexion : le second nom est toujours au génitif.',
+       examples:[{ar:'بَيْتُ **اللَّهِ** — كِتَابُ **الطَّالِبِ**',fr:'La Maison d\'Allah — le livre de l\'étudiant'}]},
+    ]
+  },
+  // ── LEÇON 10 : AN-NA'T ──
+  10:{
+    intro:{
+      ar:`النَّعْتُ: هُوَ التَّابِعُ الْمُكْمِلُ لِمَتْبُوعِهِ بِبَيَانِ صِفَةٍ مِنْ صِفَاتِه`,
+      fr:`Le na't (épithète/adjectif) qualifie un nom en précisant l'une de ses caractéristiques.`,
+      expl:`L'épithète s'accorde avec le nom qualifié sur 4 points :\n1. **الإِعْرَاب** — même cas (nominatif, accusatif ou génitif)\n2. **التَّعْرِيف** — défini/indéfini\n3. **الْجِنْس** — même genre (masculin/féminin)\n4. **الْعَدَد** — même nombre (singulier/pluriel)`,
+      examples:[
+        {ar:'جَاءَ الطَّالِبُ **الْمُجْتَهِدُ**',fr:'L\'étudiant appliqué est venu [na\'t défini, nominatif, masc. sing.]'},
+        {ar:'قَرَأْتُ كِتَابًا **مُفِيدًا**',fr:'J\'ai lu un livre utile [na\'t indéfini, accusatif, masc. sing.]'},
+      ]
+    },
+    qa:[
+      {q:['na\'t','نعت','adjectif','épithète','qualificatif'],
+       ar:'النَّعْتُ يَتْبَعُ مَنْعُوتَهُ فِي أَرْبَعَةٍ: إِعْرَابِهِ، وَتَعْرِيفِهِ، وَجِنْسِهِ، وَعَدَدِهِ',
+       fr:'L\'adjectif (na\'t) s\'accorde avec le nom qualifié en cas, définitude, genre et nombre.',
+       examples:[{ar:'رَجُلٌ صَالِحٌ — الرَّجُلُ الصَّالِحُ',fr:'Un homme pieux — l\'homme pieux'}]},
+    ]
+  },
+  // ── LEÇON 11 : DAMÂ'IR ──
+  11:{
+    intro:{
+      ar:`الضَّمَائِرُ أَنْوَاعٌ: مُتَّصِلَةٌ وَمُنْفَصِلَة`,
+      fr:`Les pronoms arabes sont de deux types : rattachés (مُتَّصِل) et séparés (مُنْفَصِل).`,
+      expl:`**Pronoms séparés (nominatif) :**\nأَنَا (je) — أَنْتَ (tu m.) — أَنْتِ (tu f.) — هُوَ (il) — هِيَ (elle)\nنَحْنُ (nous) — أَنْتُمْ (vous) — هُمْ (ils) — هُنَّ (elles)\n\n**Pronoms rattachés (suffixes) :**\n-ي (mon/me) — -كَ (ton/te masc.) — -هُ (son/lui) — -هَا (sa/elle)`,
+      examples:[
+        {ar:'**هُوَ** مُعَلِّمٌ',fr:'Il est enseignant [pronom séparé]'},
+        {ar:'كِتَابِـي — بَيْتُـكَ — أُسْتَاذُـهُ',fr:'Mon livre — ta maison — son professeur [pronoms rattachés]'},
+      ]
+    },
+    qa:[
+      {q:['pronom','ضمير','damîr','personnel'],
+       ar:'الضَّمَائِرُ الْمُنْفَصِلَة: أَنَا، أَنْتَ، أَنْتِ، هُوَ، هِيَ، نَحْنُ، أَنْتُمْ، هُمْ، هُنَّ',
+       fr:'Les pronoms séparés arabes couvrent les trois personnes, deux genres et trois nombres.',
+       examples:[{ar:'**أَنْتَ** طَالِبٌ مُجْتَهِدٌ',fr:'Tu es un étudiant appliqué'}]},
+    ]
+  },
+  // ── LEÇON 12 : AL-IDÂFA ──
+  12:{
+    intro:{
+      ar:`الإِضَافَةُ: تَرْكِيبٌ يُضَافُ فِيهِ اسْمٌ إِلَى آخَرَ`,
+      fr:`L'idâfa (annexion) est la construction par laquelle un nom est relié à un autre.`,
+      expl:`Règles de l'idâfa :\n• Le premier nom (الْمُضَاف) perd le tanwîn et l'article\n• Le second (الْمُضَافُ إِلَيْهِ) est toujours au génitif\n• La construction équivaut à "de" en français\n\n**Types :**\n1. إِضَافَة حَقِيقِيَّة : كِتَابُ الطَّالِبِ (le livre de l'étudiant)\n2. إِضَافَة لَفْظِيَّة : حَسَنُ الأَخْلَاقِ (bon de caractère)`,
+      examples:[
+        {ar:'بَابُ **الْمَسْجِدِ**',fr:'La porte de la mosquée'},
+        {ar:'كَلَامُ **اللَّهِ**',fr:'La parole d\'Allah'},
+      ]
+    },
+    qa:[
+      {q:['idafa','إضافة','annexion','construction','de','mudhaf'],
+       ar:'الْمُضَافُ إِلَيْهِ مَجْرُورٌ دَائِمًا',
+       fr:'Dans toute idâfa, le second terme (mudâf ilayhi) est toujours au génitif.',
+       examples:[{ar:'رَسُولُ **اللَّهِ** ﷺ',fr:'Le messager d\'Allah ﷺ'}]},
+    ]
+  },
+};
+
+// ══════════════════════════════════════════════════════════
+//  AGENT LOGIC
+// ══════════════════════════════════════════════════════════
+let currentLesson = 0;
+let chatHistory = [];
+
+function findAnswer(input) {
+  const txt = input.toLowerCase().trim();
+
+  // Search across all lessons
+  for (const [lid, data] of Object.entries(KB)) {
+    if (!data.qa) continue;
+    for (const qa of data.qa) {
+      for (const kw of qa.q) {
+        if (txt.includes(kw.toLowerCase())) {
+          return {type:'qa', data:qa, lesson:parseInt(lid)};
+        }
+      }
+    }
+  }
+
+  // Lesson selection by keyword
+  const lessonKW = [
+    ['kalâm','kalam','parole','discours','اكلام','speech'],
+    ['ism','nom','اسم','verb','fi\'l','فعل','harf','حرف','parties','trois','3'],
+    ['i\'rab','irab','إعراب','déclin'],
+    ['damma','ضمة','fatha','kasra','signe','علامة','tanwin'],
+    ['fi\'l','verbe','maadi','mudhara','amr','فعل','passé','présent','impératif'],
+    ['marfou','مرفوع','nominatif','7 nominatif'],
+    ['fa\'il','فاعل','sujet','agent'],
+    ['mubtada','مبتدأ','khabar','خبر','nominale'],
+    ['maf\'ul','مفعول','accusatif','mansub'],
+    ['jarr','جر','génitif','préposition'],
+    ['na\'t','نعت','adjectif','épithète'],
+    ['pronom','ضمير','damîr'],
+    ['idafa','إضافة','annexion'],
+  ];
+
+  for (let i = 0; i < lessonKW.length; i++) {
+    for (const kw of lessonKW[i]) {
+      if (txt.includes(kw.toLowerCase())) {
+        return {type:'lesson', lesson:i};
+      }
+    }
+  }
+
+  // Greetings
+  if (/^(salut|salam|bonjour|as-?salam|السلام|مرحبا|hello|ahlan)/.test(txt)) {
+    return {type:'greet'};
+  }
+
+  return {type:'unknown'};
+}
+
+function buildResponse(result, userInput) {
+  if (result.type === 'greet') {
+    return {
+      ar:'وَعَلَيْكُمُ السَّلَامُ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ\nأَهْلًا وَسَهْلًا بِكَ فِي الدَّرْسِ',
+      fr:'Wa \'alaykum as-salâm wa rahmatullâh !\nBienvenue dans cet espace d\'apprentissage de la langue arabe classique. Posez vos questions sur la grammaire (Ajrûmiyya), ou demandez une leçon spécifique.',
+      examples:[
+        {ar:'مَا هُوَ الإِعْرَابُ؟',fr:'Qu\'est-ce que la déclinaison (i\'râb) ?'},
+        {ar:'مَا هُوَ الْفَاعِلُ؟',fr:'Qu\'est-ce que le sujet (fâ\'il) ?'},
+      ]
+    };
+  }
+
+  if (result.type === 'lesson') {
+    const lid = result.lesson;
+    const d = KB[lid];
+    if (!d) return null;
+    currentLesson = lid;
+    setActiveLesson(lid);
+    return {
+      ar: d.intro.ar,
+      fr: `**${LESSONS[lid].chap} — ${LESSONS[lid].titleFr}**\n\n` + d.intro.fr + '\n\n' + d.intro.expl,
+      examples: d.intro.examples
+    };
+  }
+
+  if (result.type === 'qa') {
+    return {
+      ar: result.data.ar,
+      fr: result.data.fr,
+      examples: result.data.examples
+    };
+  }
+
+  return null;
+}
+
+function renderMsg(who, content) {
+  const area = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = `msg ${who}`;
+
+  if (who === 'user') {
+    div.innerHTML = `
+      <div class="msg-avatar">أ</div>
+      <div class="msg-bubble"><div class="msg-text">${escHtml(content)}</div></div>`;
+  } else {
+    let inner = '';
+    if (content.ar) inner += `<div class="msg-ar">${content.ar.replace(/\n/g,'<br>')}</div>`;
+    if (content.fr) {
+      const frHtml = content.fr.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+      inner += `<div class="msg-fr">${frHtml}</div>`;
+    }
+    if (content.examples && content.examples.length) {
+      inner += content.examples.map(e=>`
+        <div class="example-box">
+          <div class="ex-label">EXEMPLE — مِثَال</div>
+          <div class="ex-ar">${e.ar}</div>
+          <div class="ex-fr">${e.fr}</div>
+        </div>`).join('');
+    }
+    inner += `<div class="msg-actions">
+      <button class="btn-tts" onclick="speak('${escAttr(content.ar||'')}','ar')">🔊 عربي</button>
+      <button class="btn-tts" onclick="speak('${escAttr(content.fr||'')}','fr')">🔊 Français</button>
+    </div>`;
+    div.innerHTML = `<div class="msg-avatar">م</div><div class="msg-bubble">${inner}</div>`;
+  }
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+}
+
+function renderTyping() {
+  const area = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = 'msg agent'; div.id = 'typing-indicator';
+  div.innerHTML = `<div class="msg-avatar">م</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+  return div;
+}
+
+function parseAgentResponse(text) {
+  const arMatch = text.match(/\[AR\]([\s\S]*?)\[\/AR\]/);
+  const frMatch = text.match(/\[FR\]([\s\S]*?)\[\/FR\]/);
+  return {
+    ar: arMatch ? arMatch[1].trim() : '',
+    fr: frMatch ? frMatch[1].trim() : text,
+    examples: [],
+  };
+}
+
+async function sendMsg() {
+  const inp = document.getElementById('chatInput');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  inp.value = '';
+
+  renderMsg('user', txt);
+  chatHistory.push({ role: 'user', content: txt });
+
+  const t = renderTyping();
+
+  try {
+    const res = await fetch('/.netlify/functions/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: chatHistory }),
+    });
+
+    t.remove();
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    const parsed = parseAgentResponse(data.text);
+    chatHistory.push({ role: 'assistant', content: data.text });
+    renderMsg('agent', parsed);
+  } catch (err) {
+    t.remove();
+    renderMsg('agent', {
+      ar: 'عُذْرًا، حَدَثَ خَطَأٌ. حَاوِلْ مَرَّةً أُخْرَى.',
+      fr: `Erreur : ${err.message}. Vérifiez votre connexion et réessayez.`,
+      examples: [],
+    });
+  }
+}
+
+function speak(text, lang) {
+  if (!('speechSynthesis' in window)) { alert('TTS non supporté par ce navigateur'); return; }
+  window.speechSynthesis.cancel();
+  const clean = text.replace(/<[^>]+>/g,'').replace(/\*\*/g,'').replace(/\n/g,' ');
+  const utt = new SpeechSynthesisUtterance(clean);
+  utt.lang = lang === 'ar' ? 'ar-SA' : 'fr-FR';
+  utt.rate = lang === 'ar' ? 0.8 : 0.9;
+  window.speechSynthesis.speak(utt);
+}
+
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function escAttr(s){return s.replace(/'/g,"\\'").replace(/\n/g,' ').replace(/<[^>]+>/g,'')}
+
+function setActiveLesson(id) {
+  document.querySelectorAll('.lesson-item').forEach(el=>{
+    el.classList.toggle('active', parseInt(el.dataset.id)===id);
+  });
+}
+
+function startLesson(id) {
+  showSection('agent');
+  setTimeout(()=>{
+    currentLesson = id;
+    chatHistory = [];
+    setActiveLesson(id);
+    const d = KB[id];
+    if (!d) return;
+    renderMsg('agent',{
+      ar: d.intro.ar,
+      fr:`**${LESSONS[id].chap} — ${LESSONS[id].titleFr}**\n\n`+d.intro.fr+'\n\n'+d.intro.expl,
+      examples: d.intro.examples
+    });
+  },100);
+}
+
+// ══════════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════════
+function initLessonList() {
+  const list = document.getElementById('lessonList');
+  list.innerHTML = LESSONS.map(l=>`
+    <div class="lesson-item ${l.id===0?'active':''}" data-id="${l.id}" onclick="startLesson(${l.id})">
+      <div class="lesson-num">${l.chap}</div>
+      <div class="lesson-title-ar">${l.numAr} — ${l.titleAr}</div>
+      <div class="lesson-title-fr">${l.titleFr}</div>
+    </div>`).join('');
+}
+
+function initQuickBtns() {
+  const questions = [
+    {ar:'مَا هُوَ الإِعْرَابُ؟',fr:'Qu\'est-ce que l\'i\'râb ?'},
+    {ar:'مَا هُوَ الْفَاعِلُ؟',fr:'Fâ\'il ?'},
+    {ar:'الإِضَافَةُ',fr:'L\'idâfa'},
+    {ar:'حُرُوفُ الْجَرِّ',fr:'Prépositions'},
+    {ar:'أَنْوَاعُ الأَفْعَال',fr:'Types de verbes'},
+  ];
+  document.getElementById('quickBtns').innerHTML = questions.map(q=>
+    `<button class="qbtn" onclick="quickAsk('${escAttr(q.ar)}','${escAttr(q.fr)}')">${q.ar}</button>`
+  ).join('');
+}
+
+function quickAsk(ar,fr) {
+  document.getElementById('chatInput').value = fr;
+  sendMsg();
+}
+
+function initLibrary() {
+  const cats = ['grammaire','hadith','tafsir','aqida','fiqh','akhlaq','biographie'];
+  const labels = {grammaire:'Grammaire',hadith:'Hadith',tafsir:'Tafsîr',aqida:'\'Aqîda',fiqh:'Fiqh',akhlaq:'Akhlâq',biographie:'Sîra'};
+  document.getElementById('libCats').innerHTML = `<div class="lib-cat on" onclick="filterBooks(null,this)">Tous</div>`+
+    cats.map(c=>`<div class="lib-cat" onclick="filterBooks('${c}',this)">${labels[c]}</div>`).join('');
+  renderBooks(BOOKS);
+}
+
+function filterBooks(cat, el) {
+  document.querySelectorAll('.lib-cat').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  renderBooks(cat ? BOOKS.filter(b=>b.cat===cat) : BOOKS);
+}
+
+function renderBooks(list) {
+  document.getElementById('booksGrid').innerHTML = list.map(b=>`
+    <div class="book-card" onclick="showBookModal(${BOOKS.indexOf(b)})">
+      <div class="book-icon">${b.icon}</div>
+      <div class="book-title-ar">${b.ar}</div>
+      <div class="book-title-fr">${b.fr}</div>
+      <div class="book-author">${b.author}</div>
+      <span class="book-tag">${b.tag}</span>
+    </div>`).join('');
+}
+
+function showBookModal(idx) {
+  const b = BOOKS[idx];
+  document.getElementById('modalContent').innerHTML = `
+    <button class="modal-close" onclick="closeModal()">✕ Fermer</button>
+    <h3>${b.fr}</h3>
+    <div class="modal-ar">${b.ar}</div>
+    <div class="modal-body">
+      <p><strong>Auteur :</strong> ${b.author}</p>
+      <p><strong>Catégorie :</strong> ${b.tag}</p>
+      <p>${b.desc}</p>
+    </div>`;
+  document.getElementById('modal').classList.add('show');
+}
+
+function initNames() {
+  document.getElementById('namesGrid').innerHTML = NAMES.map(n=>`
+    <div class="name-card" onclick="showNameModal(${n.num-1})">
+      <div class="name-num">Nom N° ${n.num}</div>
+      <div class="name-ar">${n.ar}</div>
+      <div class="name-fr">${n.fr} — ${n.trans}</div>
+      <div class="name-meaning">${n.meaning}</div>
+      <div class="name-verse">${n.verse}</div>
+    </div>`).join('');
+}
+
+function showNameModal(idx) {
+  const n = NAMES[idx];
+  document.getElementById('modalContent').innerHTML = `
+    <button class="modal-close" onclick="closeModal()">✕ Fermer</button>
+    <h3>N° ${n.num} — ${n.fr}</h3>
+    <div class="modal-ar">${n.ar}</div>
+    <div class="modal-body">
+      <p><strong>${n.trans}</strong></p>
+      <p>${n.meaning}</p>
+      <p><strong>Verset :</strong></p>
+      <div class="ar-block">${n.verse}<br><em style="font-family:var(--ff-body);font-size:.85rem;color:var(--dim)">${n.verseRef}</em></div>
+      ${n.hadith ? `<p><strong>Hadith :</strong></p><div class="ar-block">${n.hadith}<br><em style="font-family:var(--ff-body);font-size:.85rem;color:var(--dim)">${n.hadithRef}</em></div>` : ''}
+      <div style="margin-top:1rem;display:flex;gap:.5rem">
+        <button class="btn-tts" onclick="speak('${escAttr(n.ar)}','ar')" style="flex:1;justify-content:center">🔊 Écouter en arabe</button>
+        <button class="btn-tts" onclick="speak('${escAttr(n.trans+' : '+n.meaning)}','fr')" style="flex:1;justify-content:center">🔊 Français</button>
+      </div>
+    </div>`;
+  document.getElementById('modal').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+}
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  const btns = document.querySelectorAll('.nav-btn');
+  const map = {home:0,agent:1,library:2,names:3};
+  if (map[id]!==undefined) btns[map[id]].classList.add('active');
+}
+
+function enterApp() {
+  document.getElementById('splash').classList.add('hide');
+  document.getElementById('app').classList.add('show');
+
+  setTimeout(()=>{
+    renderMsg('agent',{
+      ar:`بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ\nأَهْلًا بِكَ فِي الْمَكْتَبَةِ الإِسْلَامِيَّةِ الذَّكِيَّة\nأَنَا الشَّيْخُ الْمُعَلِّمُ — مُتَخَصِّصٌ فِي النَّحْوِ الْعَرَبِيِّ`,
+      fr:`**Bienvenue dans la Bibliothèque Islamique Intelligente**\n\nJe suis votre agent grammatical, spécialisé dans la **Muqaddima al-Âjurrûmiyya** d'Ibn Âjurrûm et les ouvrages classiques.\n\nJe réponds en **arabe vocalisé** (tashkîl complet) et en **français**.\n\n• Posez une question sur la grammaire arabe\n• Cliquez sur une leçon dans la liste\n• Explorez la bibliothèque classique`,
+      examples:[
+        {ar:'مَا هِيَ أَقْسَامُ الْكَلِمَة؟',fr:'Quelles sont les parties du discours ?'},
+        {ar:'مَا الْفَرْقُ بَيْنَ الْفَاعِلِ وَالْمُبْتَدَأ؟',fr:'Quelle est la différence entre fâ\'il et mubtada\' ?'},
+      ]
+    });
+  }, 600);
+}
+
+document.getElementById('modal').addEventListener('click', function(e){
+  if (e.target===this) closeModal();
+});
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  initLessonList();
+  initQuickBtns();
+  initLibrary();
+  initNames();
+});
+</script>
+</body>
+</html>
