@@ -37,6 +37,16 @@ exports.handler = async (event) => {
     return { statusCode: 405, headers: cors, body: "Method Not Allowed" };
   }
 
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    console.error("ANTHROPIC_API_KEY is not set in environment variables");
+    return {
+      statusCode: 500,
+      headers: { ...cors, "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Configuration serveur manquante. Contactez l'administrateur." }),
+    };
+  }
+
   try {
     const { messages } = JSON.parse(event.body || "{}");
 
@@ -52,7 +62,7 @@ exports.handler = async (event) => {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-api-key": process.env.ANTHROPIC_API_KEY,
+        "x-api-key": apiKey,
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
@@ -64,11 +74,12 @@ exports.handler = async (event) => {
     });
 
     if (!apiRes.ok) {
-      const errText = await apiRes.text();
+      const errBody = await apiRes.json().catch(() => ({}));
+      console.error("Anthropic API error:", apiRes.status, errBody);
       return {
-        statusCode: apiRes.status,
+        statusCode: 502,
         headers: { ...cors, "Content-Type": "application/json" },
-        body: JSON.stringify({ error: errText }),
+        body: JSON.stringify({ error: `Erreur API (${apiRes.status}). Réessayez dans un moment.` }),
       };
     }
 
@@ -81,11 +92,11 @@ exports.handler = async (event) => {
       body: JSON.stringify({ text: textBlock ? textBlock.text : "" }),
     };
   } catch (err) {
-    console.error("chat fn error:", err);
+    console.error("chat fn error:", err.message);
     return {
       statusCode: 500,
       headers: { ...cors, "Content-Type": "application/json" },
-      body: JSON.stringify({ error: err.message }),
+      body: JSON.stringify({ error: "Erreur serveur. Réessayez dans un moment." }),
     };
   }
 };
