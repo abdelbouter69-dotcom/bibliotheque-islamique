@@ -39,16 +39,30 @@ exports.handler = async (event) => {
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    console.error("ANTHROPIC_API_KEY is not set in environment variables");
+    console.error("[chat] ERREUR: ANTHROPIC_API_KEY absente des variables d'environnement Netlify");
     return {
       statusCode: 500,
       headers: { ...cors, "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Configuration serveur manquante. Contactez l'administrateur." }),
+      body: JSON.stringify({ error: "Clé API manquante côté serveur — ajoutez ANTHROPIC_API_KEY dans Netlify > Environment variables." }),
     };
   }
 
+  console.log("[chat] Clé API présente, longueur:", apiKey.length);
+
   try {
-    const { messages } = JSON.parse(event.body || "{}");
+    let parsed;
+    try {
+      parsed = JSON.parse(event.body || "{}");
+    } catch (parseErr) {
+      console.error("[chat] Erreur parsing body:", parseErr.message);
+      return {
+        statusCode: 400,
+        headers: { ...cors, "Content-Type": "application/json" },
+        body: JSON.stringify({ error: "Corps de requête invalide (JSON attendu)" }),
+      };
+    }
+
+    const { messages } = parsed;
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return {
@@ -57,6 +71,8 @@ exports.handler = async (event) => {
         body: JSON.stringify({ error: "messages array required" }),
       };
     }
+
+    console.log("[chat] Appel Anthropic avec", messages.length, "message(s)");
 
     const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -75,16 +91,17 @@ exports.handler = async (event) => {
 
     if (!apiRes.ok) {
       const errBody = await apiRes.json().catch(() => ({}));
-      console.error("Anthropic API error:", apiRes.status, errBody);
+      console.error("[chat] Anthropic API error:", apiRes.status, JSON.stringify(errBody));
       return {
         statusCode: 502,
         headers: { ...cors, "Content-Type": "application/json" },
-        body: JSON.stringify({ error: `Erreur API (${apiRes.status}). Réessayez dans un moment.` }),
+        body: JSON.stringify({ error: `Erreur API Anthropic (${apiRes.status}). Vérifiez la clé dans Netlify.` }),
       };
     }
 
     const data = await apiRes.json();
     const textBlock = (data.content || []).find((b) => b.type === "text");
+    console.log("[chat] Réponse reçue, stop_reason:", data.stop_reason);
 
     return {
       statusCode: 200,
@@ -92,11 +109,11 @@ exports.handler = async (event) => {
       body: JSON.stringify({ text: textBlock ? textBlock.text : "" }),
     };
   } catch (err) {
-    console.error("chat fn error:", err.message);
+    console.error("[chat] Exception non gérée:", err.message, err.stack);
     return {
       statusCode: 500,
       headers: { ...cors, "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Erreur serveur. Réessayez dans un moment." }),
+      body: JSON.stringify({ error: `Erreur serveur: ${err.message}` }),
     };
   }
 };
