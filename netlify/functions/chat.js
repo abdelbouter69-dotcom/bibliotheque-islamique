@@ -82,7 +82,7 @@ exports.handler = async (event) => {
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-opus-4-8",
+        model: "claude-haiku-4-5",
         max_tokens: 2048,
         system: SYSTEM_PROMPT,
         messages,
