@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مكتبة الدعوة والحوار — ArchiART</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1A0E;direction:rtl;}
+.header{background:linear-gradient(135deg,#0C447C,#185FA5);padding:1.25rem 1rem 1rem;text-align:center;}
+.basmala{font-family:'Amiri',serif;font-size:1.3rem;color:#FAC775;display:block;margin-bottom:6px;}
+.title-ar{font-family:'Amiri',serif;font-size:1.5rem;color:#fff;margin-bottom:2px;}
+.title-fr{font-size:11px;color:rgba(255,255,255,0.6);direction:ltr;margin-bottom:10px;}
+.pill{font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);border:0.5px solid rgba(255,255,255,0.2);display:inline-block;margin:2px;}
+.savant-badge{background:rgba(255,255,255,0.1);border-radius:8px;padding:6px 12px;font-size:10px;color:rgba(255,255,255,0.8);text-align:center;margin-top:8px;font-family:'Amiri',serif;}
+.agents-nav{background:#fff;border-bottom:1px solid #ddd;overflow-x:auto;position:sticky;top:0;z-index:50;}
+.agents-tabs{display:flex;min-width:max-content;}
+.agent-btn{display:flex;align-items:center;gap:6px;padding:.8rem .9rem;font-size:12px;color:#666;background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;font-family:'Noto Naskh Arabic',serif;}
+.agent-btn.active{color:#0C447C;border-bottom-color:#185FA5;}
+.content{max-width:900px;margin:0 auto;padding:1rem 1rem 3rem;}
+.agent-hero{border-radius:12px;overflow:hidden;margin-bottom:1rem;}
+.hero-inner{padding:1rem 1.25rem;display:flex;align-items:center;gap:12px;}
+.hero-icon{font-size:2rem;flex-shrink:0;}
+.hero-ar{font-family:'Amiri',serif;font-size:1.2rem;color:#fff;line-height:1.7;}
+.hero-fr{font-size:11px;color:rgba(255,255,255,0.65);direction:ltr;}
+.agent-bar{background:#fff;border:1px solid #ddd;border-radius:12px;padding:.9rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.agt-ava{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.agt-info{flex:1;}
+.agt-name{font-family:'Amiri',serif;font-size:14px;}
+.agt-sub{font-size:11px;color:#888;direction:ltr;}
+.agt-btn{background:#0C447C;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
+.levels-tabs{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap;}
+.lvl-tab{padding:5px 14px;border-radius:20px;font-size:11px;border:1px solid #ddd;background:#fff;color:#666;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
+.lvl-tab.active{background:#185FA5;border-color:#185FA5;color:#fff;}
+.level-info{background:#fff;border:1px solid #ddd;border-radius:12px;padding:.8rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
+.lv-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
+.lv-title-ar{font-family:'Amiri',serif;font-size:15px;}
+.lv-title-fr{font-size:10px;color:#888;}
+.lv-badge{margin-left:auto;font-size:10px;padding:3px 10px;border-radius:10px;}
+.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;}
+.book-card{background:#fff;border-radius:12px;border:1px solid #ddd;overflow:hidden;display:flex;flex-direction:column;}
+.book-cover{height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;position:relative;}
+.cover-n{position:absolute;top:5px;right:6px;font-size:9px;color:rgba(255,255,255,0.7);}
+.cover-ar{font-family:'Amiri',serif;font-size:12px;color:#fff;text-align:center;line-height:1.7;}
+.cover-auth{font-family:'Amiri',serif;font-size:9px;color:rgba(255,255,255,0.65);text-align:center;margin-top:3px;}
+.book-body{padding:8px 9px 9px;flex:1;display:flex;flex-direction:column;}
+.book-desc{font-size:10px;color:#666;line-height:1.5;flex:1;margin-bottom:6px;}
+.book-links{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:4px;}
+.btn-lnk{padding:3px 6px;border-radius:4px;font-size:9px;border:1px solid #ddd;background:#f5f5f5;color:#555;text-decoration:none;}
+.btn-agent{width:100%;padding:5px;border-radius:8px;font-size:10px;background:#0C447C;color:#fff;border:none;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
+.modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;justify-content:center;}
+.modal-wrap.open{display:flex;}
+@media(min-width:600px){.modal-wrap{align-items:center;}}
+.modal{background:#fff;border-radius:12px 12px 0 0;width:100%;max-width:600px;max-height:88vh;display:flex;flex-direction:column;}
+@media(min-width:600px){.modal{border-radius:12px;max-height:80vh;}}
+.modal-head{display:flex;align-items:center;gap:10px;padding:.8rem 1rem;border-bottom:1px solid #eee;flex-shrink:0;}
+.m-ava{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.m-name{font-family:'Amiri',serif;font-size:14px;flex:1;}
+.m-close{background:none;border:none;font-size:20px;cursor:pointer;color:#888;}
+.chat-area{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:10px;}
+.msg{display:flex;gap:8px;max-width:92%;}
+.msg.user{flex-direction:row-reverse;align-self:flex-end;}
+.bubble{padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.8;font-family:'Amiri',serif;background:#f5f5f5;color:#2C1A0E;}
+.msg.user .bubble{background:#0C447C;color:#fff;border-radius:12px 3px 12px 12px;}
+.msg.agent .bubble{border-radius:3px 12px 12px 12px;}
+.m-av-sm{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.typing-dots{display:flex;gap:4px;align-items:center;padding:10px 13px;}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:#888;animation:blink 1.2s infinite;}
+.typing-dots span:nth-child(2){animation-delay:.2s;}
+.typing-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.chat-foot{padding:.7rem .9rem;border-top:1px solid #eee;display:flex;gap:8px;flex-shrink:0;}
+.chat-in{flex:1;border:1px solid #ddd;border-radius:20px;padding:8px 13px;font-size:13px;outline:none;font-family:'Amiri',serif;background:#f9f9f9;resize:none;max-height:70px;color:#2C1A0E;}
+.chat-in:focus{border-color:#185FA5;}
+.chat-send{width:36px;height:36px;border-radius:50%;background:#0C447C;color:#fff;border:none;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.chat-send:disabled{opacity:.35;}
+.welcome{text-align:center;padding:2rem 1rem;color:#888;font-size:13px;line-height:2;}
+</style>
+</head>
+<body>
+<div class="header">
+  <span class="basmala">بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ</span>
+  <div class="title-ar">مَكْتَبَةُ الدَّعْوَةِ وَالحِوَارِ الذَّكِيَّة</div>
+  <div class="title-fr">Bibliothèque Da'wa et Dialogue — ArchiART</div>
+  <div style="margin-top:8px;">
+    <span class="pill">📢 الدعوة</span>
+    <span class="pill">🛡️ الشبهات</span>
+    <span class="pill">🤝 الحوار</span>
+    <span class="pill">💬 بالفرنسية</span>
+    <span class="pill">🌍 الإسلام في فرنسا</span>
+  </div>
+  <div class="savant-badge">المَصَادِرُ المُعْتَمَدَة : الشيخ ابن باز — الشيخ الفوزان — الشيخ محسن العباد — الشيخ ابن عثيمين</div>
+</div>
+<nav class="agents-nav"><div class="agents-tabs" id="agentTabs"></div></nav>
+<div class="content" id="mainContent"></div>
+<div class="modal-wrap" id="modalWrap">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="m-ava" id="mAva"></div>
+      <div style="flex:1;"><div class="m-name" id="mName"></div><div style="font-size:10px;color:#888;" id="mLevel"></div></div>
+      <button class="m-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="chat-area" id="chatArea"></div>
+    <div class="chat-foot">
+      <textarea class="chat-in" id="chatIn" rows="1" placeholder="اكتب سؤالك… / Votre question…" onkeydown="handleKey(event)"></textarea>
+      <button class="chat-send" id="sendBtn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+</div>
+<script>
+const AGENTS=[
+  {id:'dawa',icon:'📢',labelAr:'الدَّعْوَةُ إِلَى اللهِ',label:"Da'wa — Appel vers Allah",
+   heroBg:'linear-gradient(135deg,#0C447C,#185FA5)',ava:'📢',avaBg:'#E6F1FB',
+   system:`أنتَ وكيلٌ ذكيٌّ متخصص في علم الدعوة إلى الله.
+مصادرك: مؤلفات ابن باز، الفوزان، محسن العباد، ابن عثيمين في الدعوة.
+قواعد: أجب بالعربية المشكّلة ثم بالفرنسية. استشهد بالآيات والأحاديث الصحيحة فقط.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+   levels:[
+     {num:1,labelAr:'أُسُسُ الدَّعْوَة',labelFr:"Fondements",badge:'Débutant',numBg:'#185FA5',badgeC:'#E6F1FB',badgeTxt:'#0C447C',
+      books:[
+        {n:1,ar:'دُرُوسٌ فِي الدَّعْوَة — ابْنُ بَاز',auth:'الشيخ عبد العزيز بن باز رحمه الله (ت.1420هـ)',desc:'Cours de Da\'wa — Ibn Bâz — le grand Mufti.',bg:'linear-gradient(135deg,#185FA5,#0C447C)',yt:'https://www.youtube.com/results?search_query=ابن+باز+دروس+في+الدعوة+إلى+الله',sh:'https://shamela.ws/search?q=ابن+باز+الدعوة+إلى+الله'},
+        {n:2,ar:'الدَّعْوَةُ إِلَى اللهِ — الفَوْزَان',auth:'الشيخ صالح الفوزان حفظه الله',desc:'Da\'wa et éthique des appelants — Al-Fawzân.',bg:'linear-gradient(135deg,#378ADD,#185FA5)',yt:'https://www.youtube.com/results?search_query=الفوزان+الدعوة+إلى+الله+وأخلاق+الدعاة',sh:'https://shamela.ws/search?q=الفوزان+الدعوة+إلى+الله'},
+      ]},
+     {num:2,labelAr:'مَنَاهِجُ الدَّعْوَة',labelFr:"Méthodes",badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'كَيْفَ نَدْعُو إِلَى الإِسْلَام — العُثَيْمِين',auth:'الشيخ ابن عثيمين رحمه الله (ت.1421هـ)',desc:'Comment faire la Da\'wa — méthodes pratiques.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=ابن+عثيمين+كيف+ندعو+إلى+الإسلام',sh:'https://shamela.ws/search?q=ابن+عثيمين+الدعوة+إلى+الإسلام'},
+        {n:2,ar:'دُرُوسُ الدَّعْوَة — مُحْسِن العَبَّاد',auth:'الشيخ محسن العباد حفظه الله',desc:'Cours de Da\'wa — Sheikh Muhsin Al-ʿAbbâd.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=محسن+العباد+دروس+في+الدعوة',sh:'https://shamela.ws/search?q=محسن+العباد+الدعوة'},
+      ]},
+     {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
+      books:[
+        {n:1,ar:'أُصُولُ الدَّعْوَة — الفَوْزَان',auth:'الشيخ صالح الفوزان حفظه الله',desc:'Fondements de la Da\'wa — niveau avancé.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=الفوزان+أصول+الدعوة+إلى+الله',sh:'https://shamela.ws/search?q=الفوزان+أصول+الدعوة'},
+      ]},
+   ]},
+  {id:'shubhat',icon:'🛡️',labelAr:'الرَّدُّ عَلَى الشُّبُهَات',label:'Réfutation des doutes',
+   heroBg:'linear-gradient(135deg,#712B13,#D85A30)',ava:'🛡️',avaBg:'#FAECE7',
+   system:`أنتَ وكيلٌ ذكيٌّ متخصص في الرد على الشبهات حول الإسلام.
+مصادرك: مؤلفات ابن باز، الفوزان، محسن العباد. موسوعة الدفاع عن القرآن والسنة.
+قواعد: أجب بالعربية المشكّلة ثم بالفرنسية. كن حكيماً ورحيماً.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+   levels:[
+     {num:1,labelAr:'الشُّبُهَاتُ الشَّائِعَة',labelFr:'Doutes fréquents',badge:'Débutant',numBg:'#D85A30',badgeC:'#FAECE7',badgeTxt:'#712B13',
+      books:[
+        {n:1,ar:'الرَّدُّ عَلَى الشُّبُهَات — ابْنُ بَاز',auth:'الشيخ عبد العزيز بن باز رحمه الله',desc:'Réfutation des doutes — Ibn Bâz — source authentifiée.',bg:'linear-gradient(135deg,#D85A30,#993C1D)',yt:'https://www.youtube.com/results?search_query=ابن+باز+رد+على+الشبهات+حول+الإسلام',sh:'https://shamela.ws/search?q=ابن+باز+الرد+على+الشبهات'},
+        {n:2,ar:'كَشْفُ الشُّبُهَات — الفَوْزَان',auth:'الشيخ صالح الفوزان حفظه الله',desc:'Cours sur Kashf Al-Shubuhât — Al-Fawzân.',bg:'linear-gradient(135deg,#F0997B,#D85A30)',yt:'https://www.youtube.com/results?search_query=الفوزان+شرح+كشف+الشبهات',sh:'https://shamela.ws/search?q=الفوزان+كشف+الشبهات'},
+      ]},
+     {num:2,labelAr:'الرَّدُّ عَلَى الإِلْحَاد',labelFr:'Réfutation de l\'athéisme',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'الرَّدُّ عَلَى المُلْحِدِين — ابْنُ عُثَيْمِين',auth:'الشيخ ابن عثيمين رحمه الله',desc:'Réfutation des athées — arguments solides.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=ابن+عثيمين+الرد+على+الملحدين',sh:'https://shamela.ws/search?q=ابن+عثيمين+الرد+على+الملحدين'},
+      ]},
+     {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
+      books:[
+        {n:1,ar:'دُرُوسُ الرَّدِّ — مُحْسِن العَبَّاد',auth:'الشيخ محسن العباد حفظه الله',desc:'Cours approfondis — Muhsin Al-ʿAbbâd.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=محسن+العباد+رد+على+الشبهات',sh:'https://shamela.ws/search?q=محسن+العباد+الشبهات'},
+      ]},
+   ]},
+  {id:'hiwar',icon:'🤝',labelAr:'الحِوَارُ مَعَ غَيْرِ المُسْلِمِين',label:'Dialogue interreligieux',
+   heroBg:'linear-gradient(135deg,#27500A,#639922)',ava:'🤝',avaBg:'#EAF3DE',
+   system:`أنتَ وكيلٌ ذكيٌّ متخصص في الحوار مع غير المسلمين.
+مصادرك: مؤلفات ابن باز والفوزان في الحوار. الجواب الصحيح لابن تيمية.
+قواعد: أجب بالعربية المشكّلة ثم بالفرنسية. كن حكيماً ولطيفاً.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+   levels:[
+     {num:1,labelAr:'أُسُسُ الحِوَار',labelFr:'Bases du dialogue',badge:'Débutant',numBg:'#639922',badgeC:'#EAF3DE',badgeTxt:'#27500A',
+      books:[
+        {n:1,ar:'الحِوَارُ مَعَ غَيْرِ المُسْلِمِين — ابْنُ بَاز',auth:'الشيخ عبد العزيز بن باز رحمه الله',desc:'Dialogue avec non-musulmans — méthode islamique.',bg:'linear-gradient(135deg,#639922,#3B6D11)',yt:'https://www.youtube.com/results?search_query=ابن+باز+الحوار+مع+غير+المسلمين',sh:'https://shamela.ws/search?q=ابن+باز+الحوار+مع+غير+المسلمين'},
+        {n:2,ar:'الدَّعْوَةُ وَأَخْلَاقُهَا — الفَوْزَان',auth:'الشيخ صالح الفوزان حفظه الله',desc:'Da\'wa et dialogue — éthique et méthodes.',bg:'linear-gradient(135deg,#97C459,#639922)',yt:'https://www.youtube.com/results?search_query=الفوزان+الدعوة+إلى+الله+وأخلاقها',sh:'https://shamela.ws/search?q=الفوزان+الدعوة+وأخلاقها'},
+      ]},
+     {num:2,labelAr:'الحِوَارُ مَعَ أَهْلِ الكِتَاب',labelFr:'Dialogue avec Chrétiens et Juifs',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'مُحَاضَرَات فِي الحِوَار — مُحْسِن العَبَّاد',auth:'الشيخ محسن العباد حفظه الله',desc:'Conférences sur le dialogue interreligieux.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=محسن+العباد+الحوار+مع+غير+المسلمين',sh:'https://shamela.ws/search?q=محسن+العباد+الحوار'},
+      ]},
+     {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
+      books:[
+        {n:1,ar:'الجَوَابُ الصَّحِيح',auth:'شيخ الإسلام ابن تيمية (ت.728هـ)',desc:'Réfutation approfondie du christianisme.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=الجواب+الصحيح+ابن+تيمية+شرح',sh:'https://shamela.ws/search?q=الجواب+الصحيح+ابن+تيمية'},
+      ]},
+   ]},
+  {id:'dawafr',icon:'💬',labelAr:'الدَّعْوَةُ بِالفَرَنْسِيَّة',label:"Da'wa en français",
+   heroBg:'linear-gradient(135deg,#26215C,#534AB7)',ava:'💬',avaBg:'#EEEDFE',
+   system:`أنتَ وكيلٌ ذكيٌّ متخصص في الدعوة إلى الإسلام باللغة الفرنسية.
+استند إلى تعاليم ابن باز والفوزان ومحسن العباد.
+قواعد: أجب بالفرنسية أساساً مع الآيات بالعربية المشكّلة.
+الصيغة: 🇫🇷 [En français principal]\n\n🇸🇦 [Versets en arabe]`,
+   levels:[
+     {num:1,labelAr:'لِلْمُسْلِمِ الفَرَنْكُفُونِي',labelFr:"Pour le musulman francophone",badge:'Débutant',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'دُرُوسُ ابْنِ بَاز بِالفَرَنْسِيَّة',auth:'ترجمات دروس الشيخ ابن باز رحمه الله',desc:'Cours d\'Ibn Bâz traduits en français.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=ibn+baz+cours+islam+français+traduit',sh:'https://shamela.ws/search?q=ابن+باز+بالفرنسية'},
+        {n:2,ar:'ArchiART — الفَنُّ الإِسْلَامِي لِلدَّعْوَة',auth:'عبد القادر بوترفاس — ArchiART',desc:'Art islamique et calligraphie — outil de Da\'wa.',bg:'linear-gradient(135deg,#AFA9EC,#7F77DD)',yt:'https://voicimonchemin.com',sh:'https://abdelbouter.gumroad.com'},
+      ]},
+     {num:2,labelAr:'لِغَيْرِ المُسْلِمِ',labelFr:"Pour le non-musulman",badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'تَعَرَّفْ عَلَى الإِسْلَام بِالفَرَنْسِيَّة',auth:'مراكز إسلامية فرنكفونية',desc:'Découvrir l\'Islam en français.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=découvrir+islam+en+français+authentique',sh:'https://shamela.ws/search?q=الإسلام+بالفرنسية'},
+      ]},
+     {num:3,labelAr:'الدَّعْوَةُ الرَّقْمِيَّة',labelFr:"Da'wa numérique",badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
+      books:[
+        {n:1,ar:'ArchiART — الخَطُّ الرَّقْمِي خِدْمَةً لِلدَّعْوَة',auth:'عبد القادر بوترفاس — ArchiART — Villefranche-sur-Saône',desc:'Calligraphie numérique islamique au service de la Da\'wa.',bg:'linear-gradient(135deg,#534AB7,#26215C)',yt:'https://abdelbouter.gumroad.com',sh:'https://voicimonchemin.com'},
+      ]},
+   ]},
+  {id:'islam_france',icon:'🌍',labelAr:'الإِسْلَامُ فِي فَرَنْسَا',label:"Islam en France",
+   heroBg:'linear-gradient(135deg,#633806,#EF9F27)',ava:'🌍',avaBg:'#FAEEDA',
+   system:`أنتَ وكيلٌ ذكيٌّ متخصص في الإسلام في فرنسا والغرب.
+استند إلى فتاوى ابن باز والفوزان ومحسن العباد في أحكام المسلم في الغرب.
+قواعد: أجب بالفرنسية أساساً مع العربية عند الحاجة.
+الصيغة: 🇫🇷 [En français principal]\n\n🇸🇦 [عند الحاجة]`,
+   levels:[
+     {num:1,labelAr:'الهُوِيَّةُ الإِسْلَامِيَّة',labelFr:'Identité musulmane en France',badge:'Débutant',numBg:'#EF9F27',badgeC:'#FAEEDA',badgeTxt:'#633806',
+      books:[
+        {n:1,ar:'فَتَاوَى المُسْلِمِ فِي الغَرْب — ابْنُ بَاز',auth:'الشيخ عبد العزيز بن باز رحمه الله',desc:'Fatwas du musulman en Occident — Ibn Bâz.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=ابن+باز+فتاوى+المسلم+في+الغرب',sh:'https://shamela.ws/search?q=ابن+باز+المسلم+في+الغرب'},
+        {n:2,ar:'أَحْكَامُ المُسْلِمِ فِي الغَرْب — الفَوْزَان',auth:'الشيخ صالح الفوزان حفظه الله',desc:'Statut du musulman en Occident.',bg:'linear-gradient(135deg,#FAC775,#EF9F27)',yt:'https://www.youtube.com/results?search_query=الفوزان+أحكام+المسلم+في+الغرب',sh:'https://shamela.ws/search?q=الفوزان+المسلم+في+الغرب'},
+      ]},
+     {num:2,labelAr:'فِقْهُ الأَقَلِّيَّات',labelFr:'Fiqh des minorités',badge:'Intermédiaire',numBg:'#BA7517',badgeC:'#FAEEDA',badgeTxt:'#633806',
+      books:[
+        {n:1,ar:'فِقْهُ الأَقَلِّيَّات — مُحْسِن العَبَّاد',auth:'الشيخ محسن العباد حفظه الله',desc:'Jurisprudence des minorités — Muhsin Al-ʿAbbâd.',bg:'linear-gradient(135deg,#BA7517,#854F0B)',yt:'https://www.youtube.com/results?search_query=محسن+العباد+فقه+الأقليات+المسلمة',sh:'https://shamela.ws/search?q=محسن+العباد+فقه+الأقليات'},
+      ]},
+     {num:3,labelAr:'الدَّعْوَةُ فِي فَرَنْسَا',labelFr:"Da'wa en France",badge:'Expert',numBg:'#633806',badgeC:'#FAEEDA',badgeTxt:'#412402',
+      books:[
+        {n:1,ar:'ArchiART — الفَنُّ الإِسْلَامِي فِي خِدْمَةِ الدَّعْوَة',auth:'عبد القادر بوترفاس — ArchiART — Villefranche-sur-Saône',desc:'Art islamique numérique au service de la Da\'wa en France.',bg:'linear-gradient(135deg,#633806,#412402)',yt:'https://abdelbouter.gumroad.com',sh:'https://voicimonchemin.com'},
+      ]},
+   ]},
+];
+
+let curAgent='dawa',curLevels={dawa:0,shubhat:0,hiwar:0,dawafr:0,islam_france:0};
+let chatHistory=[],curAgentData=null,isLoading=false;
+function getAgent(){return AGENTS.find(a=>a.id===curAgent);}
+function renderTabs(){
+  document.getElementById('agentTabs').innerHTML=AGENTS.map(a=>`
+    <button class="agent-btn${a.id===curAgent?' active':''}" onclick="switchAgent('${a.id}')">
+      ${a.icon} <span style="font-family:Amiri,serif;font-size:14px;">${a.labelAr}</span>
+    </button>`).join('');
+}
+function renderContent(){
+  const ag=getAgent(),lvIdx=curLevels[ag.id],lv=ag.levels[lvIdx];
+  document.getElementById('mainContent').innerHTML=`
+    <div class="agent-hero" style="background:${ag.heroBg}">
+      <div class="hero-inner">
+        <div class="hero-icon">${ag.icon}</div>
+        <div><div class="hero-ar">${ag.labelAr} — وَكِيلٌ ذَكِيٌّ</div><div class="hero-fr">${ag.label}</div></div>
+      </div>
+    </div>
+    <div class="agent-bar">
+      <div class="agt-ava" style="background:${ag.avaBg}">${ag.ava}</div>
+      <div class="agt-info"><div class="agt-name">وَكِيلُ ${ag.labelAr}</div><div class="agt-sub">${ag.label}</div></div>
+      <button class="agt-btn" onclick="openChat('','عام')">اسْأَلِ الوَكِيل</button>
+    </div>
+    <div class="levels-tabs">${ag.levels.map((l,i)=>`<button class="lvl-tab${i===lvIdx?' active':''}" onclick="switchLevel(${i})">${l.num}. ${l.labelFr}</button>`).join('')}</div>
+    <div class="level-info">
+      <div class="lv-num" style="background:${lv.numBg}">${lv.num}</div>
+      <div><div class="lv-title-ar">${lv.labelAr}</div><div class="lv-title-fr">${lv.labelFr}</div></div>
+      <span class="lv-badge" style="background:${lv.badgeC};color:${lv.badgeTxt}">${lv.badge}</span>
+    </div>
+    <div class="books-grid">${lv.books.map(b=>`
+      <div class="book-card">
+        <div class="book-cover" style="background:${b.bg}">
+          <span class="cover-n">${b.n}.</span>
+          <div class="cover-ar">${b.ar}</div>
+          <div class="cover-auth">${b.auth}</div>
+        </div>
+        <div class="book-body">
+          <div class="book-desc">${b.desc}</div>
+          <div class="book-links">
+            <a class="btn-lnk" href="${b.yt}" target="_blank">▶ يوتيوب</a>
+            <a class="btn-lnk" href="${b.sh}" target="_blank">📖 شاملة</a>
+          </div>
+          <button class="btn-agent" onclick="openChat('${b.ar.replace(/'/g,"\\'")}','${lv.badge}')">🤖 اسأل الوكيل ←</button>
+        </div>
+      </div>`).join('')}</div>`;
+}
+function switchAgent(id){curAgent=id;renderTabs();renderContent();}
+function switchLevel(i){curLevels[curAgent]=i;renderContent();}
+function openChat(bookAr,level){
+  const ag=getAgent();curAgentData=ag;chatHistory=[];
+  document.getElementById('mAva').textContent=ag.ava;
+  document.getElementById('mAva').style.background=ag.avaBg;
+  document.getElementById('mName').textContent='وَكِيلُ '+ag.labelAr;
+  document.getElementById('mLevel').textContent=bookAr?'📖 '+bookAr:'استشارة عامة';
+  document.getElementById('chatArea').innerHTML=`<div class="welcome">${ag.ava}<br>مرحباً — اسألني عن ${ag.labelAr}<br><small style="direction:ltr">Posez votre question en arabe ou en français</small></div>`;
+  document.getElementById('modalWrap').classList.add('open');
+  setTimeout(()=>document.getElementById('chatIn').focus(),100);
+}
+function closeModal(){document.getElementById('modalWrap').classList.remove('open');}
+function appendMsg(role,text){
+  const area=document.getElementById('chatArea');
+  const w=area.querySelector('.welcome');if(w)w.remove();
+  const div=document.createElement('div');div.className=`msg ${role}`;
+  div.innerHTML=role==='agent'
+    ?`<div class="m-av-sm" style="background:${curAgentData.avaBg}">${curAgentData.ava}</div><div class="bubble">${text.replace(/\n/g,'<br>')}</div>`
+    :`<div class="bubble">${text}</div>`;
+  area.appendChild(div);area.scrollTop=area.scrollHeight;
+}
+function showTyping(){
+  const area=document.getElementById('chatArea');
+  const d=document.createElement('div');d.className='msg agent';d.id='typEl';
+  d.innerHTML=`<div class="m-av-sm" style="background:${curAgentData.avaBg}">${curAgentData.ava}</div><div class="bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+  area.appendChild(d);area.scrollTop=area.scrollHeight;
+}
+function hideTyping(){const t=document.getElementById('typEl');if(t)t.remove();}
+async function callAgent(msg,level){
+  if(isLoading)return;
+  isLoading=true;document.getElementById('sendBtn').disabled=true;
+  showTyping();chatHistory.push({role:'user',content:msg});
+  try{
+    const r=await fetch('/.netlify/functions/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        system:curAgentData.system+'\n\nمستوى الطالب: '+(level||'عام'),
+        messages:chatHistory})
+    });
+    const data=await r.json();
+    if(!r.ok)throw new Error(data?.error||'HTTP '+r.status);
+    const reply=data.text||'عفواً.';
+    hideTyping();appendMsg('agent',reply);
+    chatHistory.push({role:'assistant',content:reply});
+  }catch(err){
+    hideTyping();
+    const d=document.createElement('div');
+    d.style.cssText='background:#fff3cd;padding:8px;border-radius:8px;font-size:11px;direction:ltr;text-align:center;';
+    d.innerHTML='⚠️ '+err.message;
+    document.getElementById('chatArea').appendChild(d);
+  }
+  isLoading=false;document.getElementById('sendBtn').disabled=false;
+}
+function sendMsg(){
+  const inp=document.getElementById('chatIn');const msg=inp.value.trim();if(!msg)return;
+  inp.value='';inp.style.height='auto';appendMsg('user',msg);callAgent(msg,'عام');
+}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+document.getElementById('chatIn').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,70)+'px';});
+document.getElementById('modalWrap').addEventListener('click',function(e){if(e.target===this)closeModal();});
+renderTabs();renderContent();
+</script>
+</body>
+</html>

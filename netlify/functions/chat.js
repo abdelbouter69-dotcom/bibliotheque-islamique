@@ -62,7 +62,7 @@ exports.handler = async (event) => {
       };
     }
 
-    const { messages } = parsed;
+    const { messages, system } = parsed;
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return {
@@ -84,7 +84,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         model: "claude-haiku-4-5",
         max_tokens: 2048,
-        system: SYSTEM_PROMPT,
+        system: system || SYSTEM_PROMPT,
         messages,
       }),
     });

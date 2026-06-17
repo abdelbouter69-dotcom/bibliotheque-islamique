@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مكتبة اللغة العربية الذكية — ArchiART</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1A0E;direction:rtl;}
+.header{background:linear-gradient(135deg,#085041,#1D9E75);padding:1.25rem 1rem 1rem;text-align:center;}
+.basmala{font-family:'Amiri',serif;font-size:1.3rem;color:#FAC775;display:block;margin-bottom:6px;}
+.title-ar{font-family:'Amiri',serif;font-size:1.5rem;color:#fff;margin-bottom:2px;}
+.title-fr{font-size:11px;color:rgba(255,255,255,0.6);direction:ltr;margin-bottom:10px;}
+.pill{font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);border:0.5px solid rgba(255,255,255,0.2);display:inline-block;margin:2px;}
+.agents-nav{background:#fff;border-bottom:1px solid #ddd;overflow-x:auto;position:sticky;top:0;z-index:50;}
+.agents-tabs{display:flex;min-width:max-content;}
+.agent-btn{display:flex;align-items:center;gap:6px;padding:.8rem .9rem;font-size:12px;color:#666;background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;font-family:'Noto Naskh Arabic',serif;}
+.agent-btn.active{color:#085041;border-bottom-color:#1D9E75;}
+.content{max-width:900px;margin:0 auto;padding:1rem 1rem 3rem;}
+.agent-hero{border-radius:12px;overflow:hidden;margin-bottom:1rem;}
+.hero-inner{padding:1rem 1.25rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.hero-icon{font-size:2rem;flex-shrink:0;}
+.hero-ar{font-family:'Amiri',serif;font-size:1.2rem;color:#fff;line-height:1.7;}
+.hero-fr{font-size:11px;color:rgba(255,255,255,0.65);direction:ltr;}
+.agent-bar{background:#fff;border:1px solid #ddd;border-radius:12px;padding:.9rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.agt-ava{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.agt-info{flex:1;}
+.agt-name{font-family:'Amiri',serif;font-size:14px;color:#2C1A0E;}
+.agt-sub{font-size:11px;color:#888;direction:ltr;}
+.agt-btn{background:#085041;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
+.levels-tabs{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap;}
+.lvl-tab{padding:5px 14px;border-radius:20px;font-size:11px;border:1px solid #ddd;background:#fff;color:#666;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
+.lvl-tab.active{background:#1D9E75;border-color:#1D9E75;color:#fff;}
+.level-info{background:#fff;border:1px solid #ddd;border-radius:12px;padding:.8rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
+.lv-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
+.lv-title-ar{font-family:'Amiri',serif;font-size:15px;}
+.lv-title-fr{font-size:10px;color:#888;}
+.lv-badge{margin-left:auto;font-size:10px;padding:3px 10px;border-radius:10px;}
+.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:1.5rem;}
+.book-card{background:#fff;border-radius:12px;border:1px solid #ddd;overflow:hidden;display:flex;flex-direction:column;}
+.book-cover{height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;position:relative;}
+.cover-n{position:absolute;top:5px;right:6px;font-size:9px;color:rgba(255,255,255,0.7);}
+.cover-ar{font-family:'Amiri',serif;font-size:12px;color:#fff;text-align:center;line-height:1.7;}
+.cover-auth{font-family:'Amiri',serif;font-size:9px;color:rgba(255,255,255,0.65);text-align:center;margin-top:3px;}
+.book-body{padding:8px 9px 9px;flex:1;display:flex;flex-direction:column;}
+.book-desc{font-size:10px;color:#666;line-height:1.5;flex:1;margin-bottom:6px;}
+.book-links{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:4px;}
+.btn-lnk{padding:3px 6px;border-radius:4px;font-size:9px;border:1px solid #ddd;background:#f5f5f5;color:#555;text-decoration:none;}
+.btn-agent{width:100%;padding:5px;border-radius:8px;font-size:10px;background:#085041;color:#fff;border:none;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
+.modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;justify-content:center;}
+.modal-wrap.open{display:flex;}
+@media(min-width:600px){.modal-wrap{align-items:center;}}
+.modal{background:#fff;border-radius:12px 12px 0 0;width:100%;max-width:600px;max-height:88vh;display:flex;flex-direction:column;}
+@media(min-width:600px){.modal{border-radius:12px;max-height:80vh;}}
+.modal-head{display:flex;align-items:center;gap:10px;padding:.8rem 1rem;border-bottom:1px solid #eee;flex-shrink:0;}
+.m-ava{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.m-name{font-family:'Amiri',serif;font-size:14px;flex:1;}
+.m-close{background:none;border:none;font-size:20px;cursor:pointer;color:#888;}
+.chat-area{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:10px;}
+.msg{display:flex;gap:8px;max-width:92%;}
+.msg.user{flex-direction:row-reverse;align-self:flex-end;}
+.bubble{padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.8;font-family:'Amiri',serif;background:#f5f5f5;color:#2C1A0E;}
+.msg.user .bubble{background:#085041;color:#fff;border-radius:12px 3px 12px 12px;}
+.msg.agent .bubble{border-radius:3px 12px 12px 12px;}
+.m-av-sm{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.typing-dots{display:flex;gap:4px;align-items:center;padding:10px 13px;}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:#888;animation:blink 1.2s infinite;}
+.typing-dots span:nth-child(2){animation-delay:.2s;}
+.typing-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.chat-foot{padding:.7rem .9rem;border-top:1px solid #eee;display:flex;gap:8px;flex-shrink:0;}
+.chat-in{flex:1;border:1px solid #ddd;border-radius:20px;padding:8px 13px;font-size:13px;outline:none;font-family:'Amiri',serif;background:#f9f9f9;resize:none;max-height:70px;color:#2C1A0E;}
+.chat-in:focus{border-color:#1D9E75;}
+.chat-send{width:36px;height:36px;border-radius:50%;background:#085041;color:#fff;border:none;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.chat-send:disabled{opacity:.35;}
+.welcome{text-align:center;padding:2rem 1rem;color:#888;font-size:13px;line-height:2;}
+.err-msg{background:#fff3cd;border-radius:8px;padding:8px 12px;font-size:11px;color:#856404;direction:ltr;text-align:center;margin:4px 0;}
+</style>
+</head>
+<body>
+<div class="header">
+  <span class="basmala">بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ</span>
+  <div class="title-ar">الْمَكْتَبَةُ الذَّكِيَّة — عُلُومُ اللُّغَةِ العَرَبِيَّة</div>
+  <div class="title-fr">Bibliothèque intelligente — Sciences de la Langue Arabe • ArchiART</div>
+  <div style="margin-top:8px;">
+    <span class="pill">📖 النحو</span>
+    <span class="pill">🔤 الصرف</span>
+    <span class="pill">✨ البلاغة</span>
+    <span class="pill">✏️ الإملاء</span>
+    <span class="pill">🎙️ الأصوات</span>
+  </div>
+</div>
+<nav class="agents-nav"><div class="agents-tabs" id="agentTabs"></div></nav>
+<div class="content" id="mainContent"></div>
+<div class="modal-wrap" id="modalWrap">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="m-ava" id="mAva"></div>
+      <div style="flex:1;"><div class="m-name" id="mName"></div><div style="font-size:10px;color:#888;" id="mLevel"></div></div>
+      <button class="m-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="chat-area" id="chatArea"></div>
+    <div class="chat-foot">
+      <textarea class="chat-in" id="chatIn" rows="1" placeholder="اكتب سؤالك هنا… / Écrivez votre question ici…" onkeydown="handleKey(event)"></textarea>
+      <button class="chat-send" id="sendBtn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+</div>
+<script>
+const AGENTS=[
+  {id:'nahw',icon:'📖',labelAr:'النَّحْو',label:'Grammaire',heroBg:'linear-gradient(135deg,#085041,#1D9E75)',ava:'📖',avaBg:'#E1F5EE',
+   system:`أنتَ الأستاذ النحوي، وكيل ذكي متخصص في النحو العربي الكلاسيكي.
+المصادر: الآجرومية، التحفة السنية، ألفية ابن مالك، شرح ابن عقيل، قطر الندى، مغني اللبيب.
+قواعد: أجب بالعربية المشكّلة أولاً ثم بالفرنسية. عند الإعراب أعرب كلمة بكلمة. اذكر المصدر دائماً.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]\nيُنصح بمراجعة شيخ متخصص.`,
+   levels:[
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — التَّأْسِيس',labelFr:'Fondation',badge:'Débutant',numBg:'#1D9E75',badgeC:'#E1F5EE',badgeTxt:'#085041',
+      books:[
+        {n:1,ar:'النَّحْوُ الوَاضِح',auth:'الجارم وأمين',desc:'Bases de la grammaire — approche simple.',bg:'linear-gradient(135deg,#1D9E75,#085041)',yt:'https://www.youtube.com/results?search_query=النحو+الواضح+شرح',sh:'https://shamela.ws/search?q=النحو+الواضح'},
+        {n:2,ar:'الآجُرُّومِيَّة + التُّحْفَة',auth:'ابن آجرّوم / ابن هشام',desc:'Premier texte classique + commentaire.',bg:'linear-gradient(135deg,#5DCAA5,#1D9E75)',yt:'https://www.youtube.com/results?search_query=الآجرومية+شرح+مبسط',sh:'https://shamela.ws/search?q=الآجرومية'},
+        {n:3,ar:'مُلْحَةُ الإِعْرَاب',auth:'الحريري (ت.516هـ)',desc:'Poème mnémotechnique pour les règles.',bg:'linear-gradient(135deg,#9FE1CB,#5DCAA5)',yt:'https://www.youtube.com/results?search_query=ملحة+الإعراب+شرح',sh:'https://shamela.ws/search?q=ملحة+الإعراب'},
+      ]},
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — التَّوَسُّط',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'قَطْرُ النَّدَى + شُذُورُ الذَّهَب',auth:'ابن هشام (ت.761هـ)',desc:'Extension progressive — deux textes complémentaires.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=قطر+الندى+ابن+هشام',sh:'https://shamela.ws/search?q=قطر+الندى'},
+        {n:2,ar:'أَلْفِيَّة ابْنِ مَالِك + شَرْحُ ابْنِ عَقِيل',auth:'ابن مالك / ابن عقيل',desc:'1000 vers — texte de référence absolu.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=ألفية+ابن+مالك+شرح+ابن+عقيل',sh:'https://shamela.ws/search?q=ألفية+ابن+مالك'},
+      ]},
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'مُغْنِي اللَّبِيب',auth:'ابن هشام (ت.761هـ)',desc:'Encyclopédie de l\'analyse grammaticale.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مغني+اللبيب+ابن+هشام',sh:'https://shamela.ws/search?q=مغني+اللبيب'},
+        {n:2,ar:'كِتَابُ سِيبَوَيْه',auth:'سيبويه (ت.~180هـ)',desc:'Le monument fondateur de la grammaire.',bg:'linear-gradient(135deg,#3C3489,#26215C)',yt:'https://www.youtube.com/results?search_query=كتاب+سيبويه',sh:'https://shamela.ws/search?q=كتاب+سيبويه'},
+      ]},
+   ]},
+  {id:'sarf',icon:'🔤',labelAr:'الصَّرْف',label:'Morphologie',heroBg:'linear-gradient(135deg,#0C447C,#185FA5)',ava:'🔤',avaBg:'#E6F1FB',
+   system:`أنتَ الأستاذ الصرفي، وكيل ذكي متخصص في علم الصرف.
+المصادر: متن البناء، التصريف العزي، شذا العرف، لامية الأفعال.
+قواعد: أجب بالعربية المشكّلة ثم بالفرنسية. عند التصريف أعطِ الجدول الكامل.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+   levels:[
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى',labelFr:'Fondation',badge:'Débutant',numBg:'#185FA5',badgeC:'#E6F1FB',badgeTxt:'#0C447C',
+      books:[
+        {n:1,ar:'مَتْنُ البِنَاء — صَرْفٌ مُبَسَّط',auth:'متن كلاسيكي',desc:'Conjugaison et morphologie de base.',bg:'linear-gradient(135deg,#185FA5,#0C447C)',yt:'https://www.youtube.com/results?search_query=شرح+متن+البناء+صرف',sh:'https://shamela.ws/search?q=متن+البناء'},
+        {n:2,ar:'تَصْرِيفُ العِزِّي',auth:'الزنجاني (ت.655هـ)',desc:'Premier texte classique de morphologie.',bg:'linear-gradient(135deg,#378ADD,#185FA5)',yt:'https://www.youtube.com/results?search_query=تصريف+العزي+شرح',sh:'https://shamela.ws/search?q=تصريف+العزي'},
+      ]},
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'شَذَا العَرْفِ فِي فَنِّ الصَّرْف',auth:'أحمد الحملاوي',desc:'Morphologie intermédiaire — texte indispensable.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=شذا+العرف+في+الصرف',sh:'https://shamela.ws/search?q=شذا+العرف'},
+      ]},
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'المُنْصِف لِابْنِ جِنِّي',auth:'ابن جني (ت.392هـ)',desc:'Commentaire profond sur les formes morphologiques.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المنصف+ابن+جني',sh:'https://shamela.ws/search?q=المنصف+ابن+جني'},
+      ]},
+   ]},
+  {id:'balagha',icon:'✨',labelAr:'البَلاغَة',label:'Rhétorique',heroBg:'linear-gradient(135deg,#712B13,#D85A30)',ava:'✨',avaBg:'#FAECE7',
+   system:`أنتَ الأستاذ البلاغي، وكيل ذكي متخصص في علوم البلاغة.
+المصادر: البلاغة الواضحة، التلخيص، دلائل الإعجاز، أسرار البلاغة.
+قواعد: أجب بالعربية المشكّلة ثم بالفرنسية. أعطِ أمثلة من القرآن الكريم.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+   levels:[
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى',labelFr:'Fondation',badge:'Débutant',numBg:'#D85A30',badgeC:'#FAECE7',badgeTxt:'#712B13',
+      books:[
+        {n:1,ar:'البَلاغَةُ الوَاضِحَة',auth:'الجارم وأمين',desc:'Introduction claire aux 3 sciences rhétoriques.',bg:'linear-gradient(135deg,#D85A30,#993C1D)',yt:'https://www.youtube.com/results?search_query=البلاغة+الواضحة+شرح',sh:'https://shamela.ws/search?q=البلاغة+الواضحة'},
+      ]},
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'التَّلْخِيصُ فِي عُلُومِ البَلاغَة',auth:'القزويني (ت.739هـ)',desc:'Résumé classique des sciences rhétoriques.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=التلخيص+في+علوم+البلاغة',sh:'https://shamela.ws/search?q=التلخيص+البلاغة'},
+        {n:2,ar:'دَلائِلُ الإِعْجَاز',auth:'الجرجاني (ت.471هـ)',desc:'Chef-d\'œuvre de la rhétorique arabe.',bg:'linear-gradient(135deg,#D85A30,#712B13)',yt:'https://www.youtube.com/results?search_query=دلائل+الإعجاز+الجرجاني',sh:'https://shamela.ws/search?q=دلائل+الإعجاز'},
+      ]},
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'أَسْرَارُ البَلاغَة',auth:'الجرجاني (ت.471هـ)',desc:'Les secrets de la rhétorique — spécialisation.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=أسرار+البلاغة+الجرجاني',sh:'https://shamela.ws/search?q=أسرار+البلاغة'},
+      ]},
+   ]},
+  {id:'imla',icon:'✏️',labelAr:'الإِمْلاء',label:'Orthographe',heroBg:'linear-gradient(135deg,#27500A,#639922)',ava:'✏️',avaBg:'#EAF3DE',
+   system:`أنتَ الأستاذ الإملائي، وكيل ذكي متخصص في قواعد الإملاء والترقيم.
+قواعد: أجب بالعربية المشكّلة ثم بالفرنسية. أعطِ أمثلة تطبيقية. صحّح الأخطاء الشائعة.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+   levels:[
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى',labelFr:'Fondation',badge:'Débutant',numBg:'#639922',badgeC:'#EAF3DE',badgeTxt:'#27500A',
+      books:[
+        {n:1,ar:'قَوَاعِدُ الإِمْلاءِ وَالتَّرْقِيم',auth:'مهارة مستقلة',desc:'Orthographe et ponctuation arabes — essentiel.',bg:'linear-gradient(135deg,#639922,#3B6D11)',yt:'https://www.youtube.com/results?search_query=قواعد+الإملاء+العربي',sh:'https://shamela.ws/search?q=قواعد+الإملاء'},
+        {n:2,ar:'الإِمْلاءُ وَالتَّرْقِيم فِي الكِتَابَة',auth:'عبد العليم إبراهيم',desc:'Manuel pratique d\'orthographe.',bg:'linear-gradient(135deg,#97C459,#639922)',yt:'https://www.youtube.com/results?search_query=الإملاء+والترقيم+في+الكتابة',sh:'https://shamela.ws/search?q=الإملاء+والترقيم'},
+      ]},
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'مُعْجَمُ الأَخْطَاءِ الشَّائِعَة',auth:'محمد العدناني',desc:'Dictionnaire des erreurs fréquentes.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=معجم+الأخطاء+الشائعة',sh:'https://shamela.ws/search?q=معجم+الأخطاء+الشائعة'},
+      ]},
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'الصَّاحِبِي فِي فِقْهِ اللُّغَة',auth:'ابن فارس (ت.395هـ)',desc:'Philosophie de la langue arabe — niveau expert.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=الصاحبي+في+فقه+اللغة',sh:'https://shamela.ws/search?q=الصاحبي+فقه+اللغة'},
+      ]},
+   ]},
+  {id:'aswat',icon:'🎙️',labelAr:'الأَصْوَات',label:'Phonétique',heroBg:'linear-gradient(135deg,#712B13,#993C1D)',ava:'🎙️',avaBg:'#FAECE7',
+   system:`أنتَ الأستاذ الصوتي، وكيل ذكي متخصص في أصوات اللغة العربية.
+المصادر: تعليم وتعلم الأصوات العربية الصعبة لغير الناطقين بها — جامعة أم القرى.
+قواعد: أجب بالعربية المشكّلة ثم بالفرنسية. أعطِ تمارين عملية للنطق الصحيح.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+   levels:[
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — الأَصْوَاتُ الأَسَاسِيَّة',labelFr:'Sons de base',badge:'Débutant',numBg:'#D85A30',badgeC:'#FAECE7',badgeTxt:'#712B13',
+      books:[
+        {n:1,ar:'تَعْلِيمُ الأَصْوَاتِ العَرَبِيَّةِ الصَّعْبَة لِغَيْرِ النَّاطِقِين',auth:'عبد الفتاح بحيري — جامعة أم القرى',desc:'Livre unique — sons difficiles pour francophones.',bg:'linear-gradient(135deg,#D85A30,#993C1D)',yt:'https://www.youtube.com/results?search_query=الأصوات+العربية+الصعبة+للأجانب',sh:'https://shamela.ws/search?q=تعليم+الأصوات+العربية'},
+      ]},
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — المَخَارِج',labelFr:'Makhârij',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'عِلْمُ الأَصْوَاتِ العَرَبِيَّة',auth:'علماء متخصصون',desc:'Science des sons arabes — makhârij et sifât.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=علم+الأصوات+العربية+مخارج+الحروف',sh:'https://shamela.ws/search?q=علم+الأصوات+العربية'},
+      ]},
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'المَخَارِجُ وَالصِّفَات — ابْنُ الجَزَرِي',auth:'ابن الجزري (ت.833هـ)',desc:'La référence classique — makhârij et attributs.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مخارج+الحروف+ابن+الجزري',sh:'https://shamela.ws/search?q=مخارج+الحروف+ابن+الجزري'},
+      ]},
+   ]},
+];
+
+let curAgent='nahw',curLevels={nahw:0,sarf:0,balagha:0,imla:0,aswat:0};
+let chatHistory=[],curAgentData=null,isLoading=false;
+
+function getAgent(){return AGENTS.find(a=>a.id===curAgent);}
+function renderTabs(){
+  document.getElementById('agentTabs').innerHTML=AGENTS.map(a=>`
+    <button class="agent-btn${a.id===curAgent?' active':''}" onclick="switchAgent('${a.id}')">
+      ${a.icon} <span style="font-family:Amiri,serif;font-size:14px;">${a.labelAr}</span>
+    </button>`).join('');
+}
+function renderContent(){
+  const ag=getAgent(),lvIdx=curLevels[ag.id],lv=ag.levels[lvIdx];
+  document.getElementById('mainContent').innerHTML=`
+    <div class="agent-hero" style="background:${ag.heroBg}">
+      <div class="hero-inner">
+        <div class="hero-icon">${ag.icon}</div>
+        <div>
+          <div class="hero-ar">${ag.labelAr} — وَكِيلٌ ذَكِيٌّ مُتَخَصِّص</div>
+          <div class="hero-fr">${ag.label} — Agent intelligent • 3 niveaux</div>
+        </div>
+      </div>
+    </div>
+    <div class="agent-bar">
+      <div class="agt-ava" style="background:${ag.avaBg}">${ag.ava}</div>
+      <div class="agt-info"><div class="agt-name">الأُسْتَاذُ — وَكِيلُ ${ag.labelAr}</div><div class="agt-sub">Agent spécialisé — ${ag.label}</div></div>
+      <button class="agt-btn" onclick="openChat('','عام')">اسْأَلِ الوَكِيل</button>
+    </div>
+    <div class="levels-tabs">${ag.levels.map((l,i)=>`<button class="lvl-tab${i===lvIdx?' active':''}" onclick="switchLevel(${i})">${l.num}. ${l.labelFr}</button>`).join('')}</div>
+    <div class="level-info">
+      <div class="lv-num" style="background:${lv.numBg}">${lv.num}</div>
+      <div><div class="lv-title-ar">${lv.labelAr}</div><div class="lv-title-fr">${lv.labelFr}</div></div>
+      <span class="lv-badge" style="background:${lv.badgeC};color:${lv.badgeTxt}">${lv.badge}</span>
+    </div>
+    <div class="books-grid">${lv.books.map(b=>`
+      <div class="book-card">
+        <div class="book-cover" style="background:${b.bg}">
+          <span class="cover-n">${b.n}.</span>
+          <div class="cover-ar">${b.ar}</div>
+          <div class="cover-auth">${b.auth}</div>
+        </div>
+        <div class="book-body">
+          <div class="book-desc">${b.desc}</div>
+          <div class="book-links">
+            <a class="btn-lnk" href="${b.yt}" target="_blank">▶ يوتيوب</a>
+            <a class="btn-lnk" href="${b.sh}" target="_blank">📖 شاملة</a>
+          </div>
+          <button class="btn-agent" onclick="openChat('${b.ar.replace(/'/g,"\\'")}','${lv.badge}')">🤖 اسأل الوكيل ←</button>
+        </div>
+      </div>`).join('')}</div>`;
+}
+function switchAgent(id){curAgent=id;renderTabs();renderContent();}
+function switchLevel(i){curLevels[curAgent]=i;renderContent();}
+function openChat(bookAr,level){
+  const ag=getAgent();curAgentData=ag;chatHistory=[];
+  document.getElementById('mAva').textContent=ag.ava;
+  document.getElementById('mAva').style.background=ag.avaBg;
+  document.getElementById('mName').textContent='وَكِيلُ '+ag.labelAr;
+  document.getElementById('mLevel').textContent=bookAr?'📖 '+bookAr:'استشارة عامة — '+level;
+  document.getElementById('chatArea').innerHTML=`<div class="welcome">${ag.ava}<br>مرحباً — اسألني عن ${ag.labelAr}<br><small style="direction:ltr">Posez votre question en arabe ou en français</small></div>`;
+  document.getElementById('modalWrap').classList.add('open');
+  setTimeout(()=>document.getElementById('chatIn').focus(),100);
+}
+function closeModal(){document.getElementById('modalWrap').classList.remove('open');}
+function appendMsg(role,text){
+  const area=document.getElementById('chatArea');
+  const w=area.querySelector('.welcome');if(w)w.remove();
+  const div=document.createElement('div');div.className=`msg ${role}`;
+  div.innerHTML=role==='agent'
+    ?`<div class="m-av-sm" style="background:${curAgentData.avaBg}">${curAgentData.ava}</div><div class="bubble">${text.replace(/\n/g,'<br>')}</div>`
+    :`<div class="bubble">${text}</div>`;
+  area.appendChild(div);area.scrollTop=area.scrollHeight;
+}
+function showTyping(){
+  const area=document.getElementById('chatArea');
+  const d=document.createElement('div');d.className='msg agent';d.id='typEl';
+  d.innerHTML=`<div class="m-av-sm" style="background:${curAgentData.avaBg}">${curAgentData.ava}</div><div class="bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+  area.appendChild(d);area.scrollTop=area.scrollHeight;
+}
+function hideTyping(){const t=document.getElementById('typEl');if(t)t.remove();}
+async function callAgent(msg,level){
+  if(isLoading)return;
+  isLoading=true;document.getElementById('sendBtn').disabled=true;
+  showTyping();chatHistory.push({role:'user',content:msg});
+  try{
+    const r=await fetch('/.netlify/functions/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        system:curAgentData.system+'\n\nمستوى الطالب: '+(level||'عام'),
+        messages:chatHistory})
+    });
+    const data=await r.json();
+    if(!r.ok)throw new Error(data?.error||'HTTP '+r.status);
+    const reply=data.text||'عفواً، لا توجد إجابة.';
+    hideTyping();appendMsg('agent',reply);
+    chatHistory.push({role:'assistant',content:reply});
+  }catch(err){
+    hideTyping();
+    const area=document.getElementById('chatArea');
+    const d=document.createElement('div');d.className='err-msg';
+    d.innerHTML='⚠️ '+err.message;
+    area.appendChild(d);area.scrollTop=area.scrollHeight;
+  }
+  isLoading=false;document.getElementById('sendBtn').disabled=false;
+}
+function sendMsg(){
+  const inp=document.getElementById('chatIn');const msg=inp.value.trim();if(!msg)return;
+  inp.value='';inp.style.height='auto';appendMsg('user',msg);callAgent(msg,'عام');
+}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+document.getElementById('chatIn').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,70)+'px';});
+document.getElementById('modalWrap').addEventListener('click',function(e){if(e.target===this)closeModal();});
+renderTabs();renderContent();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

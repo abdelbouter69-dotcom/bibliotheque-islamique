@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مكتبة الفقه والفتاوى — ArchiART</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1A0E;direction:rtl;}
+.header{background:linear-gradient(135deg,#27500A,#639922);padding:1.25rem 1rem 1rem;text-align:center;}
+.basmala{font-family:'Amiri',serif;font-size:1.3rem;color:#FAC775;display:block;margin-bottom:6px;}
+.title-ar{font-family:'Amiri',serif;font-size:1.5rem;color:#fff;margin-bottom:2px;}
+.title-fr{font-size:11px;color:rgba(255,255,255,0.6);direction:ltr;margin-bottom:10px;}
+.pill{font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);border:0.5px solid rgba(255,255,255,0.2);display:inline-block;margin:2px;}
+.disclaimer{background:#fff3cd;border-radius:8px;padding:8px 12px;font-size:11px;color:#856404;text-align:center;margin:1rem;font-family:'Amiri',serif;}
+.agents-nav{background:#fff;border-bottom:1px solid #ddd;overflow-x:auto;position:sticky;top:0;z-index:50;}
+.agents-tabs{display:flex;min-width:max-content;}
+.agent-btn{display:flex;align-items:center;gap:6px;padding:.8rem .9rem;font-size:12px;color:#666;background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;font-family:'Noto Naskh Arabic',serif;}
+.agent-btn.active{color:#27500A;border-bottom-color:#639922;}
+.content{max-width:900px;margin:0 auto;padding:1rem 1rem 3rem;}
+.agent-hero{border-radius:12px;overflow:hidden;margin-bottom:1rem;}
+.hero-inner{padding:1rem 1.25rem;display:flex;align-items:center;gap:12px;}
+.hero-icon{font-size:2rem;flex-shrink:0;}
+.hero-ar{font-family:'Amiri',serif;font-size:1.2rem;color:#fff;line-height:1.7;}
+.hero-fr{font-size:11px;color:rgba(255,255,255,0.65);direction:ltr;}
+.agent-bar{background:#fff;border:1px solid #ddd;border-radius:12px;padding:.9rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.agt-ava{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.agt-info{flex:1;}
+.agt-name{font-family:'Amiri',serif;font-size:14px;}
+.agt-sub{font-size:11px;color:#888;direction:ltr;}
+.agt-btn{background:#27500A;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
+.levels-tabs{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap;}
+.lvl-tab{padding:5px 14px;border-radius:20px;font-size:11px;border:1px solid #ddd;background:#fff;color:#666;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
+.lvl-tab.active{background:#639922;border-color:#639922;color:#fff;}
+.level-info{background:#fff;border:1px solid #ddd;border-radius:12px;padding:.8rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
+.lv-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
+.lv-title-ar{font-family:'Amiri',serif;font-size:15px;}
+.lv-title-fr{font-size:10px;color:#888;}
+.lv-badge{margin-left:auto;font-size:10px;padding:3px 10px;border-radius:10px;}
+.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;}
+.book-card{background:#fff;border-radius:12px;border:1px solid #ddd;overflow:hidden;display:flex;flex-direction:column;}
+.book-cover{height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;position:relative;}
+.cover-n{position:absolute;top:5px;right:6px;font-size:9px;color:rgba(255,255,255,0.7);}
+.cover-ar{font-family:'Amiri',serif;font-size:12px;color:#fff;text-align:center;line-height:1.7;}
+.cover-auth{font-family:'Amiri',serif;font-size:9px;color:rgba(255,255,255,0.65);text-align:center;margin-top:3px;}
+.book-body{padding:8px 9px 9px;flex:1;display:flex;flex-direction:column;}
+.book-desc{font-size:10px;color:#666;line-height:1.5;flex:1;margin-bottom:6px;}
+.book-links{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:4px;}
+.btn-lnk{padding:3px 6px;border-radius:4px;font-size:9px;border:1px solid #ddd;background:#f5f5f5;color:#555;text-decoration:none;}
+.btn-agent{width:100%;padding:5px;border-radius:8px;font-size:10px;background:#27500A;color:#fff;border:none;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
+.modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;justify-content:center;}
+.modal-wrap.open{display:flex;}
+@media(min-width:600px){.modal-wrap{align-items:center;}}
+.modal{background:#fff;border-radius:12px 12px 0 0;width:100%;max-width:600px;max-height:88vh;display:flex;flex-direction:column;}
+@media(min-width:600px){.modal{border-radius:12px;max-height:80vh;}}
+.modal-head{display:flex;align-items:center;gap:10px;padding:.8rem 1rem;border-bottom:1px solid #eee;flex-shrink:0;}
+.m-ava{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.m-name{font-family:'Amiri',serif;font-size:14px;flex:1;}
+.m-close{background:none;border:none;font-size:20px;cursor:pointer;color:#888;}
+.chat-area{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:10px;}
+.msg{display:flex;gap:8px;max-width:92%;}
+.msg.user{flex-direction:row-reverse;align-self:flex-end;}
+.bubble{padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.8;font-family:'Amiri',serif;background:#f5f5f5;color:#2C1A0E;}
+.msg.user .bubble{background:#27500A;color:#fff;border-radius:12px 3px 12px 12px;}
+.msg.agent .bubble{border-radius:3px 12px 12px 12px;}
+.m-av-sm{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.typing-dots{display:flex;gap:4px;align-items:center;padding:10px 13px;}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:#888;animation:blink 1.2s infinite;}
+.typing-dots span:nth-child(2){animation-delay:.2s;}
+.typing-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.chat-foot{padding:.7rem .9rem;border-top:1px solid #eee;display:flex;gap:8px;flex-shrink:0;}
+.chat-in{flex:1;border:1px solid #ddd;border-radius:20px;padding:8px 13px;font-size:13px;outline:none;font-family:'Amiri',serif;background:#f9f9f9;resize:none;max-height:70px;color:#2C1A0E;}
+.chat-in:focus{border-color:#639922;}
+.chat-send{width:36px;height:36px;border-radius:50%;background:#27500A;color:#fff;border:none;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.chat-send:disabled{opacity:.35;}
+.welcome{text-align:center;padding:2rem 1rem;color:#888;font-size:13px;line-height:2;}
+</style>
+</head>
+<body>
+<div class="header">
+  <span class="basmala">بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ</span>
+  <div class="title-ar">مَكْتَبَةُ الفِقْهِ وَأُصُولِهِ وَالفَتَاوَى</div>
+  <div class="title-fr">Bibliothèque du Fiqh — Usûl + 4 Madhabs + Fatwas • ArchiART</div>
+  <div style="margin-top:8px;">
+    <span class="pill">⚖️ أصول الفقه</span>
+    <span class="pill">🟢 الحنفي</span>
+    <span class="pill">🟡 المالكي</span>
+    <span class="pill">🔵 الشافعي</span>
+    <span class="pill">🟤 الحنبلي</span>
+    <span class="pill">📋 الفتاوى</span>
+  </div>
+</div>
+<div class="disclaimer">⚠️ هَذِهِ المَكْتَبَةُ لِلتَّعْلِيمِ فَقَط — Consultez un savant qualifié pour les fatwas</div>
+<nav class="agents-nav"><div class="agents-tabs" id="agentTabs"></div></nav>
+<div class="content" id="mainContent"></div>
+<div class="modal-wrap" id="modalWrap">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="m-ava" id="mAva"></div>
+      <div style="flex:1;"><div class="m-name" id="mName"></div><div style="font-size:10px;color:#888;" id="mLevel"></div></div>
+      <button class="m-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="chat-area" id="chatArea"></div>
+    <div class="chat-foot">
+      <textarea class="chat-in" id="chatIn" rows="1" placeholder="اكتب سؤالك… / Votre question…" onkeydown="handleKey(event)"></textarea>
+      <button class="chat-send" id="sendBtn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+</div>
+<script>
+const AGENTS=[
+  {id:'usul',icon:'⚖️',labelAr:'أُصُولُ الفِقْه',label:'Fondements du Fiqh',
+   heroBg:'linear-gradient(135deg,#26215C,#534AB7)',ava:'⚖️',avaBg:'#EEEDFE',
+   system:`أنتَ وكيلٌ ذكيٌّ متخصص في أصول الفقه الإسلامي.
+مصادرك: الورقات للجويني، الأصول من علم الأصول لابن عثيمين، مذكرة الشنقيطي، الرسالة للشافعي.
+قواعد: أجب بالعربية المشكّلة ثم بالفرنسية. اشرح المصطلح مع مثال تطبيقي.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+   levels:[
+     {num:1,labelAr:'المُدْخَل',labelFr:'Introduction',badge:'Débutant',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'الأُصُولُ مِنْ عِلْمِ الأُصُول',auth:'الشيخ ابن عثيمين (ت.1421هـ)',desc:'Introduction simple aux Usûl — très accessible.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=الأصول+من+علم+الأصول+ابن+عثيمين+شرح',sh:'https://shamela.ws/search?q=الأصول+من+علم+الأصول'},
+        {n:2,ar:'الوَرَقَات',auth:'إمام الحرمين الجويني (ت.478هـ)',desc:'Texte fondateur des Usûl — court et mémorisable.',bg:'linear-gradient(135deg,#AFA9EC,#7F77DD)',yt:'https://www.youtube.com/results?search_query=الورقات+الجويني+شرح+مبسط',sh:'https://shamela.ws/search?q=الورقات+الجويني'},
+      ]},
+     {num:2,labelAr:'القَوَاعِد',labelFr:'Règles et principes',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'مُذَكِّرَةُ أُصُولِ الفِقْه',auth:'الشيخ الشنقيطي (ت.1393هـ)',desc:'Manuel complet — cours de l\'Université islamique.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=مذكرة+أصول+الفقه+الشنقيطي+شرح',sh:'https://shamela.ws/search?q=مذكرة+أصول+الفقه+الشنقيطي'},
+      ]},
+     {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
+      books:[
+        {n:1,ar:'الرِّسَالَة — الإِمَام الشَّافِعِي',auth:'الإمام الشافعي (ت.204هـ)',desc:'Le premier livre d\'Usûl Al-Fiqh dans l\'Islam.',bg:'linear-gradient(135deg,#534AB7,#3C3489)',yt:'https://www.youtube.com/results?search_query=الرسالة+الشافعي+أصول+الفقه',sh:'https://shamela.ws/search?q=الرسالة+الشافعي'},
+      ]},
+   ]},
+  {id:'hanafi',icon:'🟢',labelAr:'الفِقْهُ الحَنَفِي',label:'Fiqh Hanafî',
+   heroBg:'linear-gradient(135deg,#27500A,#639922)',ava:'🟢',avaBg:'#EAF3DE',
+   system:`أنتَ وكيلٌ ذكيٌّ متخصص في الفقه الحنفي. للتعليم فقط — استشر عالماً للفتوى.
+مصادرك: مختصر القدوري، الهداية، الموسوعة الفقهية الحنفية.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]\n⚠️ للتعلم فقط.`,
+   levels:[
+     {num:1,labelAr:'التَّأْسِيس',labelFr:'Fondements',badge:'Débutant',numBg:'#639922',badgeC:'#EAF3DE',badgeTxt:'#27500A',
+      books:[
+        {n:1,ar:'مُخْتَصَرُ القُدُورِي',auth:'القدوري (ت.428هـ)',desc:'Texte fondateur du Fiqh Hanafî.',bg:'linear-gradient(135deg,#639922,#3B6D11)',yt:'https://www.youtube.com/results?search_query=مختصر+القدوري+شرح+مبسط',sh:'https://shamela.ws/search?q=مختصر+القدوري'},
+      ]},
+     {num:2,labelAr:'التَّوَسُّط',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'الهِدَايَة',auth:'المرغيناني (ت.593هـ)',desc:'Référence centrale du Fiqh Hanafî.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=الهداية+المرغيناني+شرح',sh:'https://shamela.ws/search?q=الهداية+المرغيناني'},
+      ]},
+     {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
+      books:[
+        {n:1,ar:'بَدَائِعُ الصَّنَائِع',auth:'الكاساني (ت.587هـ)',desc:'Encyclopédie du Fiqh Hanafî.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=بدائع+الصنائع+الكاساني',sh:'https://shamela.ws/search?q=بدائع+الصنائع'},
+      ]},
+   ]},
+  {id:'maliki',icon:'🟡',labelAr:'الفِقْهُ المَالِكِي',label:'Fiqh Mâlikî',
+   heroBg:'linear-gradient(135deg,#633806,#EF9F27)',ava:'🟡',avaBg:'#FAEEDA',
+   system:`أنتَ وكيلٌ ذكيٌّ متخصص في الفقه المالكي. للتعليم فقط — استشر عالماً للفتوى.
+مصادرك: الموطأ، مختصر خليل، الرسالة، الموسوعة الفقهية المالكية.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]\n⚠️ للتعلم فقط.`,
+   levels:[
+     {num:1,labelAr:'التَّأْسِيس',labelFr:'Fondements',badge:'Débutant',numBg:'#EF9F27',badgeC:'#FAEEDA',badgeTxt:'#633806',
+      books:[
+        {n:1,ar:'الرِّسَالَة — ابْنُ أَبِي زَيْد',auth:'ابن أبي زيد القيرواني (ت.386هـ)',desc:'Introduction au Fiqh Mâlikî.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=رسالة+ابن+أبي+زيد+القيرواني+شرح',sh:'https://shamela.ws/search?q=رسالة+ابن+أبي+زيد'},
+        {n:2,ar:'مُخْتَصَرُ خَلِيل',auth:'خليل بن إسحاق (ت.767هـ)',desc:'Texte central — Afrique et Maghreb.',bg:'linear-gradient(135deg,#FAC775,#EF9F27)',yt:'https://www.youtube.com/results?search_query=مختصر+خليل+شرح',sh:'https://shamela.ws/search?q=مختصر+خليل'},
+      ]},
+     {num:2,labelAr:'التَّوَسُّط',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#BA7517',badgeC:'#FAEEDA',badgeTxt:'#633806',
+      books:[
+        {n:1,ar:'المُوَطَّأ',auth:'الإمام مالك (ت.179هـ)',desc:'Source première du Fiqh Mâlikî.',bg:'linear-gradient(135deg,#BA7517,#854F0B)',yt:'https://www.youtube.com/results?search_query=الموطأ+مالك+شرح',sh:'https://shamela.ws/search?q=الموطأ+مالك'},
+      ]},
+     {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
+      books:[
+        {n:1,ar:'المُدَوَّنَة',auth:'الإمام مالك / سحنون',desc:'Monument du Fiqh Mâlikî.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المدونة+الإمام+مالك',sh:'https://shamela.ws/search?q=المدونة+مالك'},
+      ]},
+   ]},
+  {id:'shafii',icon:'🔵',labelAr:'الفِقْهُ الشَّافِعِي',label:"Fiqh Shâfiʿî",
+   heroBg:'linear-gradient(135deg,#0C447C,#185FA5)',ava:'🔵',avaBg:'#E6F1FB',
+   system:`أنتَ وكيلٌ ذكيٌّ متخصص في الفقه الشافعي. للتعليم فقط — استشر عالماً للفتوى.
+مصادرك: متن أبي شجاع، منهاج الطالبين، المجموع، كتاب الأم.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]\n⚠️ للتعلم فقط.`,
+   levels:[
+     {num:1,labelAr:'التَّأْسِيس',labelFr:'Fondements',badge:'Débutant',numBg:'#185FA5',badgeC:'#E6F1FB',badgeTxt:'#0C447C',
+      books:[
+        {n:1,ar:'مَتْنُ أَبِي شُجَاع',auth:'أبو شجاع الأصفهاني',desc:'Texte de base du Fiqh Shâfiʿî.',bg:'linear-gradient(135deg,#185FA5,#0C447C)',yt:'https://www.youtube.com/results?search_query=متن+أبي+شجاع+شرح+مبسط',sh:'https://shamela.ws/search?q=متن+أبي+شجاع'},
+        {n:2,ar:'سَفِينَةُ النَّجَاة',auth:'سالم بن سمير الحضرمي',desc:'Résumé des obligations.',bg:'linear-gradient(135deg,#378ADD,#185FA5)',yt:'https://www.youtube.com/results?search_query=سفينة+النجاة+شرح',sh:'https://shamela.ws/search?q=سفينة+النجاة'},
+      ]},
+     {num:2,labelAr:'التَّوَسُّط',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'مِنْهَاجُ الطَّالِبِين',auth:'الإمام النووي (ت.676هـ)',desc:'Référence centrale du Fiqh Shâfiʿî.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=منهاج+الطالبين+النووي+شرح',sh:'https://shamela.ws/search?q=منهاج+الطالبين'},
+      ]},
+     {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
+      books:[
+        {n:1,ar:'المَجْمُوع',auth:'الإمام النووي (ت.676هـ)',desc:'Encyclopédie — 20+ volumes.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المجموع+النووي',sh:'https://shamela.ws/search?q=المجموع+النووي'},
+      ]},
+   ]},
+  {id:'hanbali',icon:'🟤',labelAr:'الفِقْهُ الحَنْبَلِي',label:'Fiqh Hanbalî',
+   heroBg:'linear-gradient(135deg,#712B13,#D85A30)',ava:'🟤',avaBg:'#FAECE7',
+   system:`أنتَ وكيلٌ ذكيٌّ متخصص في الفقه الحنبلي. للتعليم فقط — استشر عالماً للفتوى.
+مصادرك: عمدة الفقه، زاد المستقنع، الروض المربع، المغني.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]\n⚠️ للتعلم فقط.`,
+   levels:[
+     {num:1,labelAr:'التَّأْسِيس',labelFr:'Fondements',badge:'Débutant',numBg:'#D85A30',badgeC:'#FAECE7',badgeTxt:'#712B13',
+      books:[
+        {n:1,ar:'عُمْدَةُ الفِقْه',auth:'ابن قدامة (ت.620هـ)',desc:'Texte de base du Fiqh Hanbalî.',bg:'linear-gradient(135deg,#D85A30,#993C1D)',yt:'https://www.youtube.com/results?search_query=عمدة+الفقه+ابن+قدامة+شرح',sh:'https://shamela.ws/search?q=عمدة+الفقه'},
+        {n:2,ar:'زَادُ المُسْتَقْنِع',auth:'الحجاوي (ت.968هـ)',desc:'Texte de référence — universités islamiques.',bg:'linear-gradient(135deg,#F0997B,#D85A30)',yt:'https://www.youtube.com/results?search_query=زاد+المستقنع+شرح',sh:'https://shamela.ws/search?q=زاد+المستقنع'},
+      ]},
+     {num:2,labelAr:'التَّوَسُّط',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'الرَّوْضُ المُرْبِع',auth:'البهوتي (ت.1051هـ)',desc:'Commentaire du Zâd — référence Hanbalî.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=الروض+المربع+شرح',sh:'https://shamela.ws/search?q=الروض+المربع'},
+      ]},
+     {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
+      books:[
+        {n:1,ar:'المُغْنِي',auth:'ابن قدامة (ت.620هـ)',desc:'Encyclopédie — 15 volumes — sommet.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المغني+ابن+قدامة',sh:'https://shamela.ws/search?q=المغني+ابن+قدامة'},
+      ]},
+   ]},
+  {id:'fatawa',icon:'📋',labelAr:'الفَتَاوَى المُعَاصِرَة',label:'Fatwas contemporaines',
+   heroBg:'linear-gradient(135deg,#26215C,#534AB7)',ava:'📋',avaBg:'#EEEDFE',
+   system:`أنتَ وكيلٌ ذكيٌّ متخصص في الفتاوى المعاصرة. للتعليم فقط — استشر عالماً للفتوى.
+مصادرك: فتاوى اللجنة الدائمة، فتاوى ابن باز، فتاوى ابن عثيمين.
+قواعد: انقل الفتاوى الموثقة فقط مع ذكر المصدر. لا تُفتِ من عندك أبداً.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]\n⚠️ للتعليم فقط — استشر عالماً.`,
+   levels:[
+     {num:1,labelAr:'فَتَاوَى العِبَادَات',labelFr:'Actes de culte',badge:'Débutant',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'مَجْمُوعُ فَتَاوَى ابْنِ بَاز',auth:'الشيخ ابن باز (ت.1420هـ)',desc:'30 volumes de fatwas complètes.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مجموع+فتاوى+ابن+باز',sh:'https://shamela.ws/search?q=مجموع+فتاوى+ابن+باز'},
+        {n:2,ar:'مَجْمُوعُ فَتَاوَى ابْنِ عُثَيْمِين',auth:'الشيخ ابن عثيمين (ت.1421هـ)',desc:'25 volumes — très argumentées.',bg:'linear-gradient(135deg,#AFA9EC,#7F77DD)',yt:'https://www.youtube.com/results?search_query=مجموع+فتاوى+ابن+عثيمين',sh:'https://shamela.ws/search?q=مجموع+فتاوى+ابن+عثيمين'},
+      ]},
+     {num:2,labelAr:'فَتَاوَى المُعَامَلَات',labelFr:'Transactions',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'فَتَاوَى اللَّجْنَةِ الدَّائِمَة',auth:'اللجنة الدائمة للبحوث العلمية والإفتاء',desc:'Fatwas officielles du Royaume.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=فتاوى+اللجنة+الدائمة',sh:'https://shamela.ws/search?q=فتاوى+اللجنة+الدائمة'},
+      ]},
+     {num:3,labelAr:'النَّوَازِل',labelFr:'Questions contemporaines',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
+      books:[
+        {n:1,ar:'مَوْسُوعَةُ هَيْئَةِ كِبَارِ العُلَمَاء',auth:'هيئة كبار العلماء',desc:'Décisions officielles — questions contemporaines.',bg:'linear-gradient(135deg,#534AB7,#3C3489)',yt:'https://www.youtube.com/results?search_query=موسوعة+هيئة+كبار+العلماء',sh:'https://shamela.ws/search?q=موسوعة+هيئة+كبار+العلماء'},
+      ]},
+   ]},
+];
+
+let curAgent='usul',curLevels={usul:0,hanafi:0,maliki:0,shafii:0,hanbali:0,fatawa:0};
+let chatHistory=[],curAgentData=null,isLoading=false;
+function getAgent(){return AGENTS.find(a=>a.id===curAgent);}
+function renderTabs(){
+  document.getElementById('agentTabs').innerHTML=AGENTS.map(a=>`
+    <button class="agent-btn${a.id===curAgent?' active':''}" onclick="switchAgent('${a.id}')">
+      ${a.icon} <span style="font-family:Amiri,serif;font-size:14px;">${a.labelAr}</span>
+    </button>`).join('');
+}
+function renderContent(){
+  const ag=getAgent(),lvIdx=curLevels[ag.id],lv=ag.levels[lvIdx];
+  document.getElementById('mainContent').innerHTML=`
+    <div class="agent-hero" style="background:${ag.heroBg}">
+      <div class="hero-inner">
+        <div class="hero-icon">${ag.icon}</div>
+        <div><div class="hero-ar">${ag.labelAr} — وَكِيلٌ ذَكِيٌّ</div><div class="hero-fr">${ag.label}</div></div>
+      </div>
+    </div>
+    <div class="agent-bar">
+      <div class="agt-ava" style="background:${ag.avaBg}">${ag.ava}</div>
+      <div class="agt-info"><div class="agt-name">وَكِيلُ ${ag.labelAr}</div><div class="agt-sub">${ag.label}</div></div>
+      <button class="agt-btn" onclick="openChat('','عام')">اسْأَلِ الوَكِيل</button>
+    </div>
+    <div class="levels-tabs">${ag.levels.map((l,i)=>`<button class="lvl-tab${i===lvIdx?' active':''}" onclick="switchLevel(${i})">${l.num}. ${l.labelFr}</button>`).join('')}</div>
+    <div class="level-info">
+      <div class="lv-num" style="background:${lv.numBg}">${lv.num}</div>
+      <div><div class="lv-title-ar">${lv.labelAr}</div><div class="lv-title-fr">${lv.labelFr}</div></div>
+      <span class="lv-badge" style="background:${lv.badgeC};color:${lv.badgeTxt}">${lv.badge}</span>
+    </div>
+    <div class="books-grid">${lv.books.map(b=>`
+      <div class="book-card">
+        <div class="book-cover" style="background:${b.bg}">
+          <span class="cover-n">${b.n}.</span>
+          <div class="cover-ar">${b.ar}</div>
+          <div class="cover-auth">${b.auth}</div>
+        </div>
+        <div class="book-body">
+          <div class="book-desc">${b.desc}</div>
+          <div class="book-links">
+            <a class="btn-lnk" href="${b.yt}" target="_blank">▶ يوتيوب</a>
+            <a class="btn-lnk" href="${b.sh}" target="_blank">📖 شاملة</a>
+          </div>
+          <button class="btn-agent" onclick="openChat('${b.ar.replace(/'/g,"\\'")}','${lv.badge}')">🤖 اسأل الوكيل ←</button>
+        </div>
+      </div>`).join('')}</div>`;
+}
+function switchAgent(id){curAgent=id;renderTabs();renderContent();}
+function switchLevel(i){curLevels[curAgent]=i;renderContent();}
+function openChat(bookAr,level){
+  const ag=getAgent();curAgentData=ag;chatHistory=[];
+  document.getElementById('mAva').textContent=ag.ava;
+  document.getElementById('mAva').style.background=ag.avaBg;
+  document.getElementById('mName').textContent='وَكِيلُ '+ag.labelAr;
+  document.getElementById('mLevel').textContent=bookAr?'📖 '+bookAr:'استشارة عامة';
+  document.getElementById('chatArea').innerHTML=`<div class="welcome">${ag.ava}<br>مرحباً — اسألني عن ${ag.labelAr}<br><small style="direction:ltr">⚠️ Pour l'éducation — Consultez un savant pour les fatwas</small></div>`;
+  document.getElementById('modalWrap').classList.add('open');
+  setTimeout(()=>document.getElementById('chatIn').focus(),100);
+}
+function closeModal(){document.getElementById('modalWrap').classList.remove('open');}
+function appendMsg(role,text){
+  const area=document.getElementById('chatArea');
+  const w=area.querySelector('.welcome');if(w)w.remove();
+  const div=document.createElement('div');div.className=`msg ${role}`;
+  div.innerHTML=role==='agent'
+    ?`<div class="m-av-sm" style="background:${curAgentData.avaBg}">${curAgentData.ava}</div><div class="bubble">${text.replace(/\n/g,'<br>')}</div>`
+    :`<div class="bubble">${text}</div>`;
+  area.appendChild(div);area.scrollTop=area.scrollHeight;
+}
+function showTyping(){
+  const area=document.getElementById('chatArea');
+  const d=document.createElement('div');d.className='msg agent';d.id='typEl';
+  d.innerHTML=`<div class="m-av-sm" style="background:${curAgentData.avaBg}">${curAgentData.ava}</div><div class="bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+  area.appendChild(d);area.scrollTop=area.scrollHeight;
+}
+function hideTyping(){const t=document.getElementById('typEl');if(t)t.remove();}
+async function callAgent(msg,level){
+  if(isLoading)return;
+  isLoading=true;document.getElementById('sendBtn').disabled=true;
+  showTyping();chatHistory.push({role:'user',content:msg});
+  try{
+    const r=await fetch('/.netlify/functions/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        system:curAgentData.system+'\n\nمستوى الطالب: '+(level||'عام'),
+        messages:chatHistory})
+    });
+    const data=await r.json();
+    if(!r.ok)throw new Error(data?.error||'HTTP '+r.status);
+    const reply=data.text||'عفواً.';
+    hideTyping();appendMsg('agent',reply);
+    chatHistory.push({role:'assistant',content:reply});
+  }catch(err){
+    hideTyping();
+    const d=document.createElement('div');
+    d.style.cssText='background:#fff3cd;padding:8px;border-radius:8px;font-size:11px;direction:ltr;text-align:center;';
+    d.innerHTML='⚠️ '+err.message;
+    document.getElementById('chatArea').appendChild(d);
+  }
+  isLoading=false;document.getElementById('sendBtn').disabled=false;
+}
+function sendMsg(){
+  const inp=document.getElementById('chatIn');const msg=inp.value.trim();if(!msg)return;
+  inp.value='';inp.style.height='auto';appendMsg('user',msg);callAgent(msg,'عام');
+}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+document.getElementById('chatIn').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,70)+'px';});
+document.getElementById('modalWrap').addEventListener('click',function(e){if(e.target===this)closeModal();});
+renderTabs();renderContent();
+</script>
+</body>
+</html>
