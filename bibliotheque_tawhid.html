@@ -16,7 +16,7 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 .agents-nav{background:#fff;border-bottom:1px solid #ddd;overflow-x:auto;position:sticky;top:0;z-index:50;}
 .agents-tabs{display:flex;min-width:max-content;}
 .agent-btn{display:flex;align-items:center;gap:6px;padding:.8rem .9rem;font-size:12px;color:#666;background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;font-family:'Noto Naskh Arabic',serif;}
-.agent-btn.active{color:#085041;border-bottom-color:#1D9E75;}
+.agent-btn.active{color:#26215C;border-bottom-color:#534AB7;}
 .content{max-width:900px;margin:0 auto;padding:1rem 1rem 3rem;}
 .agent-hero{border-radius:12px;overflow:hidden;margin-bottom:1rem;}
 .hero-inner{padding:1rem 1.25rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
@@ -31,7 +31,7 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 .agt-btn{background:#26215C;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
 .levels-tabs{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap;}
 .lvl-tab{padding:5px 14px;border-radius:20px;font-size:11px;border:1px solid #ddd;background:#fff;color:#666;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
-.lvl-tab.active{background:#1D9E75;border-color:#534AB7;color:#fff;}
+.lvl-tab.active{background:#534AB7;border-color:#26215C;color:#fff;}
 .level-info{background:#fff;border:1px solid #ddd;border-radius:12px;padding:.8rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
 .lv-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
 .lv-title-ar{font-family:'Amiri',serif;font-size:15px;}
@@ -84,11 +84,10 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
   <div class="title-ar">مَكْتَبَةُ التَّوْحِيدِ الذَّكِيَّة</div>
   <div class="title-fr">Bibliothèque intelligente du Tawhid — ArchiART</div>
   <div style="margin-top:8px;">
-    <span class="pill">📖 النحو</span>
-    <span class="pill">🔤 الصرف</span>
-    <span class="pill">✨ البلاغة</span>
-    <span class="pill">✏️ الإملاء</span>
-    <span class="pill">🎙️ الأصوات</span>
+    <span class="pill">☝️ التوحيد وأقسامه</span>
+    <span class="pill">🌿 الأسماء والصفات</span>
+    <span class="pill">⚠️ الشرك ونواقضه</span>
+    <span class="pill">📜 أصول العقيدة</span>
   </div>
 </div>
 <nav class="agents-nav"><div class="agents-tabs" id="agentTabs"></div></nav>
@@ -109,110 +108,90 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 </div>
 <script>
 const AGENTS=[
-  {id:'nahw',icon:'📖',labelAr:'النَّحْو',label:'Grammaire',heroBg:'linear-gradient(135deg,#085041,#1D9E75)',ava:'📖',avaBg:'#E1F5EE',
-   system:`أنتَ الأستاذ النحوي، وكيل ذكي متخصص في النحو العربي الكلاسيكي.
-المصادر: الآجرومية، التحفة السنية، ألفية ابن مالك، شرح ابن عقيل، قطر الندى، مغني اللبيب.
-قواعد: أجب بالعربية المشكّلة أولاً ثم بالفرنسية. عند الإعراب أعرب كلمة بكلمة. اذكر المصدر دائماً.
+  {id:'tawhid_aqsam',icon:'☝️',labelAr:'التَّوْحِيدُ وَأَقْسَامُه',label:'Tawhid et ses divisions',heroBg:'linear-gradient(135deg,#26215C,#534AB7)',ava:'☝️',avaBg:'#EEEDFE',
+   system:`أنتَ شيخٌ عالمٌ متخصص في التوحيد وأقسامه الثلاثة: توحيد الربوبية، وتوحيد الألوهية، وتوحيد الأسماء والصفات.
+المصادر: كتاب التوحيد وفتح المجيد لآل الشيخ، الأصول الثلاثة والقواعد الأربع لابن عبد الوهاب، مؤلفات ابن تيمية وابن القيم.
+قواعد: أجب بالعربية المشكّلة أولاً ثم بالفرنسية. استشهد بالأدلة من القرآن والسنة بالتشكيل الكامل.
 الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]\nيُنصح بمراجعة شيخ متخصص.`,
    levels:[
-     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — التَّأْسِيس',labelFr:'Fondation',badge:'Débutant',numBg:'#1D9E75',badgeC:'#E1F5EE',badgeTxt:'#085041',
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — التَّأْسِيس',labelFr:'Fondation',badge:'Débutant',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#26215C',
       books:[
-        {n:1,ar:'النَّحْوُ الوَاضِح',auth:'الجارم وأمين',desc:'Bases de la grammaire — approche simple.',bg:'linear-gradient(135deg,#1D9E75,#085041)',yt:'https://www.youtube.com/results?search_query=النحو+الواضح+شرح',sh:'https://shamela.ws/search?q=النحو+الواضح'},
-        {n:2,ar:'الآجُرُّومِيَّة + التُّحْفَة',auth:'ابن آجرّوم / ابن هشام',desc:'Premier texte classique + commentaire.',bg:'linear-gradient(135deg,#5DCAA5,#1D9E75)',yt:'https://www.youtube.com/results?search_query=الآجرومية+شرح+مبسط',sh:'https://shamela.ws/search?q=الآجرومية'},
-        {n:3,ar:'مُلْحَةُ الإِعْرَاب',auth:'الحريري (ت.516هـ)',desc:'Poème mnémotechnique pour les règles.',bg:'linear-gradient(135deg,#9FE1CB,#5DCAA5)',yt:'https://www.youtube.com/results?search_query=ملحة+الإعراب+شرح',sh:'https://shamela.ws/search?q=ملحة+الإعراب'},
+        {n:1,ar:'الأُصُولُ الثَّلاثَة',auth:'محمد بن عبد الوهاب (ت.1206هـ)',desc:'Les trois questions fondamentales : Ton Seigneur, Ta religion, Ton Prophète.',bg:'linear-gradient(135deg,#534AB7,#26215C)',yt:'https://www.youtube.com/results?search_query=شرح+الأصول+الثلاثة+ابن+عثيمين',sh:'https://shamela.ws/search?q=الأصول+الثلاثة+ابن+عبد+الوهاب'},
+        {n:2,ar:'القَوَاعِدُ الأَرْبَع',auth:'محمد بن عبد الوهاب (ت.1206هـ)',desc:'Quatre règles pour distinguer le Tawhid du Shirk — texte court et essentiel.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=شرح+القواعد+الأربع+ابن+عثيمين',sh:'https://shamela.ws/search?q=القواعد+الأربع+ابن+عبد+الوهاب'},
       ]},
      {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — التَّوَسُّط',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'قَطْرُ النَّدَى + شُذُورُ الذَّهَب',auth:'ابن هشام (ت.761هـ)',desc:'Extension progressive — deux textes complémentaires.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=قطر+الندى+ابن+هشام',sh:'https://shamela.ws/search?q=قطر+الندى'},
-        {n:2,ar:'أَلْفِيَّة ابْنِ مَالِك + شَرْحُ ابْنِ عَقِيل',auth:'ابن مالك / ابن عقيل',desc:'1000 vers — texte de référence absolu.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=ألفية+ابن+مالك+شرح+ابن+عقيل',sh:'https://shamela.ws/search?q=ألفية+ابن+مالك'},
+        {n:1,ar:'كِتَابُ التَّوْحِيد',auth:'محمد بن عبد الوهاب (ت.1206هـ)',desc:'La référence — droits d\'Allah sur Ses serviteurs, chapitres par chapitres.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=شرح+كتاب+التوحيد+ابن+عثيمين+كامل',sh:'https://shamela.ws/search?q=كتاب+التوحيد+ابن+عبد+الوهاب'},
       ]},
      {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
       books:[
-        {n:1,ar:'مُغْنِي اللَّبِيب',auth:'ابن هشام (ت.761هـ)',desc:'Encyclopédie de l\'analyse grammaticale.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مغني+اللبيب+ابن+هشام',sh:'https://shamela.ws/search?q=مغني+اللبيب'},
-        {n:2,ar:'كِتَابُ سِيبَوَيْه',auth:'سيبويه (ت.~180هـ)',desc:'Le monument fondateur de la grammaire.',bg:'linear-gradient(135deg,#3C3489,#26215C)',yt:'https://www.youtube.com/results?search_query=كتاب+سيبويه',sh:'https://shamela.ws/search?q=كتاب+سيبويه'},
+        {n:1,ar:'فَتْحُ المَجِيدِ شَرْحُ كِتَابِ التَّوْحِيد',auth:'عبد الرحمن بن حسن آل الشيخ (ت.1285هـ)',desc:'Grand commentaire classique du Kitab al-Tawhid — référence des savants.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=شرح+فتح+المجيد+كتاب+التوحيد',sh:'https://shamela.ws/search?q=فتح+المجيد+شرح+كتاب+التوحيد'},
+        {n:2,ar:'القَوْلُ المُفِيدُ عَلَى كِتَابِ التَّوْحِيد',auth:'محمد بن صالح العثيمين (ت.2001م)',desc:'Commentaire détaillé et accessible — référence du XXe siècle.',bg:'linear-gradient(135deg,#3C3489,#26215C)',yt:'https://www.youtube.com/results?search_query=القول+المفيد+على+كتاب+التوحيد+ابن+عثيمين',sh:'https://shamela.ws/search?q=القول+المفيد+على+كتاب+التوحيد'},
       ]},
    ]},
-  {id:'sarf',icon:'🔤',labelAr:'الصَّرْف',label:'Morphologie',heroBg:'linear-gradient(135deg,#0C447C,#185FA5)',ava:'🔤',avaBg:'#E6F1FB',
-   system:`أنتَ الأستاذ الصرفي، وكيل ذكي متخصص في علم الصرف.
-المصادر: متن البناء، التصريف العزي، شذا العرف، لامية الأفعال.
-قواعد: أجب بالعربية المشكّلة ثم بالفرنسية. عند التصريف أعطِ الجدول الكامل.
-الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+  {id:'asma',icon:'🌿',labelAr:'الأَسْمَاءُ وَالصِّفَات',label:'Noms et Attributs divins',heroBg:'linear-gradient(135deg,#0C447C,#185FA5)',ava:'🌿',avaBg:'#E6F1FB',
+   system:`أنتَ عالمٌ متخصص في باب الأسماء والصفات. تُعلّم منهج أهل السنة والجماعة: الإثبات بلا تمثيل، والتنزيه بلا تعطيل.
+المصادر: لمعة الاعتقاد لابن قدامة، العقيدة الواسطية لابن تيمية، شرح الواسطية للعثيمين، درء تعارض العقل والنقل لابن تيمية.
+قواعد: أجب بالعربية المشكّلة أولاً ثم بالفرنسية. استشهد بالآيات والأحاديث مع التشكيل.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]\nيُنصح بمراجعة أهل العلم.`,
    levels:[
-     {num:1,labelAr:'المَرْحَلَةُ الأُولَى',labelFr:'Fondation',badge:'Débutant',numBg:'#185FA5',badgeC:'#E6F1FB',badgeTxt:'#0C447C',
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — الأُسُس',labelFr:'Fondation',badge:'Débutant',numBg:'#185FA5',badgeC:'#E6F1FB',badgeTxt:'#0C447C',
       books:[
-        {n:1,ar:'مَتْنُ البِنَاء — صَرْفٌ مُبَسَّط',auth:'متن كلاسيكي',desc:'Conjugaison et morphologie de base.',bg:'linear-gradient(135deg,#185FA5,#0C447C)',yt:'https://www.youtube.com/results?search_query=شرح+متن+البناء+صرف',sh:'https://shamela.ws/search?q=متن+البناء'},
-        {n:2,ar:'تَصْرِيفُ العِزِّي',auth:'الزنجاني (ت.655هـ)',desc:'Premier texte classique de morphologie.',bg:'linear-gradient(135deg,#378ADD,#185FA5)',yt:'https://www.youtube.com/results?search_query=تصريف+العزي+شرح',sh:'https://shamela.ws/search?q=تصريف+العزي'},
+        {n:1,ar:'لُمْعَةُ الاعْتِقَاد',auth:'ابن قدامة المقدسي (ت.620هـ)',desc:'Texte concis sur les attributs divins — clair, bref, indispensable pour débuter.',bg:'linear-gradient(135deg,#185FA5,#0C447C)',yt:'https://www.youtube.com/results?search_query=شرح+لمعة+الاعتقاد+ابن+عثيمين',sh:'https://shamela.ws/search?q=لمعة+الاعتقاد+ابن+قدامة'},
       ]},
-     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — التَّعَمُّق',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'شَذَا العَرْفِ فِي فَنِّ الصَّرْف',auth:'أحمد الحملاوي',desc:'Morphologie intermédiaire — texte indispensable.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=شذا+العرف+في+الصرف',sh:'https://shamela.ws/search?q=شذا+العرف'},
+        {n:1,ar:'العَقِيدَةُ الوَاسِطِيَّة',auth:'ابن تيمية (ت.728هـ)',desc:'Chef-d\'œuvre — exposé du manhaj d\'Ahl al-Sunna sur les noms et attributs.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=شرح+العقيدة+الواسطية+ابن+عثيمين+كامل',sh:'https://shamela.ws/search?q=العقيدة+الواسطية+ابن+تيمية'},
+        {n:2,ar:'شَرْحُ العَقِيدَةِ الوَاسِطِيَّة',auth:'محمد بن صالح العثيمين (ت.2001م)',desc:'Commentaire détaillé — clarté et rigueur exceptionnelles.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=شرح+الواسطية+ابن+عثيمين+كامل',sh:'https://shamela.ws/search?q=شرح+الواسطية+العثيمين'},
       ]},
-     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — الإِتْقَان',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
       books:[
-        {n:1,ar:'المُنْصِف لِابْنِ جِنِّي',auth:'ابن جني (ت.392هـ)',desc:'Commentaire profond sur les formes morphologiques.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المنصف+ابن+جني',sh:'https://shamela.ws/search?q=المنصف+ابن+جني'},
+        {n:1,ar:'دَرْءُ تَعَارُضِ العَقْلِ وَالنَّقْل',auth:'ابن تيمية (ت.728هـ)',desc:'Défense de la doctrine des attributs contre les rationalistes — 10 volumes.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=درء+تعارض+العقل+والنقل+ابن+تيمية',sh:'https://shamela.ws/search?q=درء+تعارض+العقل+والنقل'},
       ]},
    ]},
-  {id:'balagha',icon:'✨',labelAr:'البَلاغَة',label:'Rhétorique',heroBg:'linear-gradient(135deg,#712B13,#D85A30)',ava:'✨',avaBg:'#FAECE7',
-   system:`أنتَ الأستاذ البلاغي، وكيل ذكي متخصص في علوم البلاغة.
-المصادر: البلاغة الواضحة، التلخيص، دلائل الإعجاز، أسرار البلاغة.
-قواعد: أجب بالعربية المشكّلة ثم بالفرنسية. أعطِ أمثلة من القرآن الكريم.
-الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+  {id:'shirk',icon:'⚠️',labelAr:'الشِّرْكُ وَنَوَاقِضُ الإِسْلام',label:'Shirk et Nullificateurs',heroBg:'linear-gradient(135deg,#7B1111,#C62828)',ava:'⚠️',avaBg:'#FFEBEE',
+   system:`أنتَ شيخٌ عالمٌ متخصص في باب الشرك وأنواعه ودرجاته، ونواقض الإسلام العشرة، وكشف الشبهات الواردة في هذه الأبواب.
+المصادر: كشف الشبهات ونواقض الإسلام لابن عبد الوهاب، الدرر السنية، مؤلفات الشيخ ابن باز والفوزان والعثيمين.
+قواعد: أجب بالعربية المشكّلة أولاً ثم بالفرنسية. التزم الحكمة والتأني في بيان المسائل الحساسة.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]\nيُنصح بمراجعة أهل العلم.`,
    levels:[
-     {num:1,labelAr:'المَرْحَلَةُ الأُولَى',labelFr:'Fondation',badge:'Débutant',numBg:'#D85A30',badgeC:'#FAECE7',badgeTxt:'#712B13',
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — كَشْفُ الشُّبُهَات',labelFr:'Réfutation des ambiguïtés',badge:'Débutant',numBg:'#C62828',badgeC:'#FFEBEE',badgeTxt:'#7B1111',
       books:[
-        {n:1,ar:'البَلاغَةُ الوَاضِحَة',auth:'الجارم وأمين',desc:'Introduction claire aux 3 sciences rhétoriques.',bg:'linear-gradient(135deg,#D85A30,#993C1D)',yt:'https://www.youtube.com/results?search_query=البلاغة+الواضحة+شرح',sh:'https://shamela.ws/search?q=البلاغة+الواضحة'},
+        {n:1,ar:'كَشْفُ الشُّبُهَات',auth:'محمد بن عبد الوهاب (ت.1206هـ)',desc:'Réfutation des ambiguïtés autour du Tawhid et du Shirk — texte fondateur.',bg:'linear-gradient(135deg,#C62828,#7B1111)',yt:'https://www.youtube.com/results?search_query=شرح+كشف+الشبهات+ابن+عثيمين',sh:'https://shamela.ws/search?q=كشف+الشبهات+ابن+عبد+الوهاب'},
       ]},
-     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — النَّوَاقِض',labelFr:'Nullificateurs de l\'Islam',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'التَّلْخِيصُ فِي عُلُومِ البَلاغَة',auth:'القزويني (ت.739هـ)',desc:'Résumé classique des sciences rhétoriques.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=التلخيص+في+علوم+البلاغة',sh:'https://shamela.ws/search?q=التلخيص+البلاغة'},
-        {n:2,ar:'دَلائِلُ الإِعْجَاز',auth:'الجرجاني (ت.471هـ)',desc:'Chef-d\'œuvre de la rhétorique arabe.',bg:'linear-gradient(135deg,#D85A30,#712B13)',yt:'https://www.youtube.com/results?search_query=دلائل+الإعجاز+الجرجاني',sh:'https://shamela.ws/search?q=دلائل+الإعجاز'},
+        {n:1,ar:'نَوَاقِضُ الإِسْلام',auth:'محمد بن عبد الوهاب (ت.1206هـ)',desc:'Les dix nullificateurs de l\'Islam — texte bref, sujet capital.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=شرح+نواقض+الإسلام+ابن+عثيمين',sh:'https://shamela.ws/search?q=نواقض+الإسلام+ابن+عبد+الوهاب'},
+        {n:2,ar:'الدُّرَرُ السَّنِيَّةُ فِي الأَجْوِبَةِ النَّجْدِيَّة',auth:'علماء نجد (جمع)',desc:'Fatâwâ des savants sur le Tawhid, le Shirk et les sujets litigieux.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=الدرر+السنية+الأجوبة+النجدية',sh:'https://shamela.ws/search?q=الدرر+السنية+الأجوبة+النجدية'},
       ]},
-     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — التَّعَمُّق',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
       books:[
-        {n:1,ar:'أَسْرَارُ البَلاغَة',auth:'الجرجاني (ت.471هـ)',desc:'Les secrets de la rhétorique — spécialisation.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=أسرار+البلاغة+الجرجاني',sh:'https://shamela.ws/search?q=أسرار+البلاغة'},
+        {n:1,ar:'شَرْحُ كِتَابِ التَّوْحِيدِ — أَبْوَابُ الشِّرْك',auth:'الشيخ صالح الفوزان',desc:'Explication approfondie des chapitres sur le Shirk du Kitab al-Tawhid.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=شرح+كتاب+التوحيد+الفوزان+الشرك',sh:'https://shamela.ws/search?q=شرح+كتاب+التوحيد+الفوزان'},
       ]},
    ]},
-  {id:'imla',icon:'✏️',labelAr:'الإِمْلاء',label:'Orthographe',heroBg:'linear-gradient(135deg,#27500A,#639922)',ava:'✏️',avaBg:'#EAF3DE',
-   system:`أنتَ الأستاذ الإملائي، وكيل ذكي متخصص في قواعد الإملاء والترقيم.
-قواعد: أجب بالعربية المشكّلة ثم بالفرنسية. أعطِ أمثلة تطبيقية. صحّح الأخطاء الشائعة.
-الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+  {id:'aqeeda',icon:'📜',labelAr:'أُصُولُ العَقِيدَة',label:'Fondements de la Aqida',heroBg:'linear-gradient(135deg,#92400E,#D97706)',ava:'📜',avaBg:'#FEF3C7',
+   system:`أنتَ إمامٌ في العقيدة الإسلامية. تُعلّم أصول الإيمان الستة: الإيمان بالله، وملائكته، وكتبه، ورسله، واليوم الآخر، والقدر خيره وشره، وفق منهج أهل السنة والجماعة.
+المصادر: العقيدة الطحاوية لأبي جعفر الطحاوي، شرح الطحاوية لابن أبي العز الحنفي، شرح لمعة الاعتقاد للعثيمين.
+قواعد: أجب بالعربية المشكّلة أولاً ثم بالفرنسية. استشهد بالأدلة النقلية والعقلية مع التشكيل.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]\nيُنصح بمراجعة أهل العلم.`,
    levels:[
-     {num:1,labelAr:'المَرْحَلَةُ الأُولَى',labelFr:'Fondation',badge:'Débutant',numBg:'#639922',badgeC:'#EAF3DE',badgeTxt:'#27500A',
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — المَتْن',labelFr:'Le texte fondateur',badge:'Débutant',numBg:'#D97706',badgeC:'#FEF3C7',badgeTxt:'#92400E',
       books:[
-        {n:1,ar:'قَوَاعِدُ الإِمْلاءِ وَالتَّرْقِيم',auth:'مهارة مستقلة',desc:'Orthographe et ponctuation arabes — essentiel.',bg:'linear-gradient(135deg,#639922,#3B6D11)',yt:'https://www.youtube.com/results?search_query=قواعد+الإملاء+العربي',sh:'https://shamela.ws/search?q=قواعد+الإملاء'},
-        {n:2,ar:'الإِمْلاءُ وَالتَّرْقِيم فِي الكِتَابَة',auth:'عبد العليم إبراهيم',desc:'Manuel pratique d\'orthographe.',bg:'linear-gradient(135deg,#97C459,#639922)',yt:'https://www.youtube.com/results?search_query=الإملاء+والترقيم+في+الكتابة',sh:'https://shamela.ws/search?q=الإملاء+والترقيم'},
+        {n:1,ar:'مَتْنُ العَقِيدَةِ الطَّحَاوِيَّة',auth:'أبو جعفر الطحاوي (ت.321هـ)',desc:'Texte consensuel d\'Ahl al-Sunna depuis plus de 1000 ans — première étape.',bg:'linear-gradient(135deg,#D97706,#92400E)',yt:'https://www.youtube.com/results?search_query=شرح+العقيدة+الطحاوية+ابن+عثيمين',sh:'https://shamela.ws/search?q=العقيدة+الطحاوية+الطحاوي'},
       ]},
-     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — الشَّرْح الكَبِير',labelFr:'Grand commentaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'مُعْجَمُ الأَخْطَاءِ الشَّائِعَة',auth:'محمد العدناني',desc:'Dictionnaire des erreurs fréquentes.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=معجم+الأخطاء+الشائعة',sh:'https://shamela.ws/search?q=معجم+الأخطاء+الشائعة'},
+        {n:1,ar:'شَرْحُ العَقِيدَةِ الطَّحَاوِيَّة',auth:'ابن أبي العز الحنفي (ت.792هـ)',desc:'Le commentaire de référence — réfutation des déviations, profond et rigoureux.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=شرح+العقيدة+الطحاوية+ابن+أبي+العز',sh:'https://shamela.ws/search?q=شرح+العقيدة+الطحاوية+ابن+أبي+العز'},
       ]},
-     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — الإِتْقَان',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
       books:[
-        {n:1,ar:'الصَّاحِبِي فِي فِقْهِ اللُّغَة',auth:'ابن فارس (ت.395هـ)',desc:'Philosophie de la langue arabe — niveau expert.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=الصاحبي+في+فقه+اللغة',sh:'https://shamela.ws/search?q=الصاحبي+فقه+اللغة'},
-      ]},
-   ]},
-  {id:'aswat',icon:'🎙️',labelAr:'الأَصْوَات',label:'Phonétique',heroBg:'linear-gradient(135deg,#712B13,#993C1D)',ava:'🎙️',avaBg:'#FAECE7',
-   system:`أنتَ الأستاذ الصوتي، وكيل ذكي متخصص في أصوات اللغة العربية.
-المصادر: تعليم وتعلم الأصوات العربية الصعبة لغير الناطقين بها — جامعة أم القرى.
-قواعد: أجب بالعربية المشكّلة ثم بالفرنسية. أعطِ تمارين عملية للنطق الصحيح.
-الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
-   levels:[
-     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — الأَصْوَاتُ الأَسَاسِيَّة',labelFr:'Sons de base',badge:'Débutant',numBg:'#D85A30',badgeC:'#FAECE7',badgeTxt:'#712B13',
-      books:[
-        {n:1,ar:'تَعْلِيمُ الأَصْوَاتِ العَرَبِيَّةِ الصَّعْبَة لِغَيْرِ النَّاطِقِين',auth:'عبد الفتاح بحيري — جامعة أم القرى',desc:'Livre unique — sons difficiles pour francophones.',bg:'linear-gradient(135deg,#D85A30,#993C1D)',yt:'https://www.youtube.com/results?search_query=الأصوات+العربية+الصعبة+للأجانب',sh:'https://shamela.ws/search?q=تعليم+الأصوات+العربية'},
-      ]},
-     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — المَخَارِج',labelFr:'Makhârij',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
-      books:[
-        {n:1,ar:'عِلْمُ الأَصْوَاتِ العَرَبِيَّة',auth:'علماء متخصصون',desc:'Science des sons arabes — makhârij et sifât.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=علم+الأصوات+العربية+مخارج+الحروف',sh:'https://shamela.ws/search?q=علم+الأصوات+العربية'},
-      ]},
-     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
-      books:[
-        {n:1,ar:'المَخَارِجُ وَالصِّفَات — ابْنُ الجَزَرِي',auth:'ابن الجزري (ت.833هـ)',desc:'La référence classique — makhârij et attributs.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مخارج+الحروف+ابن+الجزري',sh:'https://shamela.ws/search?q=مخارج+الحروف+ابن+الجزري'},
+        {n:1,ar:'شَرْحُ لُمْعَةِ الاعْتِقَاد',auth:'محمد بن صالح العثيمين (ت.2001م)',desc:'Commentaire étendu d\'ibn Outhaymin — clarté, précision, exemples contemporains.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=شرح+لمعة+الاعتقاد+ابن+عثيمين+كامل',sh:'https://shamela.ws/search?q=شرح+لمعة+الاعتقاد+ابن+عثيمين'},
+        {n:2,ar:'مَجْمُوعُ فَتَاوَى ابْنِ تَيْمِيَّة — العَقِيدَة',auth:'ابن تيمية (ت.728هـ)',desc:'Volumes 1-6 de l\'encyclopédie — somme de l\'Aqida d\'Ahl al-Sunna.',bg:'linear-gradient(135deg,#3C3489,#26215C)',yt:'https://www.youtube.com/results?search_query=مجموع+فتاوى+ابن+تيمية+العقيدة',sh:'https://shamela.ws/search?q=مجموع+فتاوى+ابن+تيمية+العقيدة'},
       ]},
    ]},
 ];
 
-let curAgent='nahw',curLevels={nahw:0,sarf:0,balagha:0,imla:0,aswat:0};
+let curAgent='tawhid_aqsam',curLevels={tawhid_aqsam:0,asma:0,shirk:0,aqeeda:0};
 let chatHistory=[],curAgentData=null,isLoading=false;
 
 function getAgent(){return AGENTS.find(a=>a.id===curAgent);}
