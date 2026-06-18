@@ -81,16 +81,13 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 .vs-header{display:flex;align-items:baseline;gap:10px;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid #B45309;}
 .vs-title-ar{font-family:'Amiri',serif;font-size:1.2rem;color:#5C2D0E;}
 .vs-title-fr{font-size:11px;color:#888;direction:ltr;}
-.videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
-.video-card{background:#fff;border-radius:12px;border:1px solid #ddd;overflow:hidden;}
-.vc-label{display:flex;align-items:center;gap:10px;padding:.65rem .9rem;background:linear-gradient(135deg,#5C2D0E,#B45309);}
-.vc-num{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.2);color:#FAC775;font-family:'Amiri',serif;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.vc-ar{font-family:'Amiri',serif;font-size:13px;color:#fff;line-height:1.5;}
-.vc-fr{font-size:10px;color:rgba(255,255,255,0.65);direction:ltr;}
-.vc-embed{position:relative;width:100%;padding-top:56.25%;}
-.vc-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
-.vc-placeholder{position:absolute;inset:0;background:#2C1A0E;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:rgba(255,255,255,0.4);font-size:11px;direction:ltr;}
-.vc-placeholder-icon{font-size:2rem;opacity:.3;}
+.playlist-card{background:#fff;border-radius:12px;border:1px solid #ddd;overflow:hidden;}
+.playlist-label{display:flex;align-items:center;gap:12px;padding:.8rem 1rem;background:linear-gradient(135deg,#5C2D0E,#B45309);}
+.playlist-icon{font-size:1.6rem;flex-shrink:0;}
+.playlist-ar{font-family:'Amiri',serif;font-size:14px;color:#fff;line-height:1.6;}
+.playlist-fr{font-size:10px;color:rgba(255,255,255,0.65);direction:ltr;margin-top:2px;}
+.playlist-embed{position:relative;width:100%;padding-top:56.25%;}
+.playlist-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
 </style>
 </head>
 <body>
@@ -109,91 +106,27 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 <nav class="agents-nav"><div class="agents-tabs" id="agentTabs"></div></nav>
 <div class="content" id="mainContent"></div>
 
-<!-- ══════════════════════════════════════
-     SECTION VIDÉOS — السيرة النبوية
-     Pour chaque emplacement : remplacer le div.vc-placeholder
-     par : <iframe src="https://www.youtube.com/embed/VIDEO_ID"
-             allowfullscreen></iframe>
-     ══════════════════════════════════════ -->
 <div class="videos-section">
   <div class="vs-header">
     <span class="vs-title-ar">مَرْئِيَّاتُ السِّيرَةِ النَّبَوِيَّة ﷺ</span>
     <span class="vs-title-fr">Vidéos — Histoire du Prophète ﷺ</span>
   </div>
-  <div class="videos-grid">
-
-    <!-- ① مَا قَبْلَ البِعْثَةِ -->
-    <div class="video-card">
-      <div class="vc-label">
-        <div class="vc-num">١</div>
-        <div><div class="vc-ar">مَا قَبْلَ البِعْثَةِ</div><div class="vc-fr">Avant la Prophétie</div></div>
-      </div>
-      <div class="vc-embed">
-        <!-- LIEN YOUTUBE À INSÉRER -->
-        <div class="vc-placeholder"><div class="vc-placeholder-icon">▶</div>Vidéo à insérer</div>
+  <div class="playlist-card">
+    <div class="playlist-label">
+      <div class="playlist-icon">🎬</div>
+      <div>
+        <div class="playlist-ar">السِّيرَةُ النَّبَوِيَّةُ كَامِلَةً — الشَّيْخُ مُحَمَّدُ بْنُ صَالِحٍ العُثَيْمِين رَحِمَهُ اللَّه</div>
+        <div class="playlist-fr">La Sîra complète — Cheikh Ibn ʿUthaymīn رحمه الله</div>
       </div>
     </div>
-
-    <!-- ② المَرْحَلَةُ المَكِّيَّة -->
-    <div class="video-card">
-      <div class="vc-label">
-        <div class="vc-num">٢</div>
-        <div><div class="vc-ar">المَرْحَلَةُ المَكِّيَّة</div><div class="vc-fr">Période mecquoise</div></div>
-      </div>
-      <div class="vc-embed">
-        <!-- LIEN YOUTUBE À INSÉRER -->
-        <div class="vc-placeholder"><div class="vc-placeholder-icon">▶</div>Vidéo à insérer</div>
-      </div>
+    <div class="playlist-embed">
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?list=PLn_8pZxJyaFCBet-FaZSxIiUc36VLhmyB"
+        title="السيرة النبوية — الشيخ ابن عثيمين"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
     </div>
-
-    <!-- ③ الهِجْرَةُ وَبِنَاءُ المَدِينَة -->
-    <div class="video-card">
-      <div class="vc-label">
-        <div class="vc-num">٣</div>
-        <div><div class="vc-ar">الهِجْرَةُ وَبِنَاءُ المَدِينَة</div><div class="vc-fr">Hijra et Médine</div></div>
-      </div>
-      <div class="vc-embed">
-        <!-- LIEN YOUTUBE À INSÉRER -->
-        <div class="vc-placeholder"><div class="vc-placeholder-icon">▶</div>Vidéo à insérer</div>
-      </div>
-    </div>
-
-    <!-- ④ الغَزَوَاتُ وَالسَّرَايَا -->
-    <div class="video-card">
-      <div class="vc-label">
-        <div class="vc-num">٤</div>
-        <div><div class="vc-ar">الغَزَوَاتُ وَالسَّرَايَا</div><div class="vc-fr">Batailles et expéditions</div></div>
-      </div>
-      <div class="vc-embed">
-        <!-- LIEN YOUTUBE À INSÉRER -->
-        <div class="vc-placeholder"><div class="vc-placeholder-icon">▶</div>Vidéo à insérer</div>
-      </div>
-    </div>
-
-    <!-- ⑤ فَتْحُ مَكَّةَ وَحُنَيْن -->
-    <div class="video-card">
-      <div class="vc-label">
-        <div class="vc-num">٥</div>
-        <div><div class="vc-ar">فَتْحُ مَكَّةَ وَحُنَيْن</div><div class="vc-fr">Conquête de La Mecque</div></div>
-      </div>
-      <div class="vc-embed">
-        <!-- LIEN YOUTUBE À INSÉRER -->
-        <div class="vc-placeholder"><div class="vc-placeholder-icon">▶</div>Vidéo à insérer</div>
-      </div>
-    </div>
-
-    <!-- ⑥ حَجَّةُ الوَدَاعِ وَالوَفَاة -->
-    <div class="video-card">
-      <div class="vc-label">
-        <div class="vc-num">٦</div>
-        <div><div class="vc-ar">حَجَّةُ الوَدَاعِ وَالوَفَاة</div><div class="vc-fr">Dernier pèlerinage et décès</div></div>
-      </div>
-      <div class="vc-embed">
-        <!-- LIEN YOUTUBE À INSÉRER -->
-        <div class="vc-placeholder"><div class="vc-placeholder-icon">▶</div>Vidéo à insérer</div>
-      </div>
-    </div>
-
   </div>
 </div>
 
