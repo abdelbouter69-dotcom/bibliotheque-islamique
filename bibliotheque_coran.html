@@ -76,6 +76,46 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 .chat-send:disabled{opacity:.35;}
 .welcome{text-align:center;padding:2rem 1rem;color:#888;font-size:13px;line-height:2;}
 .err-msg{background:#fff3cd;border-radius:8px;padding:8px 12px;font-size:11px;color:#856404;direction:ltr;text-align:center;margin:4px 0;}
+/* ===== INTRODUCTION SECTION ===== */
+.intro-wrap{max-width:900px;margin:0 auto;padding:1rem 1rem 3rem;}
+.itr-hero{background:linear-gradient(135deg,#04342C,#1D9E75);border-radius:12px;padding:1.8rem;margin-bottom:1.2rem;text-align:center;}
+.itr-basmala{font-family:'Amiri',serif;font-size:1.7rem;color:#FAC775;margin-bottom:.4rem;}
+.itr-title-ar{font-family:'Amiri',serif;font-size:1.15rem;color:#fff;margin-bottom:.3rem;}
+.itr-title-fr{font-size:11px;color:rgba(255,255,255,.7);direction:ltr;margin-bottom:.2rem;}
+.itr-sub{font-size:10px;color:rgba(255,255,255,.55);direction:ltr;font-style:italic;}
+.itr-card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:.9rem;}
+.itr-card-title{font-size:11px;font-weight:700;color:#04342C;margin-bottom:.5rem;}
+.itr-ar{font-family:'Amiri',serif;font-size:13px;line-height:2;color:#1C1C1C;margin-bottom:.5rem;}
+.itr-fr{font-size:11px;line-height:1.75;color:#444;direction:ltr;margin-bottom:.5rem;}
+.itr-ayah{background:#E1F5EE;border-radius:8px;padding:7px 12px;font-family:'Amiri',serif;font-size:12.5px;color:#04342C;text-align:center;margin:.4rem 0;}
+.itr-hadith{background:#FEF3C7;border-left:3px solid #F59E0B;border-radius:0 8px 8px 0;padding:7px 12px;font-family:'Amiri',serif;font-size:12px;color:#78350F;margin:.4rem 0;}
+.itr-warn{background:#FEE2E2;border:1.5px solid #FCA5A5;border-radius:10px;padding:1rem 1.2rem;margin:.8rem 0;}
+.itr-warn-ar{font-family:'Amiri',serif;font-size:12.5px;color:#7F1D1D;line-height:2;}
+.itr-warn-fr{font-size:10.5px;color:#7F1D1D;direction:ltr;margin-top:.4rem;}
+.itr-part{background:linear-gradient(135deg,#04342C,#0F6E56);border-radius:12px;padding:1rem 1.2rem;margin:1.4rem 0 .8rem;}
+.itr-part-ar{font-family:'Amiri',serif;font-size:1rem;color:#FAC775;margin-bottom:3px;}
+.itr-part-fr{font-size:10px;color:rgba(255,255,255,.65);direction:ltr;}
+.itr-toc{width:100%;border-collapse:collapse;font-size:10.5px;margin-bottom:1rem;}
+.itr-toc th{background:#04342C;color:#fff;padding:6px 8px;font-family:'Amiri',serif;text-align:right;}
+.itr-toc td{padding:5px 8px;border-bottom:1px solid #F3F4F6;text-align:right;}
+.itr-toc td:last-child{direction:ltr;text-align:left;}
+.itr-toc tr:nth-child(even){background:#F9FAFB;}
+details.uloom{background:#fff;border:1px solid #E5E7EB;border-radius:10px;margin-bottom:.6rem;overflow:hidden;}
+details.uloom[open]{border-color:#1D9E75;}
+summary.uloom-s{padding:.7rem 1rem;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'Amiri',serif;font-size:12.5px;color:#1C1C1C;list-style:none;user-select:none;}
+summary.uloom-s::-webkit-details-marker{display:none;}
+summary.uloom-s::before{content:'▶';font-size:9px;color:#1D9E75;transition:transform .2s;min-width:14px;flex-shrink:0;}
+details.uloom[open] summary.uloom-s::before{transform:rotate(90deg);}
+.uloom-body{padding:.7rem 1rem .9rem;border-top:1px solid #F3F4F6;}
+.itr-note{background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;padding:8px 10px;font-size:10px;color:#78350F;direction:ltr;margin:.4rem 0;}
+.names-tbl{width:100%;border-collapse:collapse;font-size:10px;margin:.5rem 0;}
+.names-tbl th{background:#04342C;color:#fff;padding:4px 6px;font-family:'Amiri',serif;font-size:10.5px;text-align:right;}
+.names-tbl td{padding:4px 6px;border-bottom:1px solid #F3F4F6;text-align:right;}
+.names-tbl td:last-child{direction:ltr;text-align:left;}
+.names-tbl tr:nth-child(even){background:#F9FAFB;}
+.itr-bridge{background:linear-gradient(135deg,#04342C,#1D9E75);border-radius:12px;padding:1.2rem 1.4rem;margin:1.4rem 0;text-align:center;}
+.itr-bridge-ar{font-family:'Amiri',serif;font-size:1.05rem;color:#FAC775;margin-bottom:.3rem;}
+.itr-bridge-fr{font-size:10.5px;color:rgba(255,255,255,.8);direction:ltr;}
 </style>
 </head>
 <body>
@@ -94,6 +134,291 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 </div>
 <nav class="agents-nav"><div class="agents-tabs" id="agentTabs"></div></nav>
 <div class="content" id="mainContent"></div>
+
+<!-- ===== INTRODUCTION PAGE ===== -->
+<div class="intro-wrap" id="introWrap" style="display:none">
+
+  <div class="itr-hero">
+    <div class="itr-basmala">بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div class="itr-title-ar">الْقُرْآنُ الصَّوْتِيُّ — مُقَدِّمَةٌ تَعْرِيفِيَّة</div>
+    <div class="itr-title-fr">Le Coran Phonétique — Introduction · Abdelkader Bouterfas · ArchiART</div>
+    <div class="itr-sub">Méthode inédite pour apprendre à réciter le Coran à partir de la phonétique française, fondée sur les règles authentiques du Tajwīd.</div>
+  </div>
+
+  <div class="itr-card">
+    <div class="itr-ar">الْحَمْدُ لِلَّهِ الَّذِي عَلَّمَ الْقُرْآنَ، خَلَقَ الْإِنْسَانَ، عَلَّمَهُ الْبَيَانَ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى نَبِيِّهِ الَّذِي أُنْزِلَ عَلَيْهِ الْقُرْآنُ بِلِسَانٍ عَرَبِيٍّ مُبِينٍ، وَعَلَى آلِهِ وَصَحْبِهِ أَجْمَعِينَ. أَمَّا بَعْدُ:</div>
+    <div class="itr-fr">Au nom d'Allah, le Tout-Miséricordieux, le Très-Miséricordieux.</div>
+  </div>
+
+  <div class="itr-card">
+    <div class="itr-card-title">🎯 لِمَاذَا هَذَا الْكِتَابُ ؟ — Pourquoi ce livre ?</div>
+    <div class="itr-fr">Beaucoup de musulmans francophones aiment le Coran et désirent ardemment le réciter — mais l'écriture arabe et ses sons (les <em>makhārij</em>, les lettres emphatiques, les allongements…) constituent un obstacle réel. <em>Le Coran Phonétique</em> est né de ce constat : <strong>bâtir un pont entre les sons du français et ceux de l'arabe</strong>, afin que le lecteur francophone puisse prononcer correctement, puis progresser vers la lecture directe du Muṣḥaf, sans jamais sacrifier la justesse de la récitation.</div>
+    <div class="itr-ayah">﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾ <span style="direction:ltr;font-size:9px;color:#666">(المزّمّل/٤) — « Et récite le Coran avec soin et lenteur. »</span></div>
+  </div>
+
+  <div class="itr-card">
+    <div class="itr-card-title">🆕 عَمَلٌ هُوَ الْأَوَّلُ مِنْ نَوْعِهِ — Une approche inédite</div>
+    <div class="itr-fr">C'est, à notre connaissance, <strong>la première fois</strong> qu'une telle méthode est élaborée de façon systématique en langue française : non pas une simple translittération approximative, mais un <strong>système phonétique raisonné</strong>, adossé aux <strong>règles authentiques du Tajwīd</strong> transmises par les maîtres de la lecture.<br><br>Le but n'est pas de remplacer l'apprentissage auprès d'un maître (la <em>talaqqī</em> reste irremplaçable), mais d'en être <strong>la porte d'entrée</strong> : donner au débutant francophone les clés pour démarrer, écouter, corriger et avancer.</div>
+  </div>
+
+  <div class="itr-card">
+    <div class="itr-card-title">🧭 كَيْفَ بُنِيَ الْكِتَابُ ؟ — Comment ce livre est construit</div>
+    <div class="itr-fr">Cet ouvrage se lit en deux temps :<br><br>
+    <strong>① الأساس — Le fondement (sciences du Coran) :</strong> une introduction aux <em>ʿulūm al-Qurʾān</em> tirée du <em>Mukhtaṣar al-Itqān</em> de l'imam al-Suyūṭī : les noms du Coran, la Révélation, les étiquettes de récitation et d'écriture, les sept <em>aḥruf</em>… Cette base donne la <strong>vénération et la compréhension</strong> avant le geste.<br><br>
+    <strong>② التطبيق — La pratique (méthode phonétique + Tajwīd) :</strong> les leçons de transcription phonétique des sons arabes, les points d'articulation, et les règles du Tajwīd (Idghām, Ikhfāʾ, Ghunna, Madd…) expliquées pas à pas pour le francophone.</div>
+  </div>
+
+  <div class="itr-card">
+    <div class="itr-card-title">📜 مَنْهَجُنَا — Notre méthodologie</div>
+    <div class="itr-fr">
+    • <strong>Sources authentifiées uniquement</strong> : Ibn Bāz, Ibn ʿUthaymīn, al-Albānī et les imams classiques. Chaque hadith est vérifié selon son degré d'authenticité.<br>
+    • <strong>Tashkīl complet</strong> sur tout le texte arabe — la vocalisation est à la lettre ce que la parure est à celui qui la porte.<br>
+    • <strong>Bilinguisme</strong> (arabe / français) pour que chacun avance à son rythme.</div>
+  </div>
+
+  <div class="itr-card">
+    <div class="itr-card-title">🤲 نِيَّةٌ وَأَدَبٌ — Intention et adab</div>
+    <div class="itr-fr">Nous demandons à Allah ﷻ de faire de ce travail une œuvre sincère et utile, un moyen pour que les langues se délient sur Son Livre et que les cœurs s'y attachent. Toute justesse vient de Lui, et toute erreur vient de nous et du Shayṭān.</div>
+    <div class="itr-hadith">«خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ» <span style="direction:ltr;font-size:9px">(رواه البخاري) ✅</span></div>
+    <div class="itr-ar" style="font-size:12px">وَاللَّهُ الْمُوَفِّقُ، وَصَلَّى اللَّهُ عَلَى نَبِيِّنَا مُحَمَّدٍ وَعَلَى آلِهِ وَصَحْبِهِ وَسَلَّمَ.</div>
+  </div>
+
+  <div class="itr-card" style="border-color:#1D9E75;border-width:2px;">
+    <div class="itr-card-title">🚪 إِلَى الطَّالِبِ — Au seuil du Tajwīd</div>
+    <div class="itr-ar">أَخِي الطَّالِبَ، أُخْتِي الطَّالِبَةَ: مَا قَرَأْتَهُ حَتَّى الْآنَ كَانَ <strong>تَمْهِيدًا</strong> — تَعْرِفُ بِهِ قَدْرَ هَذَا الْكِتَابِ الْعَظِيمِ، وَكَيْفَ نَزَلَ، وَكَيْفَ تُؤَدَّى تِلَاوَتُهُ بِأَدَبٍ. وَالْآنَ تَفْتَحُ بَابَ <strong>عِلْمِ التَّجْوِيدِ</strong>.</div>
+    <div class="itr-fr">Cher étudiant, chère étudiante : ce que tu viens de lire était le <strong>seuil</strong> — il t'a fait connaître la valeur de ce grand Livre, comment il est descendu, et avec quel adab on le récite. Tu ouvres à présent la porte de la <strong>science du Tajwīd</strong> — donner à chaque lettre son droit : son point d'articulation (<em>makhraj</em>), ses qualités (<em>ṣifāt</em>), et la juste mesure des allongements. Ne te presse pas, accompagne ta lecture de l'écoute d'un récitateur sûr. Commence — et qu'Allah délie ta langue sur Son Livre.</div>
+    <div class="itr-hadith">«اقْرَأْ وَارْتَقِ وَرَتِّلْ كَمَا كُنْتَ تُرَتِّلُ فِي الدُّنْيَا» <span style="direction:ltr;font-size:9px">(ṣaḥīḥ — Abū Dāwūd, at-Tirmidhī) ✅</span></div>
+    <div class="itr-ar" style="text-align:center;font-size:14px;color:#04342C;font-weight:bold;margin-top:.4rem">فَلْنَبْدَأْ عَلَى بَرَكَةِ اللَّهِ</div>
+  </div>
+
+  <div class="itr-warn">
+    <div class="itr-warn-ar">⚠️ تَنْبِيهٌ مُهِمٌّ — هَذَا الْكِتَابُ وَسِيلَةٌ لِلتَّعَلُّمِ، وَلَا يُغْنِي عَنِ الْمُعَلِّمِ. فَالْقُرْآنُ يُؤْخَذُ بِالتَّلَقِّي وَالْمُشَافَهَةِ عَنْ شَيْخٍ مُتْقِنٍ، كَمَا أَخَذَهُ النَّبِيُّ ﷺ عَنْ جِبْرِيلَ، وَأَخَذَهُ الصَّحَابَةُ عَنْهُ، جِيلًا بَعْدَ جِيلٍ. فَاحْرِصْ دَائِمًا عَلَى عَرْضِ قِرَاءَتِكَ عَلَى مُعَلِّمٍ مَاهِرٍ بِالتَّجْوِيدِ.</div>
+    <div class="itr-warn-fr">⚠️ <strong>Note importante</strong> — Ce livre est un support d'apprentissage : il ne remplace pas le professeur. Le Coran s'apprend par transmission orale (<em>talaqqī / mushāfaha</em>) auprès d'un maître qualifié. <strong>Présente toujours ta récitation à un enseignant compétent en Tajwīd.</strong></div>
+  </div>
+
+  <div class="itr-part">
+    <div class="itr-part-ar">✦ الْقِسْمُ الْأَوَّلُ : الْأَسَاسُ — عُلُومُ الْقُرْآنِ</div>
+    <div class="itr-part-fr">Partie I — Le fondement : les sciences du Coran · Mukhtaṣar al-Itqān · Imam al-Suyūṭī</div>
+  </div>
+
+  <table class="itr-toc">
+    <thead><tr><th>#</th><th>العنوان</th><th>Titre</th></tr></thead>
+    <tbody>
+      <tr><td>١</td><td>أَسْمَاءُ الْقُرْآنِ الْكَرِيمِ</td><td>Les Noms du Coran (46 noms)</td></tr>
+      <tr><td>٢</td><td>أُمَّهَاتُ عُلُومِ الْقُرْآنِ</td><td>Les sciences-mères du Coran</td></tr>
+      <tr><td>٣</td><td>التَّرْهِيبُ مِنْ نِسْيَانِهِ</td><td>L'avertissement contre l'oubli</td></tr>
+      <tr><td>٤</td><td>آدَابُ التِّلَاوَةِ</td><td>Étiquettes de la récitation</td></tr>
+      <tr><td>٥</td><td>أَفْضَلُ الْقُرْآنِ وَأَبْلَغُهُ</td><td>Le plus virtueux du Coran</td></tr>
+      <tr><td>٦</td><td>كَيْفِيَّةُ الْإِنْزَالِ</td><td>Comment s'est faite la descente</td></tr>
+      <tr><td>٧</td><td>الْوَحْيُ : تَعْرِيفُهُ</td><td>La Révélation : définition</td></tr>
+      <tr><td>٨</td><td>كَيْفِيَّةُ الْوَحْيِ</td><td>Les modes de la Révélation</td></tr>
+      <tr><td>٩</td><td>الْأَحْرُفُ السَّبْعَةُ</td><td>Les sept aḥruf</td></tr>
+      <tr><td>١٠</td><td>آدَابُ كِتَابَةِ الْمُصْحَفِ</td><td>Étiquettes d'écriture du Muṣḥaf</td></tr>
+      <tr><td>١١</td><td>تَعَلُّمُ الْقُرْآنِ وَحِفْظُهُ</td><td>Apprendre et mémoriser le Coran</td></tr>
+      <tr><td>١٢</td><td>اشْتِرَاطُ الْإِجَازَةِ</td><td>La licence (ijāza) du cheikh</td></tr>
+      <tr><td>١٣</td><td>إِعْرَابُ الْقُرْآنِ</td><td>L'analyse grammaticale</td></tr>
+      <tr><td>١٤</td><td>غَرِيبُ الْقُرْآنِ الْكَرِيمِ</td><td>Le vocabulaire rare</td></tr>
+    </tbody>
+  </table>
+
+  <!-- §1 -->
+  <details class="uloom">
+    <summary class="uloom-s">١ — أَسْمَاءُ الْقُرْآنِ الْكَرِيمِ · Les Noms du Noble Coran (٤٦ اسماً)</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">الْقُرْآنُ: اسْمُ عَلَمٍ غَيْرُ مُشْتَقٍّ، خَاصٌّ بِكَلَامِ اللَّهِ، فَهُوَ غَيْرُ مَهْمُوزٍ، وَيَظْهَرُ أَنَّهُ لَمْ يُؤْخَذْ مِنْ «قِرَاءَةٍ»، وَلَكِنَّهُ اسْمٌ لِكِتَابِ اللَّهِ مِثْلَ التَّوْرَاةِ وَالْإِنْجِيلِ. وَكَانَ أَبُو بَكْرٍ الصِّدِّيقُ رَضِيَ اللَّهُ عَنْهُ أَوَّلَ مَنْ سَمَّاهُ «الْمُصْحَفَ».</div>
+      <div class="itr-fr" style="margin-bottom:8px"><em>Al-Qurʾān</em> est un nom propre non dérivé, réservé à la Parole d'Allah. Abū Bakr al-Ṣiddīq رضي الله عنه fut le premier à le nommer <em>al-Muṣḥaf</em>.</div>
+      <table class="names-tbl">
+        <thead><tr><th>#</th><th>الِاسْمُ</th><th>المرجع</th><th>Traduction</th></tr></thead>
+        <tbody>
+          <tr><td>١</td><td>بُشْرَى</td><td>البقرة/٩٧</td><td>Bonne nouvelle</td></tr>
+          <tr><td>٢</td><td>عِلْمٌ</td><td>البقرة/١٤٥</td><td>Science (révélée)</td></tr>
+          <tr><td>٣</td><td>الْعُرْوَةُ الْوُثْقَى</td><td>البقرة/٢٥٦</td><td>L'anse la plus solide</td></tr>
+          <tr><td>٤</td><td>حَقٌّ</td><td>آل عمران/٦٢</td><td>Vérité</td></tr>
+          <tr><td>٥</td><td>حَبْلُ اللَّهِ</td><td>آل عمران/١٠٣</td><td>La corde d'Allah</td></tr>
+          <tr><td>٦</td><td>بَيَانٌ لِلنَّاسِ</td><td>آل عمران/١٣٨</td><td>Exposé clair pour les hommes</td></tr>
+          <tr><td>٧</td><td>مُنَادٍ</td><td>آل عمران/١٩٣</td><td>Le héraut qui appelle</td></tr>
+          <tr><td>٨</td><td>نُورٌ مُبِينٌ</td><td>النساء/١٧٤</td><td>Lumière éclatante</td></tr>
+          <tr><td>٩</td><td>مُهَيْمِنٌ</td><td>المائدة/٤٨</td><td>Gardien prééminent</td></tr>
+          <tr><td>١٠</td><td>عَدْلٌ</td><td>الأنعام/١١٥</td><td>Justice / Équité</td></tr>
+          <tr><td>١١</td><td>صِرَاطٌ مُسْتَقِيمٌ</td><td>الأنعام/١٥٣</td><td>Voie droite</td></tr>
+          <tr><td>١٢</td><td>بَصَائِرُ</td><td>الأعراف/٢٠٣</td><td>Preuves clairvoyantes</td></tr>
+          <tr><td>١٣</td><td>كَلَامُ اللَّهِ</td><td>التوبة/٦</td><td>Parole d'Allah</td></tr>
+          <tr><td>١٤</td><td>حَكِيمٌ</td><td>يونس/١</td><td>Plein de sagesse</td></tr>
+          <tr><td>١٥</td><td>مَوْعِظَةٌ</td><td>يونس/٥٧</td><td>Exhortation</td></tr>
+          <tr><td>١٦</td><td>هُدًى وَرَحْمَةٌ</td><td>يونس/٥٧</td><td>Guidance et miséricorde</td></tr>
+          <tr><td>١٧</td><td>عَرَبِيٌّ</td><td>يوسف/٢</td><td>Coran arabe</td></tr>
+          <tr><td>١٨</td><td>قَصَصٌ</td><td>يوسف/٣</td><td>Le plus beau des récits</td></tr>
+          <tr><td>١٩</td><td>بَلَاغٌ</td><td>إبراهيم/٥٢</td><td>Message clair</td></tr>
+          <tr><td>٢٠</td><td>هُدًى</td><td>الإسراء/٩</td><td>Guidance</td></tr>
+          <tr><td>٢١</td><td>شِفَاءٌ</td><td>الإسراء/٨٢</td><td>Guérison</td></tr>
+          <tr><td>٢٢</td><td>قَيِّمٌ</td><td>الكهف/٢</td><td>Droit et immuable</td></tr>
+          <tr><td>٢٣</td><td>وَحْيٌ</td><td>الأنبياء/٤٥</td><td>Révélation</td></tr>
+          <tr><td>٢٤</td><td>مُبَارَكٌ</td><td>الأنبياء/٥٠</td><td>Béni</td></tr>
+          <tr><td>٢٥</td><td>زَبُورٌ</td><td>الأنبياء/١٠٥</td><td>Écrit / Psaume</td></tr>
+          <tr><td>٢٦</td><td>الْفُرْقَانُ</td><td>الفرقان/١</td><td>Le Discernement</td></tr>
+          <tr><td>٢٧</td><td>تَنْزِيلٌ</td><td>الشعراء/١٩٢</td><td>Descente révélée</td></tr>
+          <tr><td>٢٨</td><td>أَحْسَنُ الْحَدِيثِ</td><td>الزمر/٢٣</td><td>Le plus beau des discours</td></tr>
+          <tr><td>٢٩</td><td>مَثَانِيَ</td><td>الزمر/٢٣</td><td>Versets répétés</td></tr>
+          <tr><td>٣٠</td><td>مُتَشَابِهٌ</td><td>الزمر/٢٣</td><td>En parfaite harmonie</td></tr>
+          <tr><td>٣١</td><td>الصِّدْقُ</td><td>الزمر/٣٣</td><td>La véracité</td></tr>
+          <tr><td>٣٢</td><td>نَذِيرٌ وَبَشِيرٌ</td><td>فصلت/٤</td><td>Avertisseur et annonciateur</td></tr>
+          <tr><td>٣٣</td><td>عَزِيزٌ</td><td>فصلت/٤١</td><td>Puissant / Inviolable</td></tr>
+          <tr><td>٣٤</td><td>رُوحٌ</td><td>الشورى/٥٢</td><td>Esprit (qui vivifie les cœurs)</td></tr>
+          <tr><td>٣٥</td><td>عَلِيٌّ حَكِيمٌ</td><td>الزخرف/٤</td><td>Sublime et sage</td></tr>
+          <tr><td>٣٦</td><td>كِتَابٌ مُبِينٌ</td><td>الدخان/٢</td><td>Livre explicite</td></tr>
+          <tr><td>٣٧</td><td>حِكْمَةٌ</td><td>القمر/٥</td><td>Sagesse parfaite</td></tr>
+          <tr><td>٣٨</td><td>قُرْآنٌ كَرِيمٌ</td><td>الواقعة/٧٧</td><td>Noble Coran</td></tr>
+          <tr><td>٣٩</td><td>أَمْرُ اللَّهِ</td><td>الطلاق/٥</td><td>Ordre d'Allah</td></tr>
+          <tr><td>٤٠</td><td>تَذْكِرَةٌ</td><td>الحاقة/٤٨</td><td>Rappel</td></tr>
+          <tr><td>٤١</td><td>عَجَبٌ</td><td>الجن/١</td><td>Merveilleux</td></tr>
+          <tr><td>٤٢</td><td>نَبَأٌ عَظِيمٌ</td><td>النبأ/٢</td><td>La grande nouvelle</td></tr>
+          <tr><td>٤٣</td><td>صُحُفٌ مُكَرَّمَةٌ</td><td>عبس/١٣</td><td>Feuillets honorés</td></tr>
+          <tr><td>٤٤</td><td>مَرْفُوعَةٌ مُطَهَّرَةٌ</td><td>عبس/١٤</td><td>Élevés et purifiés</td></tr>
+          <tr><td>٤٥</td><td>مَجِيدٌ</td><td>البروج/٢١</td><td>Glorieux</td></tr>
+          <tr><td>٤٦</td><td>قَوْلٌ فَصْلٌ</td><td>الطارق/١٣</td><td>Parole décisive</td></tr>
+        </tbody>
+      </table>
+      <div class="itr-ar" style="font-size:11px;color:#555;margin-top:4px">وَهَذِهِ الْأَسْمَاءُ كُلُّهَا تَدُلُّ عَلَى عَظَمَةِ هَذَا الْكِتَابِ الْكَرِيمِ وَجَلَالَةِ قَدْرِهِ.</div>
+    </div>
+  </details>
+
+  <!-- §2 -->
+  <details class="uloom">
+    <summary class="uloom-s">٢ — أُمَّهَاتُ عُلُومِ الْقُرْآنِ · Les sciences-mères du Coran</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">وَأُمَّهَاتُ عُلُومِ الْقُرْآنِ ثَلَاثَةٌ: <strong>تَوْحِيدٌ، وَتَذْكِيرٌ، وَأَحْكَامٌ</strong>.<br><br>
+      <strong>فَالتَّوْحِيدُ:</strong> يَدْخُلُ فِيهِ مَعْرِفَةُ الْمَخْلُوقَاتِ، وَمَعْرِفَةُ الْخَالِقِ بِأَسْمَائِهِ وَصِفَاتِهِ وَأَفْعَالِهِ.<br>
+      <strong>وَالتَّذْكِيرُ:</strong> مِنْهُ الْوَعْدُ وَالْوَعِيدُ، وَالْجَنَّةُ وَالنَّارُ، وَتَصْفِيَةُ الظَّاهِرِ وَالْبَاطِنِ.<br>
+      <strong>وَالْأَحْكَامُ:</strong> مِنْهَا التَّكَالِيفُ كُلُّهَا، وَتَبْيِينُ الْمَنَافِعِ وَالْمَضَارِّ، وَالْأَمْرُ وَالنَّهْيُ وَالنَّدْبُ.</div>
+      <div class="itr-fr">Les sciences-mères du Coran sont trois : <strong>Tawḥīd</strong> (unicité) · <strong>Tadhkīr</strong> (rappel) · <strong>Aḥkām</strong> (statuts légaux).<br>
+      • <em>Tawḥīd</em> : connaissance des créatures et du Créateur par Ses noms, attributs et actes.<br>
+      • <em>Tadhkīr</em> : promesse et menace, Paradis et Enfer, purification de l'extérieur et de l'intérieur.<br>
+      • <em>Aḥkām</em> : obligations légales, ce qui est utile et nuisible, ordre, interdiction et recommandation.</div>
+    </div>
+  </details>
+
+  <!-- §3 -->
+  <details class="uloom">
+    <summary class="uloom-s">٣ — التَّرْهِيبُ مِنْ نِسْيَانِهِ · L'avertissement contre l'oubli</summary>
+    <div class="uloom-body">
+      <div class="itr-hadith">«تَعَاهَدُوا الْقُرْآنَ، فَوَالَّذِي نَفْسُ مُحَمَّدٍ بِيَدِهِ لَهُوَ أَشَدُّ تَفَلُّتًا مِنَ الْإِبِلِ فِي عُقُلِهَا» <span style="direction:ltr;font-size:9px">(رواه البخاري ومسلم) ✅</span></div>
+      <div class="itr-fr">« Prenez soin du Coran (révisez-le), car par Celui qui tient l'âme de Muḥammad dans Sa main, il s'échappe plus vite que les chamelles de leurs entraves. » <em>(al-Bukhārī et Muslim)</em></div>
+      <div class="itr-note">⚠️ <strong>Authentification :</strong> Seul ce hadith (al-Bukhārī/Muslim) est authentique parmi les traditions citées sur l'oubli. Les autres narrations (« عُرضت عليَّ ذنوب أمتي… » et « من قرأ القرآن ثم نسيه لقي الله أجذم ») sont jugées <strong>ḍaʿīf</strong> par al-Albānī — ne pas les attribuer au Prophète ﷺ sans précision.</div>
+    </div>
+  </details>
+
+  <!-- §4 -->
+  <details class="uloom">
+    <summary class="uloom-s">٤ — آدَابُ التِّلَاوَةِ · Étiquettes de la récitation</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">يُسْتَحَبُّ الْوُضُوءُ لِقِرَاءَةِ الْقُرْآنِ لِأَنَّهُ أَفْضَلُ الْأَذْكَارِ. وَتُسَنُّ الْقِرَاءَةُ فِي مَكَانٍ نَظِيفٍ وَأَفْضَلُهُ الْمَسْجِدُ. وَيُسْتَحَبُّ أَنْ يَجْلِسَ مُسْتَقْبِلًا الْقِبْلَةَ خَاشِعًا بِسَكِينَةٍ وَوَقَارٍ. وَيُسَنُّ التَّعَوُّذُ قَبْلَ الْقِرَاءَةِ: ﴿فَإِذَا قَرَأْتَ الْقُرْآنَ فَاسْتَعِذْ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ﴾ (النحل/٩٨).</div>
+      <div class="itr-fr"><strong>Résumé des étiquettes :</strong><br>
+      • Wuḍūʾ recommandé · lieu propre (mosquée de préférence) · face à la qibla, avec recueillement.<br>
+      • <em>Taʿawwudh</em> avant la lecture · <em>basmala</em> avant chaque sourate.<br>
+      • <strong>Tartīl</strong> : « لَا تَنْثُرُوهُ نَثْرَ الدَّقَلِ وَلَا تَهُذُّوهُ هَذَّ الشِّعْرِ » (Ibn Masʿūd — mawqūf).<br>
+      • <strong>Tadabbur</strong> : au verset de miséricorde — invoque ; de châtiment — cherche refuge ; de glorification — glorifie.<br>
+      • Répéter un verset est permis — le Prophète ﷺ a récité toute une nuit sur un seul verset ✅.<br>
+      • <strong>Interdits :</strong> réciter en langue non arabe · lire une sourate à l'envers · le <em>taṭrīb</em> (chant artificiel).</div>
+      <div class="itr-note">⚠️ <strong>Divergence (fiqh) :</strong> L'interdiction absolue de réciter pour la femme en menstrues est un avis parmi d'autres — al-Albānī et d'autres ont permis la lecture de mémoire. À mentionner.</div>
+    </div>
+  </details>
+
+  <!-- §5 -->
+  <details class="uloom">
+    <summary class="uloom-s">٥ — أَفْضَلُ الْقُرْآنِ وَأَبْلَغُهُ · Le plus virtueux du Coran</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">هَلْ فِي الْقُرْآنِ شَيْءٌ أَفْضَلُ مِنْ شَيْءٍ؟ ذَهَبَ الْإِمَامُ أَبُو الْحَسَنِ الْأَشْعَرِيُّ وَالْقَاضِي الْبَاقِلَّانِيُّ إِلَى مَنْعِ التَّفَاضُلِ، لِأَنَّ الْجَمِيعَ كَلَامُ اللَّهِ.</div>
+      <div class="itr-fr">Y a-t-il une partie du Coran « plus vertueuse » ? Il faut distinguer <strong>deux plans</strong> :<br>
+      • <strong>En tant que Parole d'Allah :</strong> aucune partie n'est « meilleure » — tout est Sa Parole.<br>
+      • <strong>En vertu et récompense :</strong> préférence établie par des hadiths authentiques — al-Fātiḥa est la plus grande sourate, Āyat al-Kursī le plus grand verset, ﴿قُلْ هُوَ اللَّهُ أَحَدٌ﴾ équivaut à un tiers du Coran ✅ (al-Bukhārī).</div>
+      <div class="itr-note">📝 Le livre présente l'avis ašʿarite (<em>manʿ al-tafāḍul</em>). Selon Ibn Taymiyya, Ibn al-Qayyim et les imams contemporains (Ibn Bāz, al-ʿUthaymīn), la préférence en vertu est établie par les textes — distinction à préciser au lecteur.</div>
+    </div>
+  </details>
+
+  <!-- §6·7·8 -->
+  <details class="uloom">
+    <summary class="uloom-s">٦ · ٧ · ٨ — الْإِنْزَالُ وَالْوَحْيُ · La descente et la Révélation</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">اتَّفَقَ أَهْلُ السُّنَّةِ عَلَى أَنَّ كَلَامَ اللَّهِ مُنَزَّلٌ. وَالْوَحْيُ: مَا يُوحِي اللَّهُ إِلَى نَبِيٍّ فَيُثْبِتُهُ فِي قَلْبِهِ — الْقُرْآنُ بِاللَّفْظِ وَالْمَعْنَى، وَالسُّنَّةُ بِالْمَعْنَى دُونَ اللَّفْظِ.</div>
+      <div class="itr-fr"><strong>Les 5 modes de la Révélation :</strong><br>
+      ① Comme le <strong>tintement d'une cloche</strong> — le plus pénible (al-Bukhārī) ✅<br>
+      ② L'ange <strong>insuffle la parole dans le cœur</strong> du Prophète ﷺ (al-Ḥākim / al-Albānī : ṣaḥīḥ) ✅<br>
+      ③ L'ange apparaît sous <strong>forme humaine</strong> et lui parle — le plus léger (al-Bukhārī) ✅<br>
+      ④ L'ange vient <strong>dans le sommeil</strong> et transmet les versets.<br>
+      ⑤ <strong>Allah parle directement</strong> — en veille (nuit du Isrāʾ) ou dans le sommeil (hadith de Muʿādh, at-Tirmidhī : ṣaḥīḥ) ✅</div>
+      <div class="itr-note">📝 La date précise du Isrāʾ (27 Rajab) n'est pas établie par un texte authentique — à présenter comme une opinion, non comme un fait fixe.</div>
+    </div>
+  </details>
+
+  <!-- §9 -->
+  <details class="uloom">
+    <summary class="uloom-s">٩ — الْأَحْرُفُ السَّبْعَةُ · Les sept aḥruf</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">وَرَدَ حَدِيثُ «نَزَلَ الْقُرْآنُ عَلَى سَبْعَةِ أَحْرُفٍ» مِنْ رِوَايَةِ أَكْثَرَ مِنْ عِشْرِينَ صَحَابِيًّا حَتَّى بَلَغَ حَدَّ التَّوَاتُرِ. وَقَدِ اخْتَلَفُوا فِي مَعْنَاهُ عَلَى نَحْوِ أَرْبَعِينَ قَوْلًا.</div>
+      <div class="itr-fr">Le hadith est <strong>authentique et mutawātir</strong> ✅. Points essentiels :<br>
+      • <strong>Les « sept aḥruf » ≠ les « sept qirāʾāt »</strong> — deux réalités distinctes (confusion répandue).<br>
+      • Les 6 principaux avis des savants : (1) question obscure sans sens établi · (2) « sept » = nombre rhétorique de facilité · (3) sept lectures distinctes · (4) sept formulations synonymes · (5) modalités de prononciation (iẓhār, tafkhīm, madd…) · (6) sept dialectes éloquents.<br>
+      • Le Muṣḥaf de ʿUthmān رضي الله عنه retient un seul <em>rasm</em> — les qirāʾāt célèbres n'en sont qu'une partie transmise par chaînes authentiques (Ibn al-Jazarī, Ibn Taymiyya).</div>
+    </div>
+  </details>
+
+  <!-- §10 -->
+  <details class="uloom">
+    <summary class="uloom-s">١٠ — آدَابُ كِتَابَةِ الْمُصْحَفِ · Étiquettes d'écriture du Muṣḥaf</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">يُسْتَحَبُّ كِتَابَةُ الْمُصْحَفِ وَتَحْسِينُ كِتَابَتِهِ وَتَبْيِينُهَا. وَنَقْطُ الْمُصْحَفِ وَشَكْلُهُ مُسْتَحَبٌّ، لِأَنَّهُ صِيَانَةٌ لَهُ مِنَ اللَّحْنِ وَالتَّحْرِيفِ. وَأَوَّلُ مَنْ وَضَعَ الْهَمْزَ وَالتَّشْدِيدَ وَالرَّوْمَ وَالْإِشْمَامَ الْخَلِيلُ بْنُ أَحْمَدَ الْفَرَاهِيدِيُّ.</div>
+      <div class="itr-fr">• Soigner et clarifier l'écriture — recommandé.<br>
+      • La <strong>vocalisation (tashkīl)</strong> est recommandée — elle préserve le Coran de l'erreur (premier : Abū al-Aswad al-Duʾalī ; hamza/shadda/rawm/ishmām : al-Khalīl b. Aḥmad al-Farāhīdī).<br>
+      • Feuillets abîmés : laver à l'eau ou brûler (les ḥanafites préfèrent les enterrer).<br>
+      • <strong>Interdit :</strong> toucher le Muṣḥaf sans ablutions (avis de la majorité).</div>
+      <div class="itr-note">📝 Divergence : al-Albānī et d'autres considèrent les ablutions <strong>recommandées par respect</strong>, sans que l'interdiction soit catégorique — à mentionner selon la méthodologie.</div>
+    </div>
+  </details>
+
+  <!-- §11·12 -->
+  <details class="uloom">
+    <summary class="uloom-s">١١ · ١٢ — التَّعَلُّمُ وَالْإِجَازَةُ · Mémorisation et licence du cheikh</summary>
+    <div class="uloom-body">
+      <div class="itr-hadith">«خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ» <span style="direction:ltr;font-size:9px">(رواه البخاري) ✅</span></div>
+      <div class="itr-ar">إِنَّ حِفْظَ الْقُرْآنِ فَرْضُ كِفَايَةٍ عَلَى الْأُمَّةِ. وَالتَّجْوِيدُ: إِعْطَاءُ الْحُرُوفِ حُقُوقَهَا وَتَرْتِيبَهَا، مِنْ غَيْرِ إِسْرَافٍ وَلَا تَكَلُّفٍ.</div>
+      <div class="itr-fr">• Mémoriser le Coran = <strong>farḍ kifāya</strong> (obligation collective) — pour que le <em>tawātur</em> ne s'interrompe pas.<br>
+      • Le tajwīd = donner à chaque lettre son droit, sans excès ni affectation.<br>
+      • <strong>Interdits :</strong> le <em>taṭrīb</em> (chantonner en allongeant hors règle) · le <em>taḥzīn</em> (pleurnicherie affectée) · la récitation en chœur altérant les mots.<br>
+      • <strong>L'ijāza</strong> n'est pas une condition légale pour enseigner — mais elle atteste l'aptitude du maître (d'autant plus nécessaire aujourd'hui que les vrais savants se sont raréfiés).</div>
+    </div>
+  </details>
+
+  <!-- §13 -->
+  <details class="uloom">
+    <summary class="uloom-s">١٣ — إِعْرَابُ الْقُرْآنِ · L'analyse grammaticale</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">وَهُوَ عِلْمٌ يَحْتَاجُ إِلَيْهِ الْمُفَسِّرُ، لِأَنَّ مِنْ فَوَائِدِهِ مَعْرِفَةَ الْمَعْنَى؛ فَبِالْإِعْرَابِ تُمَيَّزُ الْمَعَانِي وَيُوقَفُ عَلَى أَغْرَاضِ الْمُتَكَلِّمِينَ. وَعَنْ عُمَرَ رَضِيَ اللَّهُ عَنْهُ: «تَعَلَّمُوا اللَّحْنَ وَالْفَرَائِضَ وَالسُّنَنَ كَمَا تَعَلَّمُونَ الْقُرْآنَ».</div>
+      <div class="itr-fr">L'<em>iʿrāb</em> est indispensable à l'exégète — par lui on distingue les sens et l'on saisit les intentions des versets. ʿUmar رضي الله عنه : « Apprenez la langue (<em>al-laḥn</em> = grammaire), les parts d'héritage et les Sunan comme vous apprenez le Coran. »<br>Spécialistes classiques : al-Zajjāj · al-Farrāʾ · al-Akhfash · Ibn al-Anbārī · Abū ʿUbayda.</div>
+    </div>
+  </details>
+
+  <!-- §14 -->
+  <details class="uloom">
+    <summary class="uloom-s">١٤ — غَرِيبُ الْقُرْآنِ الْكَرِيمِ · Le vocabulaire rare</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">عَلَى الْخَائِضِ فِي ذَلِكَ التَّثَبُّتُ وَالرُّجُوعُ إِلَى كُتُبِ أَهْلِ الْفَنِّ، وَعَدَمُ الْخَوْضِ بِالظَّنِّ؛ فَهَؤُلَاءِ الصَّحَابَةُ تَوَقَّفُوا فِي أَلْفَاظٍ لَمْ يَعْرِفُوا مَعْنَاهَا. وَعَنِ ابْنِ عَبَّاسٍ: «إِذَا سَأَلْتُمُونِي عَنْ غَرِيبِ الْقُرْآنِ فَالْتَمِسُوهُ فِي الشِّعْرِ، فَإِنَّ الشِّعْرَ دِيوَانُ الْعَرَبِ».</div>
+      <div class="itr-fr">Celui qui aborde le <em>gharīb</em> doit vérifier et revenir aux ouvrages spécialisés, sans se prononcer par conjecture. Les Compagnons eux-mêmes — Arabes de pur sang — se sont abstenus sur des mots inconnus. La poésie arabe est la référence pour expliquer le vocabulaire rare (Ibn ʿAbbās ✅).</div>
+      <div class="itr-note">⚠️ Le hadith marfūʿ « أعربوا القرآن والتمسوا غرائبه » (al-Bayhaqī via Abū Hurayra) est jugé faible en tant que prophétique — plus solide comme parole d'Abū Hurayra (mawqūf). À ne pas attribuer au Prophète ﷺ sans précision.</div>
+    </div>
+  </details>
+
+  <div class="itr-note" style="margin-top:1.2rem">
+    ⚠️ <strong>Note méthodologique finale</strong> — Hadiths faibles à ne pas attribuer sans précision : « عُرضت عليَّ ذنوب أمتي… » · « من قرأ القرآن ثم نسيه أجذم » · Saʿd b. Abī Waqqāṣ au <em>khatm</em> · « أعربوا القرآن » (marfūʿ). Divergences fiqh : femme en menstrues · toucher le Muṣḥaf sans wuḍūʾ · récompense pour le défunt. <em>ʿAqīda</em> : distinguer Parole d'Allah (égalité) et récompense (préférence établie par textes). Date du Isrāʾ (27 Rajab) : non établie.
+  </div>
+
+  <div class="itr-bridge">
+    <div class="itr-bridge-ar">✦ الْقِسْمُ الثَّانِي : عِلْمُ التَّجْوِيدِ — انْقُرْ عَلَى وَكِيلِ التَّجْوِيدِ أَعْلَاهُ</div>
+    <div class="itr-bridge-fr">Partie II — La science du Tajwīd commence ici · Cliquez sur l'onglet « التجويد » dans la barre ci-dessus</div>
+  </div>
+
+</div>
+<!-- ===== FIN INTRODUCTION ===== -->
+
 <div class="modal-wrap" id="modalWrap">
   <div class="modal">
     <div class="modal-head">
@@ -440,14 +765,16 @@ const AGENTS=[
 ];
 
 let curAgent='tajwid',curLevels={tajwid:0,tafsir:0,uloom:0,hifz:0,irab:0};
-let chatHistory=[],curAgentData=null,isLoading=false;
+let curSection='agents',chatHistory=[],curAgentData=null,isLoading=false;
 
 function getAgent(){return AGENTS.find(a=>a.id===curAgent);}
 function renderTabs(){
-  document.getElementById('agentTabs').innerHTML=AGENTS.map(a=>`
-    <button class="agent-btn${a.id===curAgent?' active':''}" onclick="switchAgent('${a.id}')">
+  const iBtn=`<button class="agent-btn${curSection==='intro'?' active':''}" onclick="switchToIntro()">📖 <span style="font-family:Amiri,serif;font-size:14px;">المُقَدِّمَة</span></button>`;
+  const aBtns=AGENTS.map(a=>`
+    <button class="agent-btn${curSection==='agents'&&a.id===curAgent?' active':''}" onclick="switchAgent('${a.id}')">
       ${a.icon} <span style="font-family:Amiri,serif;font-size:14px;">${a.labelAr}</span>
     </button>`).join('');
+  document.getElementById('agentTabs').innerHTML=iBtn+aBtns;
 }
 function renderContent(){
   const ag=getAgent(),lvIdx=curLevels[ag.id],lv=ag.levels[lvIdx];
@@ -489,7 +816,8 @@ function renderContent(){
         </div>
       </div>`).join('')}</div>`;
 }
-function switchAgent(id){curAgent=id;renderTabs();renderContent();}
+function switchToIntro(){curSection='intro';document.getElementById('introWrap').style.display='block';document.getElementById('mainContent').style.display='none';renderTabs();}
+function switchAgent(id){curSection='agents';curAgent=id;document.getElementById('introWrap').style.display='none';document.getElementById('mainContent').style.display='block';renderTabs();renderContent();}
 function switchLevel(i){curLevels[curAgent]=i;renderContent();}
 function openChat(bookAr,level){
   const ag=getAgent();curAgentData=ag;chatHistory=[];
