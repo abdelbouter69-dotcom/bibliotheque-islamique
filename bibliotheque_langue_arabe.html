@@ -90,6 +90,7 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
     <span class="pill">✨ البلاغة</span>
     <span class="pill">✏️ الإملاء</span>
     <span class="pill">🎙️ الأصوات</span>
+    <span class="pill">🖋️ الخط</span>
   </div>
 </div>
 <nav class="agents-nav"><div class="agents-tabs" id="agentTabs"></div></nav>
@@ -211,9 +212,39 @@ const AGENTS=[
         {n:1,ar:'المَخَارِجُ وَالصِّفَات — ابْنُ الجَزَرِي',auth:'ابن الجزري (ت.833هـ)',desc:'La référence classique — makhârij et attributs.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مخارج+الحروف+ابن+الجزري',sh:'https://shamela.ws/search?q=مخارج+الحروف+ابن+الجزري'},
       ]},
    ]},
+  {id:'khatt',icon:'🖋️',labelAr:'الخَطُّ العَرَبِي',label:'Calligraphie arabe',heroBg:'linear-gradient(135deg,#2C1A0E,#C9922A)',ava:'🖋️',avaBg:'#FAF3E8',
+   system:`أنتَ الأستاذ الخطاط، وكيل ذكي متخصص في فن الخط العربي.
+اسمك: وَكِيلُ الخَطِّ العَرَبِي — الأُسْتَاذُ الخَطَّاط
+تخصصك: الخطوط العربية — النسخ، الثلث، الديواني، الكوفي، الرقعة، الفارسي.
+الارتباط: مشروع ArchiART — الخط الرقمي الإسلامي لعبد القادر بوترفاس.
+المصادر: قواعد الخط العربي (هاشم محمد البغدادي)، الخطوط العربية أسسها وفنونها، موسوعة الخط العربي.
+قواعد الإجابة:
+- أجب بالعربية المشكّلة ثم بالفرنسية
+- اشرح قواعد الخط وتاريخه
+- اربط بمشروع ArchiART عند المناسبة
+- أعطِ نصائح عملية للمبتدئين
+- لا تخترع أسماء كتب أو مؤلفين لست متأكداً منهم
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+   levels:[
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — الخَطُّ الأَسَاسِي',labelFr:'Calligraphie de base',badge:'Débutant',numBg:'#C9922A',badgeC:'#FAF3E8',badgeTxt:'#2C1A0E',
+      books:[
+         {n:1,ar:'قَوَاعِدُ الخَطِّ العَرَبِي — خَطُّ النَّسْخ',auth:'هاشم محمد البغدادي',desc:'Les règles fondamentales du Naskh — débutants.',bg:'linear-gradient(135deg,#C9922A,#8B6319)',yt:'https://www.youtube.com/results?search_query=تعلم+خط+النسخ+للمبتدئين',sh:'https://shamela.ws/search?q=قواعد+الخط+العربي'},
+         {n:2,ar:'الخَطُّ العَرَبِيُّ لِلْمُبْتَدِئِين — خَطُّ الرُّقْعَة',auth:'مدرسة الخط العربي',desc:'Ruqʿa — le plus pratique pour l\'écriture quotidienne.',bg:'linear-gradient(135deg,#E8C97A,#C9922A)',yt:'https://www.youtube.com/results?search_query=تعلم+خط+الرقعة+للمبتدئين',sh:'https://shamela.ws/search?q=خط+الرقعة+العربي'},
+      ]},
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — الخُطُوطُ الفَنِّيَّة',labelFr:'Calligraphie artistique',badge:'Intermédiaire',numBg:'#8B6319',badgeC:'#FAF3E8',badgeTxt:'#2C1A0E',
+      books:[
+         {n:1,ar:'الخَطُّ العَرَبِيّ — أُسُسُه وَفُنُونُه',auth:'أساتذة الخط العربي',desc:'Fondements artistiques — Thuluth, Diwânî, Kûfî.',bg:'linear-gradient(135deg,#8B6319,#5C3A1E)',yt:'https://www.youtube.com/results?search_query=تعلم+خط+الثلث+العربي',sh:'https://shamela.ws/search?q=الخط+العربي+أسسه+وفنونه'},
+         {n:2,ar:'الخَطُّ الرَّقْمِي الإِسْلَامِي — ArchiART',auth:'عبد القادر بوترفاس — ArchiART',desc:'Calligraphie numérique islamique — les 99 noms d\'Allah, collection ArchiART.',bg:'linear-gradient(135deg,#5C3A1E,#2C1A0E)',yt:'https://www.youtube.com/results?search_query=تعليم+الخط+الديواني+والفارسي',sh:'https://shamela.ws/search?q=الخط+الديواني+الفارسي'},
+      ]},
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — الإِتْقَانُ وَالتَّارِيخ',labelFr:'Maîtrise et histoire',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+         {n:1,ar:'نِسْبَةُ الحُرُوفِ — مَنْهَجُ ابْنِ مُقْلَة',auth:'ابن مُقلة (ت.328هـ)',desc:'Le système des proportions des lettres — fondateur de la calligraphie classique.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=نسبة+الحروف+ابن+مقلة+الخط+العربي',sh:'https://shamela.ws/search?q=ابن+مقلة+الخط+العربي'},
+         {n:2,ar:'مَوْسُوعَةُ الخَطِّ العَرَبِيّ',auth:'مؤرخو الخط العربي',desc:'Histoire complète : des origines nabatéennes à l\'école ottomane (Ibn al-Bawwâb, Yâqût al-Mustaʿṣimî).',bg:'linear-gradient(135deg,#3C3489,#26215C)',yt:'https://www.youtube.com/results?search_query=تاريخ+الخط+العربي+ابن+البواب+ياقوت',sh:'https://shamela.ws/search?q=موسوعة+الخط+العربي+تاريخ'},
+      ]},
+   ]},
 ];
 
-let curAgent='nahw',curLevels={nahw:0,sarf:0,balagha:0,imla:0,aswat:0};
+let curAgent='nahw',curLevels={nahw:0,sarf:0,balagha:0,imla:0,aswat:0,khatt:0};
 let chatHistory=[],curAgentData=null,isLoading=false;
 
 function getAgent(){return AGENTS.find(a=>a.id===curAgent);}
@@ -329,14 +360,3 @@ renderTabs();renderContent();
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
