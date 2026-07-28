@@ -14,7 +14,11 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 .title-fr{font-size:11px;color:rgba(255,255,255,0.6);direction:ltr;margin-bottom:10px;}
 .pill{font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);border:0.5px solid rgba(255,255,255,0.2);display:inline-block;margin:2px;}
 .savant-badge{background:rgba(255,255,255,0.1);border-radius:8px;padding:6px 12px;font-size:10px;color:rgba(255,255,255,0.8);text-align:center;margin-top:8px;font-family:'Amiri',serif;}
-.agents-nav{background:#fff;border-bottom:1px solid #ddd;overflow-x:auto;position:sticky;top:0;z-index:50;}
+.agents-nav{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:50;display:flex;align-items:stretch;}
+.agents-nav .agents-tabs{overflow-x:auto;flex:1;}
+.back-btn{flex:none;display:flex;align-items:center;gap:5px;padding:.8rem .9rem;font-size:12px;background:#0C447C;color:#fff;border:none;cursor:pointer;font-family:'Noto Naskh Arabic',serif;text-decoration:none;white-space:nowrap;}
+.back-btn:hover{background:#185FA5;}
+.back-btn:focus-visible{outline:2px solid #185FA5;outline-offset:-2px;}
 .agents-tabs{display:flex;min-width:max-content;}
 .agent-btn{display:flex;align-items:center;gap:6px;padding:.8rem .9rem;font-size:12px;color:#666;background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;font-family:'Noto Naskh Arabic',serif;}
 .agent-btn.active{color:#0C447C;border-bottom-color:#185FA5;}
@@ -80,7 +84,7 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 </head>
 <body>
 <div class="header">
-  <div style="text-align:left;margin-bottom:6px;"><button onclick="window.location.href='index.html'" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:5px 14px;font-size:12px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;">← Accueil</button></div>
+  <div style="text-align:left;margin-bottom:6px;"><a href="index.html" style="display:inline-block;text-decoration:none;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:5px 14px;font-size:12px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;">← Accueil</a></div>
   <span class="basmala">بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ</span>
   <div class="title-ar">مَكْتَبَةُ الدَّعْوَةِ وَالحِوَارِ الذَّكِيَّة</div>
   <div class="title-fr">Bibliothèque Da'wa et Dialogue — ArchiART</div>
@@ -93,7 +97,7 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
   </div>
   <div class="savant-badge">المَصَادِرُ المُعْتَمَدَة : الشيخ ابن باز — الشيخ الفوزان — الشيخ محسن العباد — الشيخ ابن عثيمين</div>
 </div>
-<nav class="agents-nav"><div class="agents-tabs" id="agentTabs"></div></nav>
+<nav class="agents-nav"><a class="back-btn" href="index.html" aria-label="Retour a l'accueil">← الرئيسية</a><div class="agents-tabs" id="agentTabs"></div></nav>
 <div class="content" id="mainContent"></div>
 <div class="modal-wrap" id="modalWrap">
   <div class="modal">

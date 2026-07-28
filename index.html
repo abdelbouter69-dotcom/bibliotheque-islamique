@@ -5,6 +5,18 @@
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Bibliothèque Islamique Intelligente : apprentissage de la grammaire arabe avec l'Ajrûmiyya d'Ibn Âjurrûm, les 99 Noms d'Allah et une bibliothèque de classiques (Coran, Hadith, Fiqh, Tawhîd, Sîra).">
+<meta name="author" content="Abdelkader Bouterfas">
+<meta name="theme-color" content="#07070e">
+<link rel="canonical" href="https://quiet-sundae-08bb92.netlify.app/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bibliothèque Islamique Intelligente — المكتبة الإسلامية الذكية">
+<meta property="og:description" content="Grammaire arabe selon l'Ajrûmiyya, 99 Noms d'Allah et classiques de la tradition islamique, avec agents pédagogiques.">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2307070e'/%3E%3Ctext y='74' x='50' text-anchor='middle' font-size='68' fill='%23D4AF37'%3E%DB%9E%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>المكتبة الإسلامية الذكية — Bibliothèque Islamique Intelligente</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -103,6 +115,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(7,7,14,.97);backdrop-filte
 .lesson-title-ar{font-family:var(--ff-arabic);font-size:.95rem;color:var(--cream);direction:rtl}
 .lesson-title-fr{font-size:.75rem;color:var(--dim)}
 .agent-main{display:flex;flex-direction:column;background:var(--dark2);border:1px solid rgba(212,175,55,.15);border-radius:var(--r);overflow:hidden}
+.agent-back{flex:none;background:rgba(212,175,55,.12);color:var(--gold);border:1px solid rgba(212,175,55,.3);border-radius:8px;padding:.45rem .7rem;font-size:.85rem;cursor:pointer;font-family:inherit;transition:background .18s}
+.agent-back:hover{background:rgba(212,175,55,.25)}
 .agent-header{padding:1rem 1.2rem;border-bottom:1px solid rgba(212,175,55,.12);display:flex;align-items:center;gap:.8rem}
 .agent-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold-d),var(--gold));display:flex;align-items:center;justify-content:center;font-family:var(--ff-arabic);font-size:1.2rem;color:var(--black);font-weight:700;flex-shrink:0}
 .agent-info h3{font-family:var(--ff-title);font-size:1rem;color:var(--gold)}
@@ -171,115 +185,126 @@ nav{position:sticky;top:0;z-index:100;background:rgba(7,7,14,.97);backdrop-filte
 .modal-body p{color:var(--dim);line-height:1.7;margin-bottom:.8rem;font-size:.93rem}
 .modal-body .ar-block{font-family:var(--ff-arabic);font-size:1.1rem;direction:rtl;color:var(--cream);background:rgba(212,175,55,.04);border:1px solid rgba(212,175,55,.12);border-radius:6px;padding:.8rem;margin:.6rem 0;line-height:1.9}
 
+/* Accessibilité */
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+[role="button"]{cursor:pointer}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--gold);color:var(--black);padding:.6rem 1rem;z-index:1000}
+.skip-link:focus{left:.5rem;top:.5rem}
+
 /* Responsive */
 @media(max-width:600px){.home-cards{grid-template-columns:1fr 1fr}.books-grid{grid-template-columns:1fr 1fr}.agent-layout{height:auto}}
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#sec-home">Aller au contenu</a>
+
 <!-- SPLASH -->
 <div id="splash">
   <div class="splash-bg"></div>
   <div class="splash-inner">
-    <div class="splash-ornament">۞</div>
+    <div class="splash-ornament" lang="ar">۞</div>
     <div class="splash-title">Bibliothèque Islamique</div>
-    <div class="splash-arabic-title">الْمَكْتَبَةُ الإِسْلَامِيَّةُ الذَّكِيَّةُ</div>
+    <div class="splash-arabic-title" lang="ar">الْمَكْتَبَةُ الإِسْلَامِيَّةُ الذَّكِيَّةُ</div>
     <div class="splash-sub">Agent • Grammaire • Noms Divins</div>
     <div class="splash-desc">Un espace d'apprentissage de la langue arabe fondé sur l'Ajrûmiyya et les grands classiques de la tradition islamique</div>
     <button class="enter-btn" onclick="enterApp()">بِسْمِ اللَّهِ — Entrer</button>
-    <div class="splash-basmala">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <div class="splash-basmala" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
   </div>
 </div>
 
 <!-- APP -->
 <div id="app">
   <nav>
-    <div class="nav-brand" onclick="showSection('home')">
+    <div class="nav-brand" role="button" tabindex="0" data-section="home" onclick="showSection('home')">
       <div>
-        <div class="nav-brand-ar">المكتبة</div>
+        <div class="nav-brand-ar" lang="ar">المكتبة</div>
         <div class="nav-brand-fr">ISLAMIQUE</div>
       </div>
     </div>
     <div class="nav-links">
-      <button class="nav-btn active" onclick="showSection('home')">Accueil</button>
-      <button class="nav-btn" onclick="showSection('agent')">🤖 Agent Grammatical</button>
-      <button class="nav-btn" onclick="showSection('library')">📚 Bibliothèque</button>
-      <button class="nav-btn" onclick="showSection('names')">✨ Noms Divins</button>
+      <button class="nav-btn active" data-section="home" onclick="showSection('home')">Accueil</button>
+      <button class="nav-btn" data-section="agent" onclick="showSection('agent')">🤖 Agent Grammatical</button>
+      <button class="nav-btn" data-section="library" onclick="showSection('library')">📚 Bibliothèque</button>
+      <button class="nav-btn" data-section="names" onclick="showSection('names')">✨ Noms Divins</button>
     </div>
   </nav>
 
   <!-- HOME -->
   <div class="section active" id="sec-home">
     <div class="home-hero">
-      <h1>المكتبة الإسلامية الذكية</h1>
-      <div class="home-hero-ar">تَعَلَّمِ الْعَرَبِيَّةَ مَعَ الشَّيْخِ آجُرُّوم</div>
+      <h1 lang="ar">المكتبة الإسلامية الذكية</h1>
+      <div class="home-hero-ar" lang="ar">تَعَلَّمِ الْعَرَبِيَّةَ مَعَ الشَّيْخِ آجُرُّوم</div>
       <p>Apprenez la grammaire arabe classique avec un agent intelligent fondé sur la <em>Muqaddima al-Âjurrûmiyya</em> — réponses en arabe vocalisé et en français.</p>
     </div>
     <div class="home-cards">
-      <div class="home-card" onclick="showSection('agent')">
+      <div class="home-card" role="button" tabindex="0" data-section="agent" onclick="showSection('agent')">
         <div class="hc-icon">🎓</div>
         <div class="hc-title">Agent Grammatical</div>
-        <div class="hc-ar">الشَّيْخُ الْمُعَلِّمُ</div>
+        <div class="hc-ar" lang="ar">الشَّيْخُ الْمُعَلِّمُ</div>
         <div class="hc-desc">Posez vos questions en français ou en arabe. L'agent vous répond avec du texte arabe vocalisé (tashkîl complet) et une explication en français.</div>
       </div>
-      <div class="home-card" onclick="showSection('library')">
+      <div class="home-card" role="button" tabindex="0" data-section="library" onclick="showSection('library')">
         <div class="hc-icon">📚</div>
         <div class="hc-title">Bibliothèque Classique</div>
-        <div class="hc-ar">الْمَكْتَبَةُ الْكَلَاسِيكِيَّة</div>
+        <div class="hc-ar" lang="ar">الْمَكْتَبَةُ الْكَلَاسِيكِيَّة</div>
         <div class="hc-desc">Catalogue des grands ouvrages : Ajrûmiyya, Alfiyya d'Ibn Mâlik, hadith, tafsîr, fiqh — avec fiches de présentation.</div>
       </div>
-      <div class="home-card" onclick="showSection('names')">
+      <div class="home-card" role="button" tabindex="0" data-section="names" onclick="showSection('names')">
         <div class="hc-icon">✨</div>
         <div class="hc-title">Les 99 Noms Divins</div>
-        <div class="hc-ar">أَسْمَاءُ اللَّهِ الْحُسْنَى</div>
+        <div class="hc-ar" lang="ar">أَسْمَاءُ اللَّهِ الْحُسْنَى</div>
         <div class="hc-desc">Chaque Nom avec verset coranique, hadith authentique et explication — d'après le Dr. Sa'îd al-Qahtânî.</div>
       </div>
-      <div class="home-card" onclick="startLesson(0)">
+      <div class="home-card" role="button" tabindex="0" onclick="startLesson(0)">
         <div class="hc-icon">📖</div>
         <div class="hc-title">Leçon 1 — L'Ajrûmiyya</div>
-        <div class="hc-ar">الْمُقَدِّمَةُ الآجُرُّومِيَّة</div>
+        <div class="hc-ar" lang="ar">الْمُقَدِّمَةُ الآجُرُّومِيَّة</div>
         <div class="hc-desc">Commencez par le début : qu'est-ce que la parole arabe ? Nom, verbe, particule — les trois piliers de la langue.</div>
       </div>
-      <div class="home-card" onclick="window.location.href='bibliotheque_coran.html'">
+      <div class="home-card" role="button" tabindex="0" onclick="window.location.href='bibliotheque_coran.html'">
         <div class="hc-icon">📖</div>
         <div class="hc-title">Bibliothèque Coran</div>
-        <div class="hc-ar">مَكْتَبَةُ القُرْآنِ الكَرِيم</div>
+        <div class="hc-ar" lang="ar">مَكْتَبَةُ القُرْآنِ الكَرِيم</div>
         <div class="hc-desc">Tajweed, Tafsir, Sciences coraniques, Mémorisation, Iʿrâb — 5 agents spécialisés.</div>
       </div>
-      <div class="home-card" onclick="window.location.href='bibliotheque_hadith.html'">
+      <div class="home-card" role="button" tabindex="0" onclick="window.location.href='bibliotheque_hadith.html'">
         <div class="hc-icon">📜</div>
         <div class="hc-title">Bibliothèque Hadith</div>
-        <div class="hc-ar">مَكْتَبَةُ الحَدِيثِ النَّبَوِي</div>
+        <div class="hc-ar" lang="ar">مَكْتَبَةُ الحَدِيثِ النَّبَوِي</div>
         <div class="hc-desc">Hadith du Prophète ﷺ, Mustalah, Rijâl, Jarh &amp; Taʿdîl — agents et livres classiques.</div>
       </div>
-      <div class="home-card" onclick="window.location.href='bibliotheque_dawa.html'">
+      <div class="home-card" role="button" tabindex="0" onclick="window.location.href='bibliotheque_dawa.html'">
         <div class="hc-icon">📣</div>
         <div class="hc-title">Bibliothèque Daʿwa</div>
-        <div class="hc-ar">مَكْتَبَةُ الدَّعْوَةِ وَالحِوَار</div>
+        <div class="hc-ar" lang="ar">مَكْتَبَةُ الدَّعْوَةِ وَالحِوَار</div>
         <div class="hc-desc">Méthodes de daʿwa, dialogue interreligieux, réfutation des doutes — agents spécialisés.</div>
       </div>
-      <div class="home-card" onclick="window.location.href='bibliotheque_fiqh.html'">
+      <div class="home-card" role="button" tabindex="0" onclick="window.location.href='bibliotheque_fiqh.html'">
         <div class="hc-icon">⚖️</div>
         <div class="hc-title">Bibliothèque Fiqh</div>
-        <div class="hc-ar">مَكْتَبَةُ الفِقْهِ الإِسْلامِي</div>
+        <div class="hc-ar" lang="ar">مَكْتَبَةُ الفِقْهِ الإِسْلامِي</div>
         <div class="hc-desc">Usûl al-fiqh, madhâhib, fatwas — du débutant à l'expert avec agents spécialisés.</div>
       </div>
-      <div class="home-card" onclick="window.location.href='bibliotheque_langue_arabe.html'">
+      <div class="home-card" role="button" tabindex="0" onclick="window.location.href='bibliotheque_langue_arabe.html'">
         <div class="hc-icon">📘</div>
         <div class="hc-title">Bibliothèque Langue Arabe</div>
-        <div class="hc-ar">مَكْتَبَةُ اللُّغَةِ العَرَبِيَّة</div>
+        <div class="hc-ar" lang="ar">مَكْتَبَةُ اللُّغَةِ العَرَبِيَّة</div>
         <div class="hc-desc">Nahw, Sarf, Balâgha, Imlâ, Aswât — 5 agents et les grands textes classiques.</div>
       </div>
-      <div class="home-card" onclick="window.location.href='bibliotheque_tawhid.html'">
+      <div class="home-card" role="button" tabindex="0" onclick="window.location.href='bibliotheque_tawhid.html'">
         <div class="hc-icon">☝️</div>
         <div class="hc-title">Bibliothèque Tawhîd</div>
-        <div class="hc-ar">مَكْتَبَةُ التَّوْحِيدِ وَالعَقِيدَة</div>
+        <div class="hc-ar" lang="ar">مَكْتَبَةُ التَّوْحِيدِ وَالعَقِيدَة</div>
         <div class="hc-desc">Tawhid, Noms &amp; Attributs, Shirk, ʿAqîda — 4 agents, 13 livres classiques.</div>
       </div>
-      <div class="home-card" onclick="window.location.href='bibliotheque_sira.html'">
+      <div class="home-card" role="button" tabindex="0" onclick="window.location.href='bibliotheque_sira.html'">
         <div class="hc-icon">🌙</div>
         <div class="hc-title">Bibliothèque Sîra</div>
-        <div class="hc-ar">مَكْتَبَةُ السِّيرَةِ النَّبَوِيَّة</div>
+        <div class="hc-ar" lang="ar">مَكْتَبَةُ السِّيرَةِ النَّبَوِيَّة</div>
         <div class="hc-desc">Sîra Nabawiyya — الرحيق المختوم, ابن هشام, البداية والنهاية — 1 agent, 3 niveaux.</div>
       </div>
     </div>
@@ -299,6 +324,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(7,7,14,.97);backdrop-filte
       <!-- Chat -->
       <div class="agent-main">
         <div class="agent-header">
+          <button class="agent-back" onclick="goToChapters()" aria-label="Revenir à la liste des chapitres" title="Chapitres">← الأَبْوَاب</button>
           <div class="agent-avatar">م</div>
           <div class="agent-info">
             <h3>الشَّيْخُ المُعَلِّم — Le Maître</h3>
@@ -771,6 +797,7 @@ const KB = {
 //  AGENT LOGIC
 // ══════════════════════════════════════════════════════════
 let currentLesson = 0;
+let lessonAffichee = null;
 let chatHistory = [];
 
 function findAnswer(input) {
@@ -868,22 +895,22 @@ function renderMsg(who, content) {
       <div class="msg-bubble"><div class="msg-text">${escHtml(content)}</div></div>`;
   } else {
     let inner = '';
-    if (content.ar) inner += `<div class="msg-ar">${content.ar.replace(/\n/g,'<br>')}</div>`;
+    if (content.ar) inner += `<div class="msg-ar" lang="ar" lang="ar" dir="rtl">${escHtml(content.ar).replace(/\n/g,'<br>')}</div>`;
     if (content.fr) {
-      const frHtml = content.fr.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+      const frHtml = escHtml(content.fr).replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
       inner += `<div class="msg-fr">${frHtml}</div>`;
     }
     if (content.examples && content.examples.length) {
       inner += content.examples.map(e=>`
         <div class="example-box">
           <div class="ex-label">EXEMPLE — مِثَال</div>
-          <div class="ex-ar">${e.ar}</div>
-          <div class="ex-fr">${e.fr}</div>
+          <div class="ex-ar" lang="ar" lang="ar" dir="rtl">${escHtml(e.ar)}</div>
+          <div class="ex-fr">${escHtml(e.fr)}</div>
         </div>`).join('');
     }
     inner += `<div class="msg-actions">
-      <button class="btn-tts" onclick="speak('${escAttr(content.ar||'')}','ar')">🔊 عربي</button>
-      <button class="btn-tts" onclick="speak('${escAttr(content.fr||'')}','fr')">🔊 Français</button>
+      <button class="btn-tts" aria-label="Écouter en arabe" onclick="speak('${escAttr(content.ar||'')}','ar')">🔊 عربي</button>
+      <button class="btn-tts" aria-label="Écouter en français" onclick="speak('${escAttr(content.fr||'')}','fr')">🔊 Français</button>
     </div>`;
     div.innerHTML = `<div class="msg-avatar">م</div><div class="msg-bubble">${inner}</div>`;
   }
@@ -917,6 +944,7 @@ async function sendMsg() {
   if (!txt) return;
   inp.value = '';
 
+  lessonAffichee = null;
   renderMsg('user', txt);
   chatHistory.push({ role: 'user', content: txt });
 
@@ -926,7 +954,7 @@ async function sendMsg() {
     const res = await fetch('/.netlify/functions/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: chatHistory }),
+      body: JSON.stringify({ messages: chatHistory.slice(-10) }),
     });
 
     t.remove();
@@ -958,8 +986,17 @@ function speak(text, lang) {
   window.speechSynthesis.speak(utt);
 }
 
-function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function escAttr(s){return s.replace(/'/g,"\\'").replace(/\n/g,' ').replace(/<[^>]+>/g,'')}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function escAttr(s){return String(s).replace(/<[^>]+>/g,'').replace(/\n/g,' ').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+
+function goToChapters() {
+  const side = document.querySelector('.agent-sidebar');
+  if (!side) return;
+  const doux = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  side.scrollIntoView({behavior: doux ? 'smooth' : 'auto', block: 'start'});
+  const actif = side.querySelector('.lesson-item.active') || side.querySelector('.lesson-item');
+  if (actif) setTimeout(()=>actif.focus({preventScroll:true}), doux ? 400 : 0);
+}
 
 function setActiveLesson(id) {
   document.querySelectorAll('.lesson-item').forEach(el=>{
@@ -968,10 +1005,13 @@ function setActiveLesson(id) {
 }
 
 function startLesson(id) {
+  if (id === lessonAffichee) { showSection('agent'); return; }
   showSection('agent');
   setTimeout(()=>{
     currentLesson = id;
+    lessonAffichee = id;
     chatHistory = [];
+    document.getElementById('chatArea').innerHTML = '';
     setActiveLesson(id);
     const d = KB[id];
     if (!d) return;
@@ -989,9 +1029,9 @@ function startLesson(id) {
 function initLessonList() {
   const list = document.getElementById('lessonList');
   list.innerHTML = LESSONS.map(l=>`
-    <div class="lesson-item ${l.id===0?'active':''}" data-id="${l.id}" onclick="startLesson(${l.id})">
+    <div class="lesson-item ${l.id===0?'active':''}" role="button" tabindex="0" data-id="${l.id}" onclick="startLesson(${l.id})">
       <div class="lesson-num">${l.chap}</div>
-      <div class="lesson-title-ar">${l.numAr} — ${l.titleAr}</div>
+      <div class="lesson-title-ar" lang="ar">${l.numAr} — ${l.titleAr}</div>
       <div class="lesson-title-fr">${l.titleFr}</div>
     </div>`).join('');
 }
@@ -1005,7 +1045,7 @@ function initQuickBtns() {
     {ar:'أَنْوَاعُ الأَفْعَال',fr:'Types de verbes'},
   ];
   document.getElementById('quickBtns').innerHTML = questions.map(q=>
-    `<button class="qbtn" onclick="quickAsk('${escAttr(q.ar)}','${escAttr(q.fr)}')">${q.ar}</button>`
+    `<button class="qbtn" lang="ar" onclick="quickAsk('${escAttr(q.ar)}','${escAttr(q.fr)}')">${q.ar}</button>`
   ).join('');
 }
 
@@ -1017,8 +1057,8 @@ function quickAsk(ar,fr) {
 function initLibrary() {
   const cats = ['grammaire','hadith','tafsir','aqida','fiqh','akhlaq','biographie'];
   const labels = {grammaire:'Grammaire',hadith:'Hadith',tafsir:'Tafsîr',aqida:'\'Aqîda',fiqh:'Fiqh',akhlaq:'Akhlâq',biographie:'Sîra'};
-  document.getElementById('libCats').innerHTML = `<div class="lib-cat on" onclick="filterBooks(null,this)">Tous</div>`+
-    cats.map(c=>`<div class="lib-cat" onclick="filterBooks('${c}',this)">${labels[c]}</div>`).join('');
+  document.getElementById('libCats').innerHTML = `<div class="lib-cat on" role="button" tabindex="0" onclick="filterBooks(null,this)">Tous</div>`+
+    cats.map(c=>`<div class="lib-cat" role="button" tabindex="0" onclick="filterBooks('${c}',this)">${labels[c]}</div>`).join('');
   renderBooks(BOOKS);
 }
 
@@ -1030,9 +1070,9 @@ function filterBooks(cat, el) {
 
 function renderBooks(list) {
   document.getElementById('booksGrid').innerHTML = list.map(b=>`
-    <div class="book-card" onclick="showBookModal(${BOOKS.indexOf(b)})">
+    <div class="book-card" role="button" tabindex="0" onclick="showBookModal(${BOOKS.indexOf(b)})">
       <div class="book-icon">${b.icon}</div>
-      <div class="book-title-ar">${b.ar}</div>
+      <div class="book-title-ar" lang="ar">${b.ar}</div>
       <div class="book-title-fr">${b.fr}</div>
       <div class="book-author">${b.author}</div>
       <span class="book-tag">${b.tag}</span>
@@ -1044,7 +1084,7 @@ function showBookModal(idx) {
   document.getElementById('modalContent').innerHTML = `
     <button class="modal-close" onclick="closeModal()">✕ Fermer</button>
     <h3>${b.fr}</h3>
-    <div class="modal-ar">${b.ar}</div>
+    <div class="modal-ar" lang="ar">${b.ar}</div>
     <div class="modal-body">
       <p><strong>Auteur :</strong> ${b.author}</p>
       <p><strong>Catégorie :</strong> ${b.tag}</p>
@@ -1055,12 +1095,12 @@ function showBookModal(idx) {
 
 function initNames() {
   document.getElementById('namesGrid').innerHTML = NAMES.map(n=>`
-    <div class="name-card" onclick="showNameModal(${n.num-1})">
+    <div class="name-card" role="button" tabindex="0" onclick="showNameModal(${n.num-1})">
       <div class="name-num">Nom N° ${n.num}</div>
-      <div class="name-ar">${n.ar}</div>
+      <div class="name-ar" lang="ar">${n.ar}</div>
       <div class="name-fr">${n.fr} — ${n.trans}</div>
       <div class="name-meaning">${n.meaning}</div>
-      <div class="name-verse">${n.verse}</div>
+      <div class="name-verse" lang="ar">${n.verse}</div>
     </div>`).join('');
 }
 
@@ -1069,13 +1109,13 @@ function showNameModal(idx) {
   document.getElementById('modalContent').innerHTML = `
     <button class="modal-close" onclick="closeModal()">✕ Fermer</button>
     <h3>N° ${n.num} — ${n.fr}</h3>
-    <div class="modal-ar">${n.ar}</div>
+    <div class="modal-ar" lang="ar">${n.ar}</div>
     <div class="modal-body">
       <p><strong>${n.trans}</strong></p>
       <p>${n.meaning}</p>
       <p><strong>Verset :</strong></p>
-      <div class="ar-block">${n.verse}<br><em style="font-family:var(--ff-body);font-size:.85rem;color:var(--dim)">${n.verseRef}</em></div>
-      ${n.hadith ? `<p><strong>Hadith :</strong></p><div class="ar-block">${n.hadith}<br><em style="font-family:var(--ff-body);font-size:.85rem;color:var(--dim)">${n.hadithRef}</em></div>` : ''}
+      <div class="ar-block" lang="ar">${n.verse}<br><em style="font-family:var(--ff-body);font-size:.85rem;color:var(--dim)">${n.verseRef}</em></div>
+      ${n.hadith ? `<p><strong>Hadith :</strong></p><div class="ar-block" lang="ar">${n.hadith}<br><em style="font-family:var(--ff-body);font-size:.85rem;color:var(--dim)">${n.hadithRef}</em></div>` : ''}
       <div style="margin-top:1rem;display:flex;gap:.5rem">
         <button class="btn-tts" onclick="speak('${escAttr(n.ar)}','ar')" style="flex:1;justify-content:center">🔊 Écouter en arabe</button>
         <button class="btn-tts" onclick="speak('${escAttr(n.trans+' : '+n.meaning)}','fr')" style="flex:1;justify-content:center">🔊 Français</button>
@@ -1090,11 +1130,12 @@ function closeModal() {
 
 function showSection(id) {
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('sec-'+id).classList.add('active');
-  const btns = document.querySelectorAll('.nav-btn');
-  const map = {home:0,agent:1,library:2,names:3};
-  if (map[id]!==undefined) btns[map[id]].classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-current','false')});
+  const sec = document.getElementById('sec-'+id);
+  if (sec) sec.classList.add('active');
+  const btn = document.querySelector(`.nav-btn[data-section="${id}"]`);
+  if (btn){ btn.classList.add('active'); btn.setAttribute('aria-current','page'); }
+  if (sec) sec.setAttribute('tabindex','-1'), sec.focus({preventScroll:true});
 }
 
 function enterApp() {
@@ -1115,6 +1156,13 @@ function enterApp() {
 
 document.getElementById('modal').addEventListener('click', function(e){
   if (e.target===this) closeModal();
+});
+
+document.addEventListener('keydown', (e)=>{
+  if (e.key==='Escape') closeModal();
+  if ((e.key==='Enter'||e.key===' ') && e.target.getAttribute('role')==='button'){
+    e.preventDefault(); e.target.click();
+  }
 });
 
 document.addEventListener('DOMContentLoaded', ()=>{

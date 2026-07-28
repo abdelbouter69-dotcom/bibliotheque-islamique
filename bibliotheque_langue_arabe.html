@@ -13,7 +13,11 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 .title-ar{font-family:'Amiri',serif;font-size:1.5rem;color:#fff;margin-bottom:2px;}
 .title-fr{font-size:11px;color:rgba(255,255,255,0.6);direction:ltr;margin-bottom:10px;}
 .pill{font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);border:0.5px solid rgba(255,255,255,0.2);display:inline-block;margin:2px;}
-.agents-nav{background:#fff;border-bottom:1px solid #ddd;overflow-x:auto;position:sticky;top:0;z-index:50;}
+.agents-nav{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:50;display:flex;align-items:stretch;}
+.agents-nav .agents-tabs{overflow-x:auto;flex:1;}
+.back-btn{flex:none;display:flex;align-items:center;gap:5px;padding:.8rem .9rem;font-size:12px;background:#085041;color:#fff;border:none;cursor:pointer;font-family:'Noto Naskh Arabic',serif;text-decoration:none;white-space:nowrap;}
+.back-btn:hover{background:#1D9E75;}
+.back-btn:focus-visible{outline:2px solid #1D9E75;outline-offset:-2px;}
 .agents-tabs{display:flex;min-width:max-content;}
 .agent-btn{display:flex;align-items:center;gap:6px;padding:.8rem .9rem;font-size:12px;color:#666;background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;font-family:'Noto Naskh Arabic',serif;}
 .agent-btn.active{color:#085041;border-bottom-color:#1D9E75;}
@@ -80,7 +84,7 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 </head>
 <body>
 <div class="header">
-  <div style="text-align:left;margin-bottom:6px;"><button onclick="window.location.href='index.html'" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:5px 14px;font-size:12px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;">← Accueil</button></div>
+  <div style="text-align:left;margin-bottom:6px;"><a href="index.html" style="display:inline-block;text-decoration:none;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:5px 14px;font-size:12px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;">← Accueil</a></div>
   <span class="basmala">بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ</span>
   <div class="title-ar">الْمَكْتَبَةُ الذَّكِيَّة — عُلُومُ اللُّغَةِ العَرَبِيَّة</div>
   <div class="title-fr">Bibliothèque intelligente — Sciences de la Langue Arabe • ArchiART</div>
@@ -93,7 +97,7 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
     <span class="pill">🖋️ الخط</span>
   </div>
 </div>
-<nav class="agents-nav"><div class="agents-tabs" id="agentTabs"></div></nav>
+<nav class="agents-nav"><a class="back-btn" href="index.html" aria-label="Retour a l'accueil">← الرئيسية</a><div class="agents-tabs" id="agentTabs"></div></nav>
 <div class="content" id="mainContent"></div>
 <div class="modal-wrap" id="modalWrap">
   <div class="modal">
@@ -119,19 +123,19 @@ const AGENTS=[
    levels:[
      {num:1,labelAr:'المَرْحَلَةُ الأُولَى — التَّأْسِيس',labelFr:'Fondation',badge:'Débutant',numBg:'#1D9E75',badgeC:'#E1F5EE',badgeTxt:'#085041',
       books:[
-        {n:1,ar:'النَّحْوُ الوَاضِح',auth:'الجارم وأمين',desc:'Bases de la grammaire — approche simple.',bg:'linear-gradient(135deg,#1D9E75,#085041)',yt:'https://www.youtube.com/results?search_query=النحو+الواضح+شرح',sh:'https://shamela.ws/search?q=النحو+الواضح'},
-        {n:2,ar:'الآجُرُّومِيَّة + التُّحْفَة',auth:'ابن آجرّوم / ابن هشام',desc:'Premier texte classique + commentaire.',bg:'linear-gradient(135deg,#5DCAA5,#1D9E75)',yt:'https://www.youtube.com/results?search_query=الآجرومية+شرح+مبسط',sh:'https://shamela.ws/search?q=الآجرومية'},
-        {n:3,ar:'مُلْحَةُ الإِعْرَاب',auth:'الحريري (ت.516هـ)',desc:'Poème mnémotechnique pour les règles.',bg:'linear-gradient(135deg,#9FE1CB,#5DCAA5)',yt:'https://www.youtube.com/results?search_query=ملحة+الإعراب+شرح',sh:'https://shamela.ws/search?q=ملحة+الإعراب'},
+        {n:1,ar:'النَّحْوُ الوَاضِح',auth:'الجارم وأمين',desc:'Bases de la grammaire — approche simple.',bg:'linear-gradient(135deg,#1D9E75,#085041)',yt:'https://www.youtube.com/results?search_query=النحو+الواضح+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=النحو+الواضح'},
+        {n:2,ar:'الآجُرُّومِيَّة + التُّحْفَة',auth:'ابن آجرّوم / ابن هشام',desc:'Premier texte classique + commentaire.',bg:'linear-gradient(135deg,#5DCAA5,#1D9E75)',yt:'https://www.youtube.com/results?search_query=الآجرومية+شرح+مبسط&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=الآجرومية'},
+        {n:3,ar:'مُلْحَةُ الإِعْرَاب',auth:'الحريري (ت.516هـ)',desc:'Poème mnémotechnique pour les règles.',bg:'linear-gradient(135deg,#9FE1CB,#5DCAA5)',yt:'https://www.youtube.com/results?search_query=ملحة+الإعراب+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=ملحة+الإعراب'},
       ]},
      {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — التَّوَسُّط',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'قَطْرُ النَّدَى + شُذُورُ الذَّهَب',auth:'ابن هشام (ت.761هـ)',desc:'Extension progressive — deux textes complémentaires.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=قطر+الندى+ابن+هشام',sh:'https://shamela.ws/search?q=قطر+الندى'},
-        {n:2,ar:'أَلْفِيَّة ابْنِ مَالِك + شَرْحُ ابْنِ عَقِيل',auth:'ابن مالك / ابن عقيل',desc:'1000 vers — texte de référence absolu.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=ألفية+ابن+مالك+شرح+ابن+عقيل',sh:'https://shamela.ws/search?q=ألفية+ابن+مالك'},
+        {n:1,ar:'قَطْرُ النَّدَى + شُذُورُ الذَّهَب',auth:'ابن هشام (ت.761هـ)',desc:'Extension progressive — deux textes complémentaires.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=قطر+الندى+ابن+هشام&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=قطر+الندى'},
+        {n:2,ar:'أَلْفِيَّة ابْنِ مَالِك + شَرْحُ ابْنِ عَقِيل',auth:'ابن مالك / ابن عقيل',desc:'1000 vers — texte de référence absolu.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=ألفية+ابن+مالك+شرح+ابن+عقيل&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=ألفية+ابن+مالك'},
       ]},
      {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
       books:[
-        {n:1,ar:'مُغْنِي اللَّبِيب',auth:'ابن هشام (ت.761هـ)',desc:'Encyclopédie de l\'analyse grammaticale.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مغني+اللبيب+ابن+هشام',sh:'https://shamela.ws/search?q=مغني+اللبيب'},
-        {n:2,ar:'كِتَابُ سِيبَوَيْه',auth:'سيبويه (ت.~180هـ)',desc:'Le monument fondateur de la grammaire.',bg:'linear-gradient(135deg,#3C3489,#26215C)',yt:'https://www.youtube.com/results?search_query=كتاب+سيبويه',sh:'https://shamela.ws/search?q=كتاب+سيبويه'},
+        {n:1,ar:'مُغْنِي اللَّبِيب',auth:'ابن هشام (ت.761هـ)',desc:'Encyclopédie de l\'analyse grammaticale.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مغني+اللبيب+ابن+هشام&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=مغني+اللبيب'},
+        {n:2,ar:'كِتَابُ سِيبَوَيْه',auth:'سيبويه (ت.~180هـ)',desc:'Le monument fondateur de la grammaire.',bg:'linear-gradient(135deg,#3C3489,#26215C)',yt:'https://www.youtube.com/results?search_query=كتاب+سيبويه&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=كتاب+سيبويه'},
       ]},
    ]},
   {id:'sarf',icon:'🔤',labelAr:'الصَّرْف',label:'Morphologie',heroBg:'linear-gradient(135deg,#0C447C,#185FA5)',ava:'🔤',avaBg:'#E6F1FB',
@@ -142,16 +146,16 @@ const AGENTS=[
    levels:[
      {num:1,labelAr:'المَرْحَلَةُ الأُولَى',labelFr:'Fondation',badge:'Débutant',numBg:'#185FA5',badgeC:'#E6F1FB',badgeTxt:'#0C447C',
       books:[
-        {n:1,ar:'مَتْنُ البِنَاء — صَرْفٌ مُبَسَّط',auth:'متن كلاسيكي',desc:'Conjugaison et morphologie de base.',bg:'linear-gradient(135deg,#185FA5,#0C447C)',yt:'https://www.youtube.com/results?search_query=شرح+متن+البناء+صرف',sh:'https://shamela.ws/search?q=متن+البناء'},
-        {n:2,ar:'تَصْرِيفُ العِزِّي',auth:'الزنجاني (ت.655هـ)',desc:'Premier texte classique de morphologie.',bg:'linear-gradient(135deg,#378ADD,#185FA5)',yt:'https://www.youtube.com/results?search_query=تصريف+العزي+شرح',sh:'https://shamela.ws/search?q=تصريف+العزي'},
+        {n:1,ar:'مَتْنُ البِنَاء — صَرْفٌ مُبَسَّط',auth:'متن كلاسيكي',desc:'Conjugaison et morphologie de base.',bg:'linear-gradient(135deg,#185FA5,#0C447C)',yt:'https://www.youtube.com/results?search_query=شرح+متن+البناء+صرف&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=متن+البناء'},
+        {n:2,ar:'تَصْرِيفُ العِزِّي',auth:'الزنجاني (ت.655هـ)',desc:'Premier texte classique de morphologie.',bg:'linear-gradient(135deg,#378ADD,#185FA5)',yt:'https://www.youtube.com/results?search_query=تصريف+العزي+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=تصريف+العزي'},
       ]},
      {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'شَذَا العَرْفِ فِي فَنِّ الصَّرْف',auth:'أحمد الحملاوي',desc:'Morphologie intermédiaire — texte indispensable.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=شذا+العرف+في+الصرف',sh:'https://shamela.ws/search?q=شذا+العرف'},
+        {n:1,ar:'شَذَا العَرْفِ فِي فَنِّ الصَّرْف',auth:'أحمد الحملاوي',desc:'Morphologie intermédiaire — texte indispensable.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=شذا+العرف+في+الصرف&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=شذا+العرف'},
       ]},
      {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
       books:[
-        {n:1,ar:'المُنْصِف لِابْنِ جِنِّي',auth:'ابن جني (ت.392هـ)',desc:'Commentaire profond sur les formes morphologiques.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المنصف+ابن+جني',sh:'https://shamela.ws/search?q=المنصف+ابن+جني'},
+        {n:1,ar:'المُنْصِف لِابْنِ جِنِّي',auth:'ابن جني (ت.392هـ)',desc:'Commentaire profond sur les formes morphologiques.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المنصف+ابن+جني&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=المنصف+ابن+جني'},
       ]},
    ]},
   {id:'balagha',icon:'✨',labelAr:'البَلاغَة',label:'Rhétorique',heroBg:'linear-gradient(135deg,#712B13,#D85A30)',ava:'✨',avaBg:'#FAECE7',
@@ -162,16 +166,16 @@ const AGENTS=[
    levels:[
      {num:1,labelAr:'المَرْحَلَةُ الأُولَى',labelFr:'Fondation',badge:'Débutant',numBg:'#D85A30',badgeC:'#FAECE7',badgeTxt:'#712B13',
       books:[
-        {n:1,ar:'البَلاغَةُ الوَاضِحَة',auth:'الجارم وأمين',desc:'Introduction claire aux 3 sciences rhétoriques.',bg:'linear-gradient(135deg,#D85A30,#993C1D)',yt:'https://www.youtube.com/results?search_query=البلاغة+الواضحة+شرح',sh:'https://shamela.ws/search?q=البلاغة+الواضحة'},
+        {n:1,ar:'البَلاغَةُ الوَاضِحَة',auth:'الجارم وأمين',desc:'Introduction claire aux 3 sciences rhétoriques.',bg:'linear-gradient(135deg,#D85A30,#993C1D)',yt:'https://www.youtube.com/results?search_query=البلاغة+الواضحة+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=البلاغة+الواضحة'},
       ]},
      {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'التَّلْخِيصُ فِي عُلُومِ البَلاغَة',auth:'القزويني (ت.739هـ)',desc:'Résumé classique des sciences rhétoriques.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=التلخيص+في+علوم+البلاغة',sh:'https://shamela.ws/search?q=التلخيص+البلاغة'},
-        {n:2,ar:'دَلائِلُ الإِعْجَاز',auth:'الجرجاني (ت.471هـ)',desc:'Chef-d\'œuvre de la rhétorique arabe.',bg:'linear-gradient(135deg,#D85A30,#712B13)',yt:'https://www.youtube.com/results?search_query=دلائل+الإعجاز+الجرجاني',sh:'https://shamela.ws/search?q=دلائل+الإعجاز'},
+        {n:1,ar:'التَّلْخِيصُ فِي عُلُومِ البَلاغَة',auth:'القزويني (ت.739هـ)',desc:'Résumé classique des sciences rhétoriques.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=التلخيص+في+علوم+البلاغة&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=التلخيص+البلاغة'},
+        {n:2,ar:'دَلائِلُ الإِعْجَاز',auth:'الجرجاني (ت.471هـ)',desc:'Chef-d\'œuvre de la rhétorique arabe.',bg:'linear-gradient(135deg,#D85A30,#712B13)',yt:'https://www.youtube.com/results?search_query=دلائل+الإعجاز+الجرجاني&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=دلائل+الإعجاز'},
       ]},
      {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
       books:[
-        {n:1,ar:'أَسْرَارُ البَلاغَة',auth:'الجرجاني (ت.471هـ)',desc:'Les secrets de la rhétorique — spécialisation.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=أسرار+البلاغة+الجرجاني',sh:'https://shamela.ws/search?q=أسرار+البلاغة'},
+        {n:1,ar:'أَسْرَارُ البَلاغَة',auth:'الجرجاني (ت.471هـ)',desc:'Les secrets de la rhétorique — spécialisation.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=أسرار+البلاغة+الجرجاني&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=أسرار+البلاغة'},
       ]},
    ]},
   {id:'imla',icon:'✏️',labelAr:'الإِمْلاء',label:'Orthographe',heroBg:'linear-gradient(135deg,#27500A,#639922)',ava:'✏️',avaBg:'#EAF3DE',
@@ -181,16 +185,16 @@ const AGENTS=[
    levels:[
      {num:1,labelAr:'المَرْحَلَةُ الأُولَى',labelFr:'Fondation',badge:'Débutant',numBg:'#639922',badgeC:'#EAF3DE',badgeTxt:'#27500A',
       books:[
-        {n:1,ar:'قَوَاعِدُ الإِمْلاءِ وَالتَّرْقِيم',auth:'مهارة مستقلة',desc:'Orthographe et ponctuation arabes — essentiel.',bg:'linear-gradient(135deg,#639922,#3B6D11)',yt:'https://www.youtube.com/results?search_query=قواعد+الإملاء+العربي',sh:'https://shamela.ws/search?q=قواعد+الإملاء'},
-        {n:2,ar:'الإِمْلاءُ وَالتَّرْقِيم فِي الكِتَابَة',auth:'عبد العليم إبراهيم',desc:'Manuel pratique d\'orthographe.',bg:'linear-gradient(135deg,#97C459,#639922)',yt:'https://www.youtube.com/results?search_query=الإملاء+والترقيم+في+الكتابة',sh:'https://shamela.ws/search?q=الإملاء+والترقيم'},
+        {n:1,ar:'قَوَاعِدُ الإِمْلاءِ وَالتَّرْقِيم',auth:'مهارة مستقلة',desc:'Orthographe et ponctuation arabes — essentiel.',bg:'linear-gradient(135deg,#639922,#3B6D11)',yt:'https://www.youtube.com/results?search_query=قواعد+الإملاء+العربي&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=قواعد+الإملاء'},
+        {n:2,ar:'الإِمْلاءُ وَالتَّرْقِيم فِي الكِتَابَة',auth:'عبد العليم إبراهيم',desc:'Manuel pratique d\'orthographe.',bg:'linear-gradient(135deg,#97C459,#639922)',yt:'https://www.youtube.com/results?search_query=الإملاء+والترقيم+في+الكتابة&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=الإملاء+والترقيم'},
       ]},
      {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'مُعْجَمُ الأَخْطَاءِ الشَّائِعَة',auth:'محمد العدناني',desc:'Dictionnaire des erreurs fréquentes.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=معجم+الأخطاء+الشائعة',sh:'https://shamela.ws/search?q=معجم+الأخطاء+الشائعة'},
+        {n:1,ar:'مُعْجَمُ الأَخْطَاءِ الشَّائِعَة',auth:'محمد العدناني',desc:'Dictionnaire des erreurs fréquentes.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=معجم+الأخطاء+الشائعة&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=معجم+الأخطاء+الشائعة'},
       ]},
      {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
       books:[
-        {n:1,ar:'الصَّاحِبِي فِي فِقْهِ اللُّغَة',auth:'ابن فارس (ت.395هـ)',desc:'Philosophie de la langue arabe — niveau expert.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=الصاحبي+في+فقه+اللغة',sh:'https://shamela.ws/search?q=الصاحبي+فقه+اللغة'},
+        {n:1,ar:'الصَّاحِبِي فِي فِقْهِ اللُّغَة',auth:'ابن فارس (ت.395هـ)',desc:'Philosophie de la langue arabe — niveau expert.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=الصاحبي+في+فقه+اللغة&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=الصاحبي+فقه+اللغة'},
       ]},
    ]},
   {id:'aswat',icon:'🎙️',labelAr:'الأَصْوَات',label:'Phonétique',heroBg:'linear-gradient(135deg,#712B13,#993C1D)',ava:'🎙️',avaBg:'#FAECE7',
@@ -201,15 +205,15 @@ const AGENTS=[
    levels:[
      {num:1,labelAr:'المَرْحَلَةُ الأُولَى — الأَصْوَاتُ الأَسَاسِيَّة',labelFr:'Sons de base',badge:'Débutant',numBg:'#D85A30',badgeC:'#FAECE7',badgeTxt:'#712B13',
       books:[
-        {n:1,ar:'تَعْلِيمُ الأَصْوَاتِ العَرَبِيَّةِ الصَّعْبَة لِغَيْرِ النَّاطِقِين',auth:'عبد الفتاح بحيري — جامعة أم القرى',desc:'Livre unique — sons difficiles pour francophones.',bg:'linear-gradient(135deg,#D85A30,#993C1D)',yt:'https://www.youtube.com/results?search_query=الأصوات+العربية+الصعبة+للأجانب',sh:'https://shamela.ws/search?q=تعليم+الأصوات+العربية'},
+        {n:1,ar:'تَعْلِيمُ الأَصْوَاتِ العَرَبِيَّةِ الصَّعْبَة لِغَيْرِ النَّاطِقِين',auth:'عبد الفتاح بحيري — جامعة أم القرى',desc:'Livre unique — sons difficiles pour francophones.',bg:'linear-gradient(135deg,#D85A30,#993C1D)',yt:'https://www.youtube.com/results?search_query=الأصوات+العربية+الصعبة+للأجانب&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=تعليم+الأصوات+العربية'},
       ]},
      {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — المَخَارِج',labelFr:'Makhârij',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'عِلْمُ الأَصْوَاتِ العَرَبِيَّة',auth:'علماء متخصصون',desc:'Science des sons arabes — makhârij et sifât.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=علم+الأصوات+العربية+مخارج+الحروف',sh:'https://shamela.ws/search?q=علم+الأصوات+العربية'},
+        {n:1,ar:'عِلْمُ الأَصْوَاتِ العَرَبِيَّة',auth:'علماء متخصصون',desc:'Science des sons arabes — makhârij et sifât.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=علم+الأصوات+العربية+مخارج+الحروف&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=علم+الأصوات+العربية'},
       ]},
      {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
       books:[
-        {n:1,ar:'المَخَارِجُ وَالصِّفَات — ابْنُ الجَزَرِي',auth:'ابن الجزري (ت.833هـ)',desc:'La référence classique — makhârij et attributs.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مخارج+الحروف+ابن+الجزري',sh:'https://shamela.ws/search?q=مخارج+الحروف+ابن+الجزري'},
+        {n:1,ar:'المَخَارِجُ وَالصِّفَات — ابْنُ الجَزَرِي',auth:'ابن الجزري (ت.833هـ)',desc:'La référence classique — makhârij et attributs.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مخارج+الحروف+ابن+الجزري&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=مخارج+الحروف+ابن+الجزري'},
       ]},
    ]},
   {id:'khatt',icon:'🖋️',labelAr:'الخَطُّ العَرَبِي',label:'Calligraphie arabe',heroBg:'linear-gradient(135deg,#2C1A0E,#C9922A)',ava:'🖋️',avaBg:'#FAF3E8',
@@ -228,18 +232,18 @@ const AGENTS=[
    levels:[
      {num:1,labelAr:'المَرْحَلَةُ الأُولَى — الخَطُّ الأَسَاسِي',labelFr:'Calligraphie de base',badge:'Débutant',numBg:'#C9922A',badgeC:'#FAF3E8',badgeTxt:'#2C1A0E',
       books:[
-         {n:1,ar:'قَوَاعِدُ الخَطِّ العَرَبِي — خَطُّ النَّسْخ',auth:'هاشم محمد البغدادي',desc:'Les règles fondamentales du Naskh — débutants.',bg:'linear-gradient(135deg,#C9922A,#8B6319)',yt:'https://www.youtube.com/results?search_query=تعلم+خط+النسخ+للمبتدئين',sh:'https://shamela.ws/search?q=قواعد+الخط+العربي'},
-         {n:2,ar:'الخَطُّ العَرَبِيُّ لِلْمُبْتَدِئِين — خَطُّ الرُّقْعَة',auth:'مدرسة الخط العربي',desc:'Ruqʿa — le plus pratique pour l\'écriture quotidienne.',bg:'linear-gradient(135deg,#E8C97A,#C9922A)',yt:'https://www.youtube.com/results?search_query=تعلم+خط+الرقعة+للمبتدئين',sh:'https://shamela.ws/search?q=خط+الرقعة+العربي'},
+         {n:1,ar:'قَوَاعِدُ الخَطِّ العَرَبِي — خَطُّ النَّسْخ',auth:'هاشم محمد البغدادي',desc:'Les règles fondamentales du Naskh — débutants.',bg:'linear-gradient(135deg,#C9922A,#8B6319)',yt:'https://www.youtube.com/results?search_query=تعلم+خط+النسخ+للمبتدئين&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=قواعد+الخط+العربي'},
+         {n:2,ar:'الخَطُّ العَرَبِيُّ لِلْمُبْتَدِئِين — خَطُّ الرُّقْعَة',auth:'مدرسة الخط العربي',desc:'Ruqʿa — le plus pratique pour l\'écriture quotidienne.',bg:'linear-gradient(135deg,#E8C97A,#C9922A)',yt:'https://www.youtube.com/results?search_query=تعلم+خط+الرقعة+للمبتدئين&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=خط+الرقعة+العربي'},
       ]},
      {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — الخُطُوطُ الفَنِّيَّة',labelFr:'Calligraphie artistique',badge:'Intermédiaire',numBg:'#8B6319',badgeC:'#FAF3E8',badgeTxt:'#2C1A0E',
       books:[
-         {n:1,ar:'الخَطُّ العَرَبِيّ — أُسُسُه وَفُنُونُه',auth:'أساتذة الخط العربي',desc:'Fondements artistiques — Thuluth, Diwânî, Kûfî.',bg:'linear-gradient(135deg,#8B6319,#5C3A1E)',yt:'https://www.youtube.com/results?search_query=تعلم+خط+الثلث+العربي',sh:'https://shamela.ws/search?q=الخط+العربي+أسسه+وفنونه'},
-         {n:2,ar:'الخَطُّ الرَّقْمِي الإِسْلَامِي — ArchiART',auth:'عبد القادر بوترفاس — ArchiART',desc:'Calligraphie numérique islamique — les 99 noms d\'Allah, collection ArchiART.',bg:'linear-gradient(135deg,#5C3A1E,#2C1A0E)',yt:'https://www.youtube.com/results?search_query=تعليم+الخط+الديواني+والفارسي',sh:'https://shamela.ws/search?q=الخط+الديواني+الفارسي'},
+         {n:1,ar:'الخَطُّ العَرَبِيّ — أُسُسُه وَفُنُونُه',auth:'أساتذة الخط العربي',desc:'Fondements artistiques — Thuluth, Diwânî, Kûfî.',bg:'linear-gradient(135deg,#8B6319,#5C3A1E)',yt:'https://www.youtube.com/results?search_query=تعلم+خط+الثلث+العربي&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=الخط+العربي+أسسه+وفنونه'},
+         {n:2,ar:'الخَطُّ الرَّقْمِي الإِسْلَامِي — ArchiART',auth:'عبد القادر بوترفاس — ArchiART',desc:'Calligraphie numérique islamique — les 99 noms d\'Allah, collection ArchiART.',bg:'linear-gradient(135deg,#5C3A1E,#2C1A0E)',yt:'https://www.youtube.com/results?search_query=تعليم+الخط+الديواني+والفارسي&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=الخط+الديواني+الفارسي'},
       ]},
      {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — الإِتْقَانُ وَالتَّارِيخ',labelFr:'Maîtrise et histoire',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
       books:[
-         {n:1,ar:'نِسْبَةُ الحُرُوفِ — مَنْهَجُ ابْنِ مُقْلَة',auth:'ابن مُقلة (ت.328هـ)',desc:'Le système des proportions des lettres — fondateur de la calligraphie classique.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=نسبة+الحروف+ابن+مقلة+الخط+العربي',sh:'https://shamela.ws/search?q=ابن+مقلة+الخط+العربي'},
-         {n:2,ar:'مَوْسُوعَةُ الخَطِّ العَرَبِيّ',auth:'مؤرخو الخط العربي',desc:'Histoire complète : des origines nabatéennes à l\'école ottomane (Ibn al-Bawwâb, Yâqût al-Mustaʿṣimî).',bg:'linear-gradient(135deg,#3C3489,#26215C)',yt:'https://www.youtube.com/results?search_query=تاريخ+الخط+العربي+ابن+البواب+ياقوت',sh:'https://shamela.ws/search?q=موسوعة+الخط+العربي+تاريخ'},
+         {n:1,ar:'نِسْبَةُ الحُرُوفِ — مَنْهَجُ ابْنِ مُقْلَة',auth:'ابن مُقلة (ت.328هـ)',desc:'Le système des proportions des lettres — fondateur de la calligraphie classique.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=نسبة+الحروف+ابن+مقلة+الخط+العربي&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=ابن+مقلة+الخط+العربي'},
+         {n:2,ar:'مَوْسُوعَةُ الخَطِّ العَرَبِيّ',auth:'مؤرخو الخط العربي',desc:'Histoire complète : des origines nabatéennes à l\'école ottomane (Ibn al-Bawwâb, Yâqût al-Mustaʿṣimî).',bg:'linear-gradient(135deg,#3C3489,#26215C)',yt:'https://www.youtube.com/results?search_query=تاريخ+الخط+العربي+ابن+البواب+ياقوت&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=موسوعة+الخط+العربي+تاريخ'},
       ]},
    ]},
 ];

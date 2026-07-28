@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galerie ArchiART — الْمَعْرِضُ الرَّقْمِيّ</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D4AF37; --gold-l:#FFD700; --gold-d:#A08020;
+  --black:#07070e; --dark:#110e1c; --dark2:#1a1535; --dark3:#231e3a;
+  --cream:#F5E6C8; --dim:#9e8a6e;
+  --ff-title:'Playfair Display',Georgia,serif;
+  --ff-arabic:'Noto Naskh Arabic','Amiri',serif;
+  --ff-body:'Cormorant Garamond',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;background:var(--black);color:var(--cream);font-family:var(--ff-body);font-size:16px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:rgba(212,175,55,.3)}
+
+.topbar{position:sticky;top:0;z-index:50;background:rgba(7,7,14,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(212,175,55,.18);padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.back-btn{background:none;border:1px solid rgba(212,175,55,.3);color:var(--dim);padding:.4rem 1rem;font-family:var(--ff-body);font-size:.9rem;cursor:pointer;border-radius:4px;text-decoration:none}
+.back-btn:hover{color:var(--gold);border-color:var(--gold)}
+.view-toggle{display:flex;gap:.4rem;background:var(--dark2);border-radius:24px;padding:.3rem}
+.vt-btn{background:none;border:none;color:var(--dim);padding:.5rem 1.2rem;border-radius:20px;font-family:var(--ff-body);font-size:.95rem;cursor:pointer;transition:all .25s}
+.vt-btn.active{background:linear-gradient(135deg,var(--gold-d),var(--gold));color:var(--black);font-weight:700}
+
+.hero{text-align:center;padding:3rem 1rem 2rem}
+.hero-ornament{font-family:var(--ff-arabic);font-size:2rem;color:var(--gold);opacity:.6;margin-bottom:.5rem}
+.hero h1{font-family:var(--ff-title);font-size:clamp(1.6rem,4vw,2.6rem);color:var(--gold);margin-bottom:.4rem}
+.hero-ar{font-family:var(--ff-arabic);font-size:1.3rem;color:var(--cream);opacity:.85;margin-bottom:.6rem}
+.hero p{color:var(--dim);max-width:560px;margin:0 auto;line-height:1.6}
+
+.wrap{max-width:1200px;margin:0 auto;padding:1rem 1.5rem 4rem}
+
+/* GALLERY VIEW */
+.gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.4rem}
+.gal-card{position:relative;border-radius:6px;overflow:hidden;cursor:pointer;aspect-ratio:1;background:var(--dark2);border:1px solid rgba(212,175,55,.15);transition:all .3s}
+.gal-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.gal-card img{width:100%;height:100%;object-fit:cover;display:block}
+.gal-cap{position:absolute;inset:auto 0 0 0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);padding:1.6rem .9rem .6rem;opacity:0;transition:opacity .3s}
+.gal-card:hover .gal-cap{opacity:1}
+.gal-cap-ar{font-family:var(--ff-arabic);font-size:1.1rem;color:var(--gold)}
+.gal-cap-fr{font-size:.8rem;color:var(--dim)}
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:2rem}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:80vh;object-fit:contain;border:1px solid rgba(212,175,55,.3)}
+.lb-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:1px solid rgba(212,175,55,.4);color:var(--gold);width:38px;height:38px;border-radius:50%;font-size:1.2rem;cursor:pointer}
+.lb-cap{position:absolute;bottom:2rem;left:0;right:0;text-align:center}
+.lb-cap-ar{font-family:var(--ff-arabic);font-size:1.4rem;color:var(--gold)}
+.lb-cap-fr{font-size:.9rem;color:var(--dim);margin-top:.2rem}
+
+/* PEDAGOGICAL VIEW */
+.ped-list{display:flex;flex-direction:column;gap:2.5rem}
+.ped-card{display:grid;grid-template-columns:340px 1fr;gap:2rem;background:var(--dark2);border:1px solid rgba(212,175,55,.15);border-radius:8px;overflow:hidden}
+@media(max-width:760px){.ped-card{grid-template-columns:1fr}}
+.ped-img{width:100%;height:100%;min-height:280px;object-fit:cover}
+.ped-body{padding:1.6rem 1.6rem 1.6rem 0}
+@media(max-width:760px){.ped-body{padding:0 1.4rem 1.6rem}}
+.ped-num{font-size:.75rem;color:var(--gold);letter-spacing:.1em;margin-bottom:.3rem}
+.ped-ar{font-family:var(--ff-arabic);font-size:2rem;color:var(--gold);margin-bottom:.2rem;line-height:1.3}
+.ped-fr{font-family:var(--ff-title);font-size:1.15rem;color:var(--cream);margin-bottom:.8rem}
+.ped-label{font-size:.72rem;color:var(--gold-d);letter-spacing:.08em;text-transform:uppercase;margin:.8rem 0 .3rem}
+.ped-verse-ar{font-family:var(--ff-arabic);font-size:1.15rem;color:var(--cream);direction:rtl;line-height:1.9;background:rgba(212,175,55,.05);border-left:2px solid var(--gold-d);padding:.5rem .8rem;margin-bottom:.2rem}
+.ped-verse-fr{font-size:.85rem;color:var(--dim);font-style:italic}
+.ped-verse-ref{font-size:.75rem;color:var(--gold-d);margin-top:.2rem}
+.ped-hadith-ar{font-family:var(--ff-arabic);font-size:1.05rem;color:var(--cream);direction:rtl;line-height:1.8;background:rgba(64,224,208,.04);border-left:2px solid #40E0D0;padding:.5rem .8rem;margin-bottom:.2rem}
+.ped-hadith-fr{font-size:.82rem;color:var(--dim)}
+.ped-meaning{font-size:.92rem;color:var(--cream);opacity:.85;line-height:1.6;margin-top:.6rem}
+.ped-source{font-size:.7rem;color:var(--dim);opacity:.6;margin-top:.8rem;font-style:italic}
+
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="back-btn" href="index.html">← Accueil</a>
+  <div class="view-toggle">
+    <button class="vt-btn active" id="btnGallery" onclick="setView('gallery')">🖼️ Vue Galerie</button>
+    <button class="vt-btn" id="btnPed" onclick="setView('ped')">📖 Vue Pédagogique</button>
+  </div>
+  <div style="width:90px"></div>
+</nav>
+
+<div class="hero">
+  <div class="hero-ornament">۞</div>
+  <h1>Galerie ArchiART</h1>
+  <div class="hero-ar">أَسْمَاءُ اللَّهِ الْحُسْنَى — فَنٌّ رَقْمِيٌّ</div>
+  <p>Calligraphie numérique des Noms Divins — collection ArchiART, par Abdelkader Bouterfas. « Le cœur perçoit ce que la raison ne voit plus. »</p>
+</div>
+
+<div class="wrap">
+  <div id="galleryView" class="gal-grid"></div>
+  <div id="pedView" class="ped-list hidden"></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-cap">
+    <div class="lb-cap-ar" id="lbAr"></div>
+    <div class="lb-cap-fr" id="lbFr"></div>
+  </div>
+</div>
+
+<script>
+// Données réutilisées de la Bibliothèque des 99 Noms (Sa'îd al-Qahtânî)
+const TOILES = [
+  {num:1, file:'1 la-ilaha -illah.png', ar:'لَا إِلَٰهَ إِلَّا اللَّهُ', fr:'Lā ilāha illā Allāh', trans:'Il n\'y a de divinité digne d\'adoration qu\'Allah',
+   verseAr:'فَاعْلَمْ أَنَّهُ لَا إِلَٰهَ إِلَّا اللَّهُ', verseFr:'« Sache qu\'il n\'y a de divinité digne d\'adoration qu\'Allah »', verseRef:'Sourate Muhammad 47:19',
+   hadithAr:'مَا مِنْ أَحَدٍ يَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ صِدْقًا مِنْ قَلْبِهِ إِلَّا حَرَّمَهُ اللَّهُ عَلَى النَّارِ',
+   hadithFr:'« Quiconque atteste sincèrement du fond du cœur qu\'il n\'y a de divinité qu\'Allah et que Muhammad est Son messager, Allah lui interdit le Feu »', hadithRef:'Al-Bukhārī, Muslim',
+   meaning:'Fondement de l\'islam et de tout tawḥīd — la porte d\'entrée vers l\'adoration exclusive d\'Allah.'},
+  {num:2, file:'2 allah.png', ar:'اللَّهُ', fr:'Allah', trans:'Le Nom Suprême',
+   verseAr:'قُلْ هُوَ اللَّهُ أَحَدٌ', verseFr:'« Dis : Il est Allah, Unique »', verseRef:'Sourate Al-Ikhlāṣ 112:1',
+   meaning:'L\'Être qui seul mérite l\'adoration absolue — source de tous les autres Noms.'},
+  {num:3, file:'3 ar-rahman.png', ar:'الرَّحْمَٰنُ', fr:'Ar-Raḥmān', trans:'Le Tout-Miséricordieux',
+   verseAr:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ الرَّحْمَٰنِ الرَّحِيمِ', verseFr:'« Louange à Allah, Seigneur de l\'univers, le Tout Miséricordieux »', verseRef:'Sourate Al-Fātiḥa 1:2-3',
+   meaning:'Celui dont la miséricorde générale embrasse toute la création, croyants et mécréants.'},
+  {num:4, file:'4 ar-rahim.png', ar:'الرَّحِيمُ', fr:'Ar-Raḥīm', trans:'Le Très-Miséricordieux',
+   verseAr:'وَكَانَ بِالْمُؤْمِنِينَ رَحِيمًا', verseFr:'« Et Il a toujours été Très Miséricordieux envers les croyants »', verseRef:'Sourate Al-Aḥzāb 33:43',
+   meaning:'Celui dont la miséricorde spéciale est réservée aux croyants.'},
+  {num:5, file:'5  al-malik.png', ar:'الْمَلِكُ', fr:'Al-Malik', trans:'Le Roi Absolu',
+   verseAr:'فَتَعَالَى اللَّهُ الْمَلِكُ الْحَقُّ', verseFr:'« Que soit exalté Allah, le Vrai Souverain »', verseRef:'Sourate Ṭāhā 20:114',
+   meaning:'Le Souverain dont le règne est sans partage, sur les cieux et la terre.'},
+  {num:6, file:'6 al-quddus .png', ar:'الْقُدُّوسُ', fr:'Al-Quddūs', trans:'Le Très-Saint',
+   verseAr:'هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْمَلِكُ الْقُدُّوسُ السَّلَامُ', verseFr:'« C\'est Allah, en dehors de qui il n\'y a point de divinité, le Souverain, le Très-Saint, la Paix »', verseRef:'Sourate Al-Ḥashr 59:23',
+   meaning:'Celui qui est absolument pur, exempt de tout défaut, avec majesté et grandeur.'},
+  {num:7, file:'7 al-salm.png', ar:'السَّلَامُ', fr:'As-Salām', trans:'La Paix',
+   verseAr:'هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْمَلِكُ الْقُدُّوسُ السَّلَامُ', verseFr:'« C\'est Allah... le Très-Saint, la Paix »', verseRef:'Sourate Al-Ḥashr 59:23',
+   meaning:'Celui qui est exempt de tout défaut dans Son Essence, Ses attributs et Ses actes.'},
+  {num:8, file:'8 al-mumin.png', ar:'الْمُؤْمِنُ', fr:'Al-Muʾmin', trans:'Le Dispensateur de la foi',
+   verseAr:'...الْمَلِكُ الْقُدُّوسُ السَّلَامُ الْمُؤْمِنُ', verseFr:'« ...le Souverain, le Très-Saint, la Paix, le Dispensateur de la foi »', verseRef:'Sourate Al-Ḥashr 59:23',
+   meaning:'Celui qui atteste Sa propre unicité par les preuves, et accorde la sécurité à Ses serviteurs.'},
+  {num:9, file:'9 al-muhaymin .png', ar:'الْمُهَيْمِنُ', fr:'Al-Muhaymin', trans:'Le Gardien Suprême',
+   verseAr:'الْمُؤْمِنُ الْمُهَيْمِنُ', verseFr:'« Le Dispensateur de la foi, le Gardien Suprême »', verseRef:'Sourate Al-Ḥashr 59:23',
+   meaning:'Celui qui est informé de tout secret caché, et dont la vigilance embrasse tout.'},
+  {num:10, file:'10 al-chahid.png', ar:'الشَّهِيدُ', fr:'Ash-Shahīd', trans:'Le Témoin',
+   verseAr:'وَاللَّهُ عَلَى كُلِّ شَيْءٍ شَهِيدٌ', verseFr:'« Et Allah est Témoin de toute chose »', verseRef:'Sourate Al-Mujādila 58:6',
+   meaning:'Celui qui est témoin de toute chose, dont l\'ouïe, la vue et la science embrassent absolument tout.'},
+  {num:11, file:'11 al-raziz.png', ar:'الْعَزِيزُ', fr:'Al-ʿAzīz', trans:'Le Tout-Puissant',
+   verseAr:'إِنَّ الْعِزَّةَ لِلَّهِ جَمِيعًا', verseFr:'« La puissance appartient entièrement à Allah »', verseRef:'Sourate Yūnus 10:65',
+   meaning:'Celui qui réunit les trois sens de la puissance : force, invincibilité et domination absolue.'},
+  {num:12, file:'12 al-khaliq.png', ar:'الْخَالِقُ', fr:'Al-Khāliq', trans:'Le Créateur',
+   verseAr:'هُوَ اللَّهُ الْخَالِقُ الْبَارِئُ الْمُصَوِّرُ لَهُ الْأَسْمَاءُ الْحُسْنَى', verseFr:'« C\'est Lui Allah, le Créateur, Celui qui donne un commencement, le Formateur »', verseRef:'Sourate Al-Ḥashr 59:24',
+   meaning:'Celui qui crée toute chose à partir du néant.'},
+  {num:13, file:'13 al- wadoude.png', ar:'الْوَدُودُ', fr:'Al-Wadūd', trans:'Le Tout-Aimant',
+   verseAr:'وَاسْتَغْفِرُوا رَبَّكُمْ ثُمَّ تُوبُوا إِلَيْهِ إِنَّ رَبِّي رَحِيمٌ وَدُودٌ', verseFr:'« Repentez-vous à Lui ; mon Seigneur est Miséricordieux, Tout-Aimant »', verseRef:'Sourate Hūd 11:90',
+   meaning:'Celui qui aime Ses serviteurs croyants, et qui est aimé d\'eux plus que tout autre.'},
+];
+
+const IMG_BASE = 'nom divin numerote/';
+
+function renderGallery(){
+  document.getElementById('galleryView').innerHTML = TOILES.map((t,i) => `
+    <div class="gal-card" data-idx="${i}">
+      <img src="${IMG_BASE}${t.file}" alt="${t.fr}" loading="lazy">
+      <div class="gal-cap">
+        <div class="gal-cap-ar">${t.ar}</div>
+        <div class="gal-cap-fr">${t.fr} — ${t.trans}</div>
+      </div>
+    </div>`).join('');
+  document.querySelectorAll('.gal-card').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      const t = TOILES[parseInt(card.dataset.idx)];
+      openLightbox(IMG_BASE+t.file, t.ar, t.fr+' — '+t.trans);
+    });
+  });
+}
+
+function renderPed(){
+  document.getElementById('pedView').innerHTML = TOILES.map(t => `
+    <div class="ped-card">
+      <img class="ped-img" src="${IMG_BASE}${t.file}" alt="${t.fr}" loading="lazy">
+      <div class="ped-body">
+        <div class="ped-num">Nom N° ${t.num}</div>
+        <div class="ped-ar">${t.ar}</div>
+        <div class="ped-fr">${t.fr} — ${t.trans}</div>
+        ${t.verseAr ? `
+        <div class="ped-label">Verset</div>
+        <div class="ped-verse-ar">﴿${t.verseAr}﴾</div>
+        <div class="ped-verse-fr">${t.verseFr}</div>
+        <div class="ped-verse-ref">${t.verseRef}</div>` : ''}
+        ${t.hadithAr ? `
+        <div class="ped-label">Hadith</div>
+        <div class="ped-hadith-ar">«${t.hadithAr}»</div>
+        <div class="ped-hadith-fr">${t.hadithFr} — ${t.hadithRef}</div>` : ''}
+        <div class="ped-meaning">${t.meaning}</div>
+        <div class="ped-source">Source : Sa'îd al-Qahtânî, Sharḥ Asmâ' Allâh al-Ḥusnâ · ArchiART — Abdelkader Bouterfas</div>
+      </div>
+    </div>`).join('');
+}
+
+function setView(v){
+  document.getElementById('galleryView').classList.toggle('hidden', v!=='gallery');
+  document.getElementById('pedView').classList.toggle('hidden', v!=='ped');
+  document.getElementById('btnGallery').classList.toggle('active', v==='gallery');
+  document.getElementById('btnPed').classList.toggle('active', v==='ped');
+}
+
+function openLightbox(src, ar, fr){
+  document.getElementById('lbImg').src = src;
+  document.getElementById('lbAr').textContent = ar;
+  document.getElementById('lbFr').textContent = fr;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
+
+renderGallery();
+renderPed();
+</script>
+</body>
+</html>

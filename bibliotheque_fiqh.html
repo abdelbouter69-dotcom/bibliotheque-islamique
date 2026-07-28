@@ -14,7 +14,11 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 .title-fr{font-size:11px;color:rgba(255,255,255,0.6);direction:ltr;margin-bottom:10px;}
 .pill{font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);border:0.5px solid rgba(255,255,255,0.2);display:inline-block;margin:2px;}
 .disclaimer{background:#fff3cd;border-radius:8px;padding:8px 12px;font-size:11px;color:#856404;text-align:center;margin:1rem;font-family:'Amiri',serif;}
-.agents-nav{background:#fff;border-bottom:1px solid #ddd;overflow-x:auto;position:sticky;top:0;z-index:50;}
+.agents-nav{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:50;display:flex;align-items:stretch;}
+.agents-nav .agents-tabs{overflow-x:auto;flex:1;}
+.back-btn{flex:none;display:flex;align-items:center;gap:5px;padding:.8rem .9rem;font-size:12px;background:#27500A;color:#fff;border:none;cursor:pointer;font-family:'Noto Naskh Arabic',serif;text-decoration:none;white-space:nowrap;}
+.back-btn:hover{background:#639922;}
+.back-btn:focus-visible{outline:2px solid #639922;outline-offset:-2px;}
 .agents-tabs{display:flex;min-width:max-content;}
 .agent-btn{display:flex;align-items:center;gap:6px;padding:.8rem .9rem;font-size:12px;color:#666;background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;font-family:'Noto Naskh Arabic',serif;}
 .agent-btn.active{color:#27500A;border-bottom-color:#639922;}
@@ -80,7 +84,7 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
 </head>
 <body>
 <div class="header">
-  <div style="text-align:left;margin-bottom:6px;"><button onclick="window.location.href='index.html'" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:5px 14px;font-size:12px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;">← Accueil</button></div>
+  <div style="text-align:left;margin-bottom:6px;"><a href="index.html" style="display:inline-block;text-decoration:none;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:5px 14px;font-size:12px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;">← Accueil</a></div>
   <span class="basmala">بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ</span>
   <div class="title-ar">مَكْتَبَةُ الفِقْهِ وَأُصُولِهِ وَالفَتَاوَى</div>
   <div class="title-fr">Bibliothèque du Fiqh — Usûl + 4 Madhabs + Fatwas • ArchiART</div>
@@ -94,7 +98,7 @@ body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1
   </div>
 </div>
 <div class="disclaimer">⚠️ هَذِهِ المَكْتَبَةُ لِلتَّعْلِيمِ فَقَط — Consultez un savant qualifié pour les fatwas</div>
-<nav class="agents-nav"><div class="agents-tabs" id="agentTabs"></div></nav>
+<nav class="agents-nav"><a class="back-btn" href="index.html" aria-label="Retour a l'accueil">← الرئيسية</a><div class="agents-tabs" id="agentTabs"></div></nav>
 <div class="content" id="mainContent"></div>
 <div class="modal-wrap" id="modalWrap">
   <div class="modal">
@@ -121,16 +125,16 @@ const AGENTS=[
    levels:[
      {num:1,labelAr:'المُدْخَل',labelFr:'Introduction',badge:'Débutant',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
       books:[
-        {n:1,ar:'الأُصُولُ مِنْ عِلْمِ الأُصُول',auth:'الشيخ ابن عثيمين (ت.1421هـ)',desc:'Introduction simple aux Usûl — très accessible.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=الأصول+من+علم+الأصول+ابن+عثيمين+شرح',sh:'https://shamela.ws/search?q=الأصول+من+علم+الأصول'},
-        {n:2,ar:'الوَرَقَات',auth:'إمام الحرمين الجويني (ت.478هـ)',desc:'Texte fondateur des Usûl — court et mémorisable.',bg:'linear-gradient(135deg,#AFA9EC,#7F77DD)',yt:'https://www.youtube.com/results?search_query=الورقات+الجويني+شرح+مبسط',sh:'https://shamela.ws/search?q=الورقات+الجويني'},
+        {n:1,ar:'الأُصُولُ مِنْ عِلْمِ الأُصُول',auth:'الشيخ ابن عثيمين (ت.1421هـ)',desc:'Introduction simple aux Usûl — très accessible.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=الأصول+من+علم+الأصول+ابن+عثيمين+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=الأصول+من+علم+الأصول'},
+        {n:2,ar:'الوَرَقَات',auth:'إمام الحرمين الجويني (ت.478هـ)',desc:'Texte fondateur des Usûl — court et mémorisable.',bg:'linear-gradient(135deg,#AFA9EC,#7F77DD)',yt:'https://www.youtube.com/results?search_query=الورقات+الجويني+شرح+مبسط&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=الورقات+الجويني'},
       ]},
      {num:2,labelAr:'القَوَاعِد',labelFr:'Règles et principes',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'مُذَكِّرَةُ أُصُولِ الفِقْه',auth:'الشيخ الشنقيطي (ت.1393هـ)',desc:'Manuel complet — cours de l\'Université islamique.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=مذكرة+أصول+الفقه+الشنقيطي+شرح',sh:'https://shamela.ws/search?q=مذكرة+أصول+الفقه+الشنقيطي'},
+        {n:1,ar:'مُذَكِّرَةُ أُصُولِ الفِقْه',auth:'الشيخ الشنقيطي (ت.1393هـ)',desc:'Manuel complet — cours de l\'Université islamique.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=مذكرة+أصول+الفقه+الشنقيطي+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=مذكرة+أصول+الفقه+الشنقيطي'},
       ]},
      {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
       books:[
-        {n:1,ar:'الرِّسَالَة — الإِمَام الشَّافِعِي',auth:'الإمام الشافعي (ت.204هـ)',desc:'Le premier livre d\'Usûl Al-Fiqh dans l\'Islam.',bg:'linear-gradient(135deg,#534AB7,#3C3489)',yt:'https://www.youtube.com/results?search_query=الرسالة+الشافعي+أصول+الفقه',sh:'https://shamela.ws/search?q=الرسالة+الشافعي'},
+        {n:1,ar:'الرِّسَالَة — الإِمَام الشَّافِعِي',auth:'الإمام الشافعي (ت.204هـ)',desc:'Le premier livre d\'Usûl Al-Fiqh dans l\'Islam.',bg:'linear-gradient(135deg,#534AB7,#3C3489)',yt:'https://www.youtube.com/results?search_query=الرسالة+الشافعي+أصول+الفقه&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=الرسالة+الشافعي'},
       ]},
    ]},
   {id:'hanafi',icon:'🟢',labelAr:'الفِقْهُ الحَنَفِي',label:'Fiqh Hanafî',
@@ -141,15 +145,15 @@ const AGENTS=[
    levels:[
      {num:1,labelAr:'التَّأْسِيس',labelFr:'Fondements',badge:'Débutant',numBg:'#639922',badgeC:'#EAF3DE',badgeTxt:'#27500A',
       books:[
-        {n:1,ar:'مُخْتَصَرُ القُدُورِي',auth:'القدوري (ت.428هـ)',desc:'Texte fondateur du Fiqh Hanafî.',bg:'linear-gradient(135deg,#639922,#3B6D11)',yt:'https://www.youtube.com/results?search_query=مختصر+القدوري+شرح+مبسط',sh:'https://shamela.ws/search?q=مختصر+القدوري'},
+        {n:1,ar:'مُخْتَصَرُ القُدُورِي',auth:'القدوري (ت.428هـ)',desc:'Texte fondateur du Fiqh Hanafî.',bg:'linear-gradient(135deg,#639922,#3B6D11)',yt:'https://www.youtube.com/results?search_query=مختصر+القدوري+شرح+مبسط&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=مختصر+القدوري'},
       ]},
      {num:2,labelAr:'التَّوَسُّط',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'الهِدَايَة',auth:'المرغيناني (ت.593هـ)',desc:'Référence centrale du Fiqh Hanafî.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=الهداية+المرغيناني+شرح',sh:'https://shamela.ws/search?q=الهداية+المرغيناني'},
+        {n:1,ar:'الهِدَايَة',auth:'المرغيناني (ت.593هـ)',desc:'Référence centrale du Fiqh Hanafî.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=الهداية+المرغيناني+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=الهداية+المرغيناني'},
       ]},
      {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
       books:[
-        {n:1,ar:'بَدَائِعُ الصَّنَائِع',auth:'الكاساني (ت.587هـ)',desc:'Encyclopédie du Fiqh Hanafî.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=بدائع+الصنائع+الكاساني',sh:'https://shamela.ws/search?q=بدائع+الصنائع'},
+        {n:1,ar:'بَدَائِعُ الصَّنَائِع',auth:'الكاساني (ت.587هـ)',desc:'Encyclopédie du Fiqh Hanafî.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=بدائع+الصنائع+الكاساني&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=بدائع+الصنائع'},
       ]},
    ]},
   {id:'maliki',icon:'🟡',labelAr:'الفِقْهُ المَالِكِي',label:'Fiqh Mâlikî',
@@ -160,16 +164,16 @@ const AGENTS=[
    levels:[
      {num:1,labelAr:'التَّأْسِيس',labelFr:'Fondements',badge:'Débutant',numBg:'#EF9F27',badgeC:'#FAEEDA',badgeTxt:'#633806',
       books:[
-        {n:1,ar:'الرِّسَالَة — ابْنُ أَبِي زَيْد',auth:'ابن أبي زيد القيرواني (ت.386هـ)',desc:'Introduction au Fiqh Mâlikî.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=رسالة+ابن+أبي+زيد+القيرواني+شرح',sh:'https://shamela.ws/search?q=رسالة+ابن+أبي+زيد'},
-        {n:2,ar:'مُخْتَصَرُ خَلِيل',auth:'خليل بن إسحاق (ت.767هـ)',desc:'Texte central — Afrique et Maghreb.',bg:'linear-gradient(135deg,#FAC775,#EF9F27)',yt:'https://www.youtube.com/results?search_query=مختصر+خليل+شرح',sh:'https://shamela.ws/search?q=مختصر+خليل'},
+        {n:1,ar:'الرِّسَالَة — ابْنُ أَبِي زَيْد',auth:'ابن أبي زيد القيرواني (ت.386هـ)',desc:'Introduction au Fiqh Mâlikî.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=رسالة+ابن+أبي+زيد+القيرواني+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=رسالة+ابن+أبي+زيد'},
+        {n:2,ar:'مُخْتَصَرُ خَلِيل',auth:'خليل بن إسحاق (ت.767هـ)',desc:'Texte central — Afrique et Maghreb.',bg:'linear-gradient(135deg,#FAC775,#EF9F27)',yt:'https://www.youtube.com/results?search_query=مختصر+خليل+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=مختصر+خليل'},
       ]},
      {num:2,labelAr:'التَّوَسُّط',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#BA7517',badgeC:'#FAEEDA',badgeTxt:'#633806',
       books:[
-        {n:1,ar:'المُوَطَّأ',auth:'الإمام مالك (ت.179هـ)',desc:'Source première du Fiqh Mâlikî.',bg:'linear-gradient(135deg,#BA7517,#854F0B)',yt:'https://www.youtube.com/results?search_query=الموطأ+مالك+شرح',sh:'https://shamela.ws/search?q=الموطأ+مالك'},
+        {n:1,ar:'المُوَطَّأ',auth:'الإمام مالك (ت.179هـ)',desc:'Source première du Fiqh Mâlikî.',bg:'linear-gradient(135deg,#BA7517,#854F0B)',yt:'https://www.youtube.com/results?search_query=الموطأ+مالك+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=الموطأ+مالك'},
       ]},
      {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
       books:[
-        {n:1,ar:'المُدَوَّنَة',auth:'الإمام مالك / سحنون',desc:'Monument du Fiqh Mâlikî.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المدونة+الإمام+مالك',sh:'https://shamela.ws/search?q=المدونة+مالك'},
+        {n:1,ar:'المُدَوَّنَة',auth:'الإمام مالك / سحنون',desc:'Monument du Fiqh Mâlikî.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المدونة+الإمام+مالك&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=المدونة+مالك'},
       ]},
    ]},
   {id:'shafii',icon:'🔵',labelAr:'الفِقْهُ الشَّافِعِي',label:"Fiqh Shâfiʿî",
@@ -180,16 +184,16 @@ const AGENTS=[
    levels:[
      {num:1,labelAr:'التَّأْسِيس',labelFr:'Fondements',badge:'Débutant',numBg:'#185FA5',badgeC:'#E6F1FB',badgeTxt:'#0C447C',
       books:[
-        {n:1,ar:'مَتْنُ أَبِي شُجَاع',auth:'أبو شجاع الأصفهاني',desc:'Texte de base du Fiqh Shâfiʿî.',bg:'linear-gradient(135deg,#185FA5,#0C447C)',yt:'https://www.youtube.com/results?search_query=متن+أبي+شجاع+شرح+مبسط',sh:'https://shamela.ws/search?q=متن+أبي+شجاع'},
-        {n:2,ar:'سَفِينَةُ النَّجَاة',auth:'سالم بن سمير الحضرمي',desc:'Résumé des obligations.',bg:'linear-gradient(135deg,#378ADD,#185FA5)',yt:'https://www.youtube.com/results?search_query=سفينة+النجاة+شرح',sh:'https://shamela.ws/search?q=سفينة+النجاة'},
+        {n:1,ar:'مَتْنُ أَبِي شُجَاع',auth:'أبو شجاع الأصفهاني',desc:'Texte de base du Fiqh Shâfiʿî.',bg:'linear-gradient(135deg,#185FA5,#0C447C)',yt:'https://www.youtube.com/results?search_query=متن+أبي+شجاع+شرح+مبسط&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=متن+أبي+شجاع'},
+        {n:2,ar:'سَفِينَةُ النَّجَاة',auth:'سالم بن سمير الحضرمي',desc:'Résumé des obligations.',bg:'linear-gradient(135deg,#378ADD,#185FA5)',yt:'https://www.youtube.com/results?search_query=سفينة+النجاة+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=سفينة+النجاة'},
       ]},
      {num:2,labelAr:'التَّوَسُّط',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'مِنْهَاجُ الطَّالِبِين',auth:'الإمام النووي (ت.676هـ)',desc:'Référence centrale du Fiqh Shâfiʿî.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=منهاج+الطالبين+النووي+شرح',sh:'https://shamela.ws/search?q=منهاج+الطالبين'},
+        {n:1,ar:'مِنْهَاجُ الطَّالِبِين',auth:'الإمام النووي (ت.676هـ)',desc:'Référence centrale du Fiqh Shâfiʿî.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=منهاج+الطالبين+النووي+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=منهاج+الطالبين'},
       ]},
      {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
       books:[
-        {n:1,ar:'المَجْمُوع',auth:'الإمام النووي (ت.676هـ)',desc:'Encyclopédie — 20+ volumes.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المجموع+النووي',sh:'https://shamela.ws/search?q=المجموع+النووي'},
+        {n:1,ar:'المَجْمُوع',auth:'الإمام النووي (ت.676هـ)',desc:'Encyclopédie — 20+ volumes.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المجموع+النووي&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=المجموع+النووي'},
       ]},
    ]},
   {id:'hanbali',icon:'🟤',labelAr:'الفِقْهُ الحَنْبَلِي',label:'Fiqh Hanbalî',
@@ -200,16 +204,16 @@ const AGENTS=[
    levels:[
      {num:1,labelAr:'التَّأْسِيس',labelFr:'Fondements',badge:'Débutant',numBg:'#D85A30',badgeC:'#FAECE7',badgeTxt:'#712B13',
       books:[
-        {n:1,ar:'عُمْدَةُ الفِقْه',auth:'ابن قدامة (ت.620هـ)',desc:'Texte de base du Fiqh Hanbalî.',bg:'linear-gradient(135deg,#D85A30,#993C1D)',yt:'https://www.youtube.com/results?search_query=عمدة+الفقه+ابن+قدامة+شرح',sh:'https://shamela.ws/search?q=عمدة+الفقه'},
-        {n:2,ar:'زَادُ المُسْتَقْنِع',auth:'الحجاوي (ت.968هـ)',desc:'Texte de référence — universités islamiques.',bg:'linear-gradient(135deg,#F0997B,#D85A30)',yt:'https://www.youtube.com/results?search_query=زاد+المستقنع+شرح',sh:'https://shamela.ws/search?q=زاد+المستقنع'},
+        {n:1,ar:'عُمْدَةُ الفِقْه',auth:'ابن قدامة (ت.620هـ)',desc:'Texte de base du Fiqh Hanbalî.',bg:'linear-gradient(135deg,#D85A30,#993C1D)',yt:'https://www.youtube.com/results?search_query=عمدة+الفقه+ابن+قدامة+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=عمدة+الفقه'},
+        {n:2,ar:'زَادُ المُسْتَقْنِع',auth:'الحجاوي (ت.968هـ)',desc:'Texte de référence — universités islamiques.',bg:'linear-gradient(135deg,#F0997B,#D85A30)',yt:'https://www.youtube.com/results?search_query=زاد+المستقنع+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=زاد+المستقنع'},
       ]},
      {num:2,labelAr:'التَّوَسُّط',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'الرَّوْضُ المُرْبِع',auth:'البهوتي (ت.1051هـ)',desc:'Commentaire du Zâd — référence Hanbalî.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=الروض+المربع+شرح',sh:'https://shamela.ws/search?q=الروض+المربع'},
+        {n:1,ar:'الرَّوْضُ المُرْبِع',auth:'البهوتي (ت.1051هـ)',desc:'Commentaire du Zâd — référence Hanbalî.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=الروض+المربع+شرح&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=الروض+المربع'},
       ]},
      {num:3,labelAr:'التَّخَصُّص',labelFr:'Expert',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
       books:[
-        {n:1,ar:'المُغْنِي',auth:'ابن قدامة (ت.620هـ)',desc:'Encyclopédie — 15 volumes — sommet.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المغني+ابن+قدامة',sh:'https://shamela.ws/search?q=المغني+ابن+قدامة'},
+        {n:1,ar:'المُغْنِي',auth:'ابن قدامة (ت.620هـ)',desc:'Encyclopédie — 15 volumes — sommet.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=المغني+ابن+قدامة&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=المغني+ابن+قدامة'},
       ]},
    ]},
   {id:'fatawa',icon:'📋',labelAr:'الفَتَاوَى المُعَاصِرَة',label:'Fatwas contemporaines',
@@ -221,16 +225,16 @@ const AGENTS=[
    levels:[
      {num:1,labelAr:'فَتَاوَى العِبَادَات',labelFr:'Actes de culte',badge:'Débutant',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
       books:[
-        {n:1,ar:'مَجْمُوعُ فَتَاوَى ابْنِ بَاز',auth:'الشيخ ابن باز (ت.1420هـ)',desc:'30 volumes de fatwas complètes.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مجموع+فتاوى+ابن+باز',sh:'https://shamela.ws/search?q=مجموع+فتاوى+ابن+باز'},
-        {n:2,ar:'مَجْمُوعُ فَتَاوَى ابْنِ عُثَيْمِين',auth:'الشيخ ابن عثيمين (ت.1421هـ)',desc:'25 volumes — très argumentées.',bg:'linear-gradient(135deg,#AFA9EC,#7F77DD)',yt:'https://www.youtube.com/results?search_query=مجموع+فتاوى+ابن+عثيمين',sh:'https://shamela.ws/search?q=مجموع+فتاوى+ابن+عثيمين'},
+        {n:1,ar:'مَجْمُوعُ فَتَاوَى ابْنِ بَاز',auth:'الشيخ ابن باز (ت.1420هـ)',desc:'30 volumes de fatwas complètes.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مجموع+فتاوى+ابن+باز&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=مجموع+فتاوى+ابن+باز'},
+        {n:2,ar:'مَجْمُوعُ فَتَاوَى ابْنِ عُثَيْمِين',auth:'الشيخ ابن عثيمين (ت.1421هـ)',desc:'25 volumes — très argumentées.',bg:'linear-gradient(135deg,#AFA9EC,#7F77DD)',yt:'https://www.youtube.com/results?search_query=مجموع+فتاوى+ابن+عثيمين&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=مجموع+فتاوى+ابن+عثيمين'},
       ]},
      {num:2,labelAr:'فَتَاوَى المُعَامَلَات',labelFr:'Transactions',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
       books:[
-        {n:1,ar:'فَتَاوَى اللَّجْنَةِ الدَّائِمَة',auth:'اللجنة الدائمة للبحوث العلمية والإفتاء',desc:'Fatwas officielles du Royaume.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=فتاوى+اللجنة+الدائمة',sh:'https://shamela.ws/search?q=فتاوى+اللجنة+الدائمة'},
+        {n:1,ar:'فَتَاوَى اللَّجْنَةِ الدَّائِمَة',auth:'اللجنة الدائمة للبحوث العلمية والإفتاء',desc:'Fatwas officielles du Royaume.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=فتاوى+اللجنة+الدائمة&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=فتاوى+اللجنة+الدائمة'},
       ]},
      {num:3,labelAr:'النَّوَازِل',labelFr:'Questions contemporaines',badge:'Expert',numBg:'#3C3489',badgeC:'#EEEDFE',badgeTxt:'#26215C',
       books:[
-        {n:1,ar:'مَوْسُوعَةُ هَيْئَةِ كِبَارِ العُلَمَاء',auth:'هيئة كبار العلماء',desc:'Décisions officielles — questions contemporaines.',bg:'linear-gradient(135deg,#534AB7,#3C3489)',yt:'https://www.youtube.com/results?search_query=موسوعة+هيئة+كبار+العلماء',sh:'https://shamela.ws/search?q=موسوعة+هيئة+كبار+العلماء'},
+        {n:1,ar:'مَوْسُوعَةُ هَيْئَةِ كِبَارِ العُلَمَاء',auth:'هيئة كبار العلماء',desc:'Décisions officielles — questions contemporaines.',bg:'linear-gradient(135deg,#534AB7,#3C3489)',yt:'https://www.youtube.com/results?search_query=موسوعة+هيئة+كبار+العلماء&sp=EgIQAw%3D%3D',sh:'https://shamela.ws/search?q=موسوعة+هيئة+كبار+العلماء'},
       ]},
    ]},
 ];
