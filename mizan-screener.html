@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mīzān — Analyse de conformité charaïque</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#131A2B;
+  --ink-soft:#2A3348;
+  --parchment:#F7F5EF;
+  --rule:#C9C4B4;
+  --verdigris:#2E6B5E;
+  --carmine:#93303A;
+  --gold:#A8863F;
+  --shadow:rgba(19,26,43,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--ink);
+  color:var(--ink);
+  font-family:'Archivo',system-ui,sans-serif;
+  line-height:1.55;
+  padding:0 0 5rem;
+}
+.wrap{max-width:780px;margin:0 auto;padding:0 1.1rem}
+
+header{padding:3.2rem 0 2.4rem;color:var(--parchment)}
+.eyebrow{
+  font-family:'Archivo Narrow',sans-serif;
+  font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;
+}
+h1{
+  font-family:'Amiri',serif;
+  font-size:clamp(2.6rem,9vw,4rem);
+  font-weight:700;line-height:1.02;letter-spacing:-.01em;
+}
+h1 .ar{display:block;font-size:.62em;color:var(--gold);margin-top:.15em;font-weight:400}
+.lede{
+  margin-top:1.2rem;max-width:46ch;
+  color:rgba(247,245,239,.72);font-size:1rem;
+}
+
+.panel{
+  background:var(--parchment);
+  border-radius:3px;
+  padding:1.6rem 1.3rem;
+  margin-bottom:1.1rem;
+  box-shadow:0 1px 0 var(--shadow);
+}
+.panel h2{
+  font-family:'Archivo Narrow',sans-serif;
+  font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:600;
+  padding-bottom:.7rem;border-bottom:1px solid var(--rule);
+  margin-bottom:1.1rem;
+}
+
+.mizan{display:grid;gap:.5rem}
+.pos{
+  display:grid;grid-template-columns:auto 1fr;gap:.9rem;
+  align-items:start;
+  padding:.85rem .9rem;
+  border:1px solid var(--rule);border-radius:2px;
+  cursor:pointer;background:transparent;
+  text-align:left;font:inherit;color:inherit;
+  transition:background .18s,border-color .18s;
+}
+.pos:hover{background:rgba(46,107,94,.05)}
+.pos:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+.pos[aria-pressed="true"]{border-color:var(--ink);background:#fff;box-shadow:inset 3px 0 0 var(--verdigris)}
+.dial{
+  width:34px;height:34px;border-radius:50%;
+  border:1px solid var(--rule);
+  display:grid;place-items:center;
+  font-family:'Amiri',serif;font-size:1.1rem;color:var(--ink-soft);
+  flex:none;
+}
+.pos[aria-pressed="true"] .dial{background:var(--ink);color:var(--parchment);border-color:var(--ink)}
+.pos b{display:block;font-size:.95rem;font-weight:600}
+.pos small{display:block;color:var(--ink-soft);font-size:.8rem;margin-top:.18rem}
+.pos .src{
+  font-family:'Archivo Narrow',sans-serif;font-size:.72rem;
+  letter-spacing:.04em;color:var(--gold);margin-top:.35rem;display:block;
+}
+
+/* ---- Mode de saisie ---- */
+.modes{display:flex;gap:.4rem;margin-bottom:1.1rem}
+.modes button{
+  flex:1;padding:.55rem .5rem;
+  border:1px solid var(--rule);border-radius:2px;background:#fff;
+  font-family:'Archivo Narrow',sans-serif;font-size:.78rem;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-soft);cursor:pointer;transition:all .18s;
+}
+.modes button[aria-pressed="true"]{background:var(--ink);color:var(--parchment);border-color:var(--ink)}
+.modes button:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+@media(max-width:520px){.grid{grid-template-columns:1fr}}
+label{display:block}
+label span.lab{
+  font-family:'Archivo Narrow',sans-serif;
+  font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-soft);display:flex;align-items:center;gap:.35rem;margin-bottom:.3rem;
+}
+.aide{
+  width:15px;height:15px;flex:none;border-radius:50%;
+  border:1px solid var(--rule);background:#fff;
+  font-family:'Archivo',sans-serif;font-size:.62rem;line-height:1;
+  color:var(--ink-soft);cursor:pointer;padding:0;
+}
+.aide:hover{border-color:var(--verdigris);color:var(--verdigris)}
+.aide:focus-visible{outline:2px solid var(--verdigris);outline-offset:1px}
+.memo{
+  display:none;grid-column:1/-1;
+  padding:.7rem .8rem;margin-top:-.3rem;
+  background:#fff;border-left:2px solid var(--gold);
+  font-size:.82rem;color:var(--ink-soft);
+}
+.memo.open{display:block}
+.memo b{display:block;color:var(--ink);font-size:.84rem;margin-bottom:.25rem}
+.memo em{font-style:normal;color:var(--carmine)}
+input,select{
+  width:100%;padding:.6rem .65rem;
+  border:1px solid var(--rule);border-radius:2px;background:#fff;
+  font:inherit;font-size:.95rem;color:var(--ink);
+}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink-soft) 50%),linear-gradient(135deg,var(--ink-soft) 50%,transparent 50%);background-position:calc(100% - 15px) 55%,calc(100% - 10px) 55%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:2rem}
+input:focus,select:focus{outline:2px solid var(--verdigris);outline-offset:-1px}
+.na{border-color:var(--carmine)}
+.hint{font-size:.78rem;color:var(--ink-soft);margin-top:.5rem}
+.calc{
+  grid-column:1/-1;margin-top:.2rem;padding:.75rem .85rem;
+  background:rgba(46,107,94,.07);border-left:2px solid var(--verdigris);
+  font-size:.85rem;
+}
+.alerte{
+  display:none;margin-top:.8rem;padding:.75rem .85rem;
+  background:rgba(147,48,58,.07);border-left:2px solid var(--carmine);font-size:.85rem;
+}
+.alerte b{font-family:'Archivo Narrow',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--carmine);display:block;margin-bottom:.35rem}
+.alerte p{color:var(--ink-soft);margin-bottom:.25rem}
+.alerte p:last-child{margin-bottom:0}
+.calc b{font-family:'Archivo Narrow',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:.4rem}
+.calc .r{display:flex;justify-content:space-between;gap:1rem;padding:.18rem 0;font-variant-numeric:tabular-nums}
+.calc .r span:last-child{font-weight:600}
+
+.sources{margin-top:1.2rem;padding-top:1.1rem;border-top:1px solid var(--rule)}
+.liens{display:flex;flex-wrap:wrap;gap:.45rem}
+.liens button{
+  padding:.45rem .7rem;
+  border:1px solid var(--rule);border-radius:2px;background:#fff;
+  font-family:'Archivo Narrow',sans-serif;font-size:.8rem;letter-spacing:.03em;
+  color:var(--ink);cursor:pointer;transition:border-color .18s,color .18s;
+}
+.liens button:hover{border-color:var(--verdigris);color:var(--verdigris)}
+.liens button:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+.cta{
+  margin-top:1.2rem;width:100%;
+  padding:.85rem;border:none;border-radius:2px;
+  background:var(--ink);color:var(--parchment);
+  font-family:'Archivo Narrow',sans-serif;
+  font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:background .18s;
+}
+.cta:hover{background:var(--verdigris)}
+
+#out{display:none}
+.verdict{
+  display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;
+  padding-bottom:1rem;margin-bottom:1rem;border-bottom:1px solid var(--rule);
+}
+.verdict .mark{font-family:'Amiri',serif;font-size:1.9rem;line-height:1}
+.verdict.pass .mark{color:var(--verdigris)}
+.verdict.fail .mark{color:var(--carmine)}
+.verdict.hold .mark{color:var(--gold)}
+.verdict strong{font-size:1.05rem}
+.verdict em{font-style:normal;color:var(--ink-soft);font-size:.86rem;width:100%}
+
+.crit{
+  display:grid;grid-template-columns:1fr auto;gap:.3rem .8rem;
+  padding:.6rem 0;border-bottom:1px dotted var(--rule);
+}
+.crit:last-of-type{border-bottom:none}
+.crit .name{font-size:.92rem}
+.crit .ref{
+  grid-column:1/-1;font-family:'Archivo Narrow',sans-serif;
+  font-size:.72rem;color:var(--gold);letter-spacing:.03em;
+}
+.crit .val{font-variant-numeric:tabular-nums;font-size:.92rem;white-space:nowrap}
+.crit .val.ok{color:var(--verdigris)}
+.crit .val.no{color:var(--carmine);font-weight:600}
+.crit .val.wait{color:var(--gold);font-weight:600}
+
+.purif{
+  margin-top:1.1rem;padding:.9rem;
+  background:rgba(46,107,94,.07);border-left:2px solid var(--verdigris);
+}
+.purif b{display:block;font-size:.88rem;margin-bottom:.25rem}
+.purif p{font-size:.85rem;color:var(--ink-soft)}
+
+.dossier{
+  margin-top:1.2rem;padding-top:1.1rem;border-top:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:.45rem;
+}
+.dossier button{
+  padding:.5rem .8rem;
+  border:1px solid var(--rule);border-radius:2px;background:#fff;
+  font-family:'Archivo Narrow',sans-serif;font-size:.8rem;letter-spacing:.04em;
+  color:var(--ink);cursor:pointer;transition:border-color .18s,color .18s;
+}
+.dossier button:hover{border-color:var(--verdigris);color:var(--verdigris)}
+.dossier button:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+.dossier .note{width:100%;font-size:.78rem;color:var(--ink-soft);margin-top:.3rem}
+
+details{border-bottom:1px solid var(--rule)}
+details:last-of-type{border-bottom:none}
+summary{
+  cursor:pointer;padding:.75rem 0;
+  font-size:.95rem;font-weight:600;
+  display:flex;align-items:center;gap:.6rem;list-style:none;
+}
+summary::-webkit-details-marker{display:none}
+summary::before{
+  content:"+";font-family:'Amiri',serif;font-size:1.1rem;
+  color:var(--gold);width:1rem;flex:none;
+}
+details[open] summary::before{content:"−"}
+summary:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+.doc{padding:0 0 1.1rem 1.6rem;font-size:.9rem;color:var(--ink-soft)}
+.doc p{margin-bottom:.7rem}
+.doc p:last-child{margin-bottom:0}
+.doc strong{color:var(--ink)}
+.doc table{width:100%;border-collapse:collapse;margin-bottom:.7rem;font-size:.85rem}
+.doc th{
+  font-family:'Archivo Narrow',sans-serif;font-size:.72rem;
+  letter-spacing:.08em;text-transform:uppercase;text-align:left;
+  padding:.4rem .5rem .4rem 0;border-bottom:1px solid var(--rule);color:var(--ink);
+}
+.doc td{padding:.4rem .5rem .4rem 0;border-bottom:1px dotted var(--rule);vertical-align:top}
+.doc .ar{font-family:'Amiri',serif;font-size:1.05em;color:var(--ink)}
+.doc .warn{
+  padding:.7rem .8rem;background:rgba(147,48,58,.06);
+  border-left:2px solid var(--carmine);font-size:.85rem;
+}
+.rule-note{font-family:'Archivo Narrow',sans-serif;font-size:.75rem;color:var(--gold);letter-spacing:.03em}
+
+footer{
+  color:rgba(247,245,239,.45);font-size:.8rem;
+  padding-top:1.6rem;max-width:56ch;
+}
+footer strong{color:rgba(247,245,239,.7);font-weight:500}
+
+@media print{
+  body{background:#fff;padding:0}
+  header{color:var(--ink);padding:1rem 0}
+  h1 .ar,.lede,.eyebrow{color:var(--ink-soft)}
+  .panel{box-shadow:none;border:1px solid var(--rule);break-inside:avoid}
+  #positions,.modes,.sources,.dossier,.cta,#methode{display:none!important}
+  footer{color:var(--ink-soft)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Analyse de conformité charaïque</p>
+  <h1>Mīzān<span class="ar">الميزان</span></h1>
+  <p class="lede">Une même société est licite ou non selon la position savante retenue. Choisissez la vôtre : l'outil applique ses seuils et montre le calcul.</p>
+</header>
+
+<section class="panel">
+  <h2>1 — Position savante</h2>
+  <div class="mizan" id="positions"></div>
+</section>
+
+<section class="panel">
+  <h2>2 — Données de la société</h2>
+
+  <div class="modes">
+    <button type="button" id="mPct" aria-pressed="true">Saisir des pourcentages</button>
+    <button type="button" id="mBrut" aria-pressed="false">Saisir les montants du bilan</button>
+  </div>
+
+  <div class="grid">
+    <label><span class="lab">Société</span><input id="nom" placeholder="Nom ou ticker"></label>
+    <label><span class="lab">Secteur d'activité
+      <button type="button" class="aide" data-memo="secteur" aria-label="Où trouver">?</button></span>
+      <select id="secteur">
+        <option value="">— à renseigner —</option>
+        <option value="oui">Licite</option>
+        <option value="non">Illicite</option>
+      </select>
+    </label>
+    <div class="memo" id="memo-secteur">
+      <b>Où le trouver</b>
+      Rapport annuel, chapitre « Présentation du Groupe » ou « Modèle d'affaires », puis la note « Information sectorielle » des comptes consolidés qui ventile le chiffre d'affaires par activité.
+      <em>Piège : une société de distribution alimentaire peut vendre alcool et porc — regarder la ventilation, pas l'enseigne.</em>
+    </div>
+  </div>
+
+  <!-- Mode pourcentages -->
+  <div id="zonePct">
+    <div class="grid">
+      <label><span class="lab">Revenus illicites %
+        <button type="button" class="aide" data-memo="rev" aria-label="Où trouver">?</button></span>
+        <input id="rev" type="number" step="0.01" placeholder="0"></label>
+      <label><span class="lab">Dette à intérêt %
+        <button type="button" class="aide" data-memo="dette" aria-label="Où trouver">?</button></span>
+        <input id="dette" type="number" step="0.01" placeholder="0"></label>
+      <label><span class="lab">Liquidités + placements %
+        <button type="button" class="aide" data-memo="liq" aria-label="Où trouver">?</button></span>
+        <input id="liq" type="number" step="0.01" placeholder="0"></label>
+      <label><span class="lab">Actifs tangibles %
+        <button type="button" class="aide" data-memo="tang" aria-label="Où trouver">?</button></span>
+        <input id="tang" type="number" step="0.01" placeholder="0"></label>
+      <div class="memo" id="memo-rev">
+        <b>Où le trouver</b>
+        Note « Information sectorielle » des comptes consolidés : additionner le chiffre d'affaires des activités non conformes, diviser par le chiffre d'affaires total.
+        <em>Y inclure les produits financiers d'intérêt, souvent logés dans le « résultat financier ».</em>
+      </div>
+      <div class="memo" id="memo-dette">
+        <b>Où le trouver</b>
+        Bilan consolidé : « Emprunts et dettes financières » courants + non courants. Chez Morningstar : <i>Total Debt</i>.
+        <em>Exclure les dettes fournisseurs. Question ouverte : les dettes locatives IFRS 16 ne portent pas d'intérêt au sens classique — la plupart des comités ne les comptent pas.</em>
+      </div>
+      <div class="memo" id="memo-liq">
+        <b>Où le trouver</b>
+        Bilan, actif courant : « Trésorerie et équivalents de trésorerie » + les placements financiers rémunérés. Chez Morningstar : <i>Cash and Equivalents</i> + <i>Short-Term Investments</i>.
+      </div>
+      <div class="memo" id="memo-tang">
+        <b>Où le trouver</b>
+        Total de l'actif moins les créances et les liquidités, rapporté au total de l'actif. Autrement dit : la part de l'entreprise qui est faite de choses réelles — usines, stocks, machines.
+        <em>Condition de négociabilité : on ne vend pas des créances contre de l'argent, on vend des parts d'une activité réelle.</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mode montants bruts -->
+  <div id="zoneBrut" style="display:none">
+    <p class="hint" style="margin-top:0;margin-bottom:.8rem">Recopier les montants tels quels depuis le bilan — même unité pour tous (millions, milliers, euros). Mīzān calcule les ratios.</p>
+    <div class="grid">
+      <label><span class="lab">Capitalisation boursière</span><input id="bCapi" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Total de l'actif</span><input id="bActif" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Dette financière totale</span><input id="bDette" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Trésorerie + placements</span><input id="bLiq" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Créances clients</span><input id="bCrea" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Chiffre d'affaires total</span><input id="bCaTot" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">dont revenus illicites</span><input id="bCaIll" type="number" step="any" placeholder="0"></label>
+      <div class="calc" id="calcOut">
+        <b>Ratios calculés</b>
+        <div class="r"><span>Dette portant intérêt</span><span id="cDette">—</span></div>
+        <div class="r"><span>Liquidités et placements</span><span id="cLiq">—</span></div>
+        <div class="r"><span>Actifs tangibles</span><span id="cTang">—</span></div>
+        <div class="r"><span>Revenus illicites</span><span id="cRev">—</span></div>
+      </div>
+    </div>
+    <div class="alerte" id="coherence"></div>
+    <p class="hint" id="denomNote"></p>
+  </div>
+
+  <div class="grid" style="margin-top:.85rem">
+    <label><span class="lab">Dividende perçu €</span><input id="div" type="number" step="0.01" placeholder="0"></label>
+    <label><span class="lab">Exercice analysé</span><input id="exercice" placeholder="2025"></label>
+  </div>
+
+  <div class="sources">
+    <label style="margin-bottom:.6rem">
+      <span class="lab">Ticker pour ouvrir les sources</span>
+      <input id="ticker" placeholder="OR.PA · MSFT · ASML.AS">
+    </label>
+    <div class="liens">
+      <button type="button" data-src="mstar">Morningstar — bilan</button>
+      <button type="button" data-src="abc">ABC Bourse — société</button>
+      <button type="button" data-src="inv">Investing — profil financier</button>
+      <button type="button" data-src="rapport">Rapport annuel</button>
+    </div>
+    <p class="hint" style="margin-top:.6rem">Morningstar pour les actifs, la dette et la trésorerie. Le rapport annuel pour la ventilation sectorielle — seul endroit où trouver la part de revenus illicites.</p>
+  </div>
+
+  <button class="cta" id="go">Analyser</button>
+</section>
+
+<section class="panel" id="out">
+  <h2>Verdict</h2>
+  <div id="verdict"></div>
+  <div id="crits"></div>
+  <div id="purif"></div>
+  <div class="dossier">
+    <button type="button" id="csv">Exporter en tableur (.csv)</button>
+    <button type="button" id="copie">Copier la fiche</button>
+    <button type="button" id="imprime">Imprimer · PDF</button>
+    <p class="note">Le tableur s'ouvre dans Excel. Une ligne par analyse : conserver le fichier permet de comparer les exercices d'une année sur l'autre.</p>
+  </div>
+</section>
+
+<section class="panel" id="methode">
+  <h2>La méthode</h2>
+
+  <details>
+    <summary>Les trois interdits</summary>
+    <div class="doc">
+      <p>Acheter une action, c'est devenir copropriétaire d'une entreprise réelle — licite par principe. Le problème ne vient jamais de l'action en elle-même, mais de l'activité de l'entreprise et de la façon dont elle se finance.</p>
+      <table>
+        <tr><th>Interdit</th><th>Ce que c'est</th><th>En bourse</th></tr>
+        <tr><td><span class="ar">الربا</span><br>Ribā</td><td>L'intérêt, l'usure</td><td>Banques et assurances conventionnelles, obligations, effet de levier, comptes rémunérés</td></tr>
+        <tr><td><span class="ar">الغرر</span><br>Gharar</td><td>L'incertitude excessive</td><td>Dérivés, options, futures, CFD, vente à découvert</td></tr>
+        <tr><td><span class="ar">الميسر</span><br>Maysir</td><td>Le jeu de hasard</td><td>Trading très court terme, sociétés de jeux d'argent</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <details>
+    <summary>Le double filtre</summary>
+    <div class="doc">
+      <p><strong>Filtre sectoriel</strong> — exclusion totale, quel que soit l'attrait financier : banques et assurances conventionnelles, alcool, tabac, porc, jeux d'argent, pornographie, divertissement illicite, armement selon les écoles.</p>
+      <p><strong>Filtre financier</strong> — les ratios chiffrés, dont les seuils varient selon la position savante retenue en haut de cette page.</p>
+      <table>
+        <tr><th>École</th><th>Dette</th><th>Revenus illicites</th></tr>
+        <tr><td>Comité permanent</td><td>0 %</td><td>0 %</td></tr>
+        <tr><td>AAOIFI · MSCI · Dow Jones</td><td>30 %</td><td>5 %</td></tr>
+        <tr><td>Malaisie · Meezan</td><td>45 %</td><td>10 %</td></tr>
+      </table>
+      <div class="warn">La tolérance des 5 % relève d'un <strong>ijtihād</strong> (<span class="ar">اجتهاد</span> — effort d'interprétation des savants sur une question que les textes ne tranchent pas explicitement) contemporain et collectif, non d'un consensus. Ibn ʿUthaymīn <span class="ar">رحمه الله</span> déconseillait l'entrée dans toute société recourant au ribā, même minoritairement.</div>
+    </div>
+  </details>
+
+  <details>
+    <summary>La purification <span class="ar">تطهير</span></summary>
+    <div class="doc">
+      <p>Sur les dividendes reçus, on calcule la part correspondant aux revenus illicites :</p>
+      <p><strong>Montant à purifier = dividende × (revenus illicites ÷ revenu total)</strong></p>
+      <p>Cette somme est versée en aumône <strong>sans intention de récompense</strong> : c'est le rejet d'un gain impur, non une ṣadaqa méritoire. Destination : œuvres d'intérêt général — et non la construction de mosquées ni l'impression du Coran, selon la majorité.</p>
+      <p>La purification des plus-values, elle, fait l'objet de divergences entre savants contemporains : la position malaisienne l'inclut, AAOIFI ne la retient pas.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Le filtre à trois étages</summary>
+    <div class="doc">
+      <p><strong>1 · Conformité éthique</strong> — le double filtre ci-dessus. Aucune exception.</p>
+      <p><strong>2 · Qualité de l'entreprise</strong> — marges stables ou croissantes, croissance du chiffre d'affaires et du bénéfice sur 5 ans, rentabilité des capitaux propres, endettement maîtrisé.</p>
+      <p><strong>3 · Valorisation</strong> — PER, PEG, comparaison avec la moyenne historique de l'entreprise et de son secteur.</p>
+      <div class="warn">Ne jamais inverser l'ordre. Une entreprise magnifique et bon marché mais non conforme reste exclue.</div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Investir : le cadre français</summary>
+    <div class="doc">
+      <p><strong>Aucun ETF islamique n'est éligible au PEA.</strong> Le compte-titres ordinaire est donc le compte principal, avec sa flat tax de 30 % assumée. Le PEA reste théoriquement utilisable pour des actions européennes screenées une à une.</p>
+      <p>Trois vigilances chez le courtier : choisir un compte <strong>sans marge</strong> (le crédit est du ribā) ; chercher les ETF <strong>par leur code ISIN</strong>, jamais par leur nom ; <strong>limiter le cash dormant</strong>, que certains courtiers rémunèrent.</p>
+      <p>Horizon minimum 5 ans, idéalement 10. En deçà, on entre dans la spéculation. Investissement programmé mensuel, purification annuelle, et revérification annuelle de la conformité — les ratios d'une société évoluent.</p>
+      <p class="rule-note">Codes ISIN, frais et disponibilités à revérifier à leur source avant tout achat.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Glossaire</summary>
+    <div class="doc">
+      <table>
+        <tr><td><span class="ar">الربا</span> Ribā</td><td>L'intérêt, l'usure — tout accroissement sans contrepartie réelle</td></tr>
+        <tr><td><span class="ar">الغرر</span> Gharar</td><td>L'incertitude excessive dans un contrat</td></tr>
+        <tr><td><span class="ar">الميسر</span> Maysir</td><td>Le jeu de hasard, le gain fondé sur le pari</td></tr>
+        <tr><td><span class="ar">اجتهاد</span> Ijtihād</td><td>Effort de réflexion d'un savant pour dégager un jugement sur une question que les textes ne tranchent pas explicitement <em>(pluriel : ijtihādāt)</em></td></tr>
+        <tr><td><span class="ar">الإجماع</span> Ijmāʿ</td><td>Le consensus des savants — degré de certitude supérieur à l'ijtihād</td></tr>
+        <tr><td><span class="ar">تطهير</span> Taṭhīr</td><td>La purification : reverser en aumône la part illicite d'un gain</td></tr>
+        <tr><td><span class="ar">صدقة</span> Ṣadaqa</td><td>L'aumône volontaire, faite avec intention de récompense</td></tr>
+        <tr><td>AAOIFI</td><td>Organisation de comptabilité et d'audit des institutions financières islamiques (Bahreïn)</td></tr>
+        <tr><td>ETF</td><td>Fonds indiciel coté en bourse, répliquant un panier d'actions</td></tr>
+        <tr><td>PER</td><td>Prix de l'action ÷ bénéfice par action</td></tr>
+        <tr><td>TER</td><td>Frais annuels totaux d'un fonds</td></tr>
+        <tr><td>ISIN</td><td>Code international unique identifiant un titre</td></tr>
+        <tr><td>CTO · PEA</td><td>Compte-titres ordinaire · Plan d'épargne en actions</td></tr>
+      </table>
+    </div>
+  </details>
+
+</section>
+
+<footer>
+  <strong>Cet outil n'est ni une fatwa ni un conseil en investissement.</strong>
+  Il applique des seuils quantitatifs publiés par des institutions de fiqh, à partir de chiffres que vous saisissez. La conformité doit être revérifiée à chaque publication de comptes ; en cas de non-conformité constatée, la majorité des comités recommandent la cession sous 3 à 6 mois. Pour toute question de conscience, consultez un savant qualifié.
+</footer>
+
+</div>
+
+<script>
+const POSITIONS = [
+  {
+    id:"lifta", glyph:"١",
+    nom:"Comité permanent — Arabie saoudite",
+    resume:"Aucune tolérance : ni activité illicite, ni recours au financement par intérêt.",
+    src:"Fatwa 14/299 — Ibn Bāz, Ibn Ghudayān, Ibn Qaʿūd, al-Fawzān",
+    rev:0, dette:0, liq:null, tang:null, denom:"—", base:"capi",
+    purif:false,
+    purifNote:"Aucun revenu impur n'est admis dans cette position : il n'y a rien à purifier. L'entrée au capital n'est permise que dans les sociétés pleinement licites et sans endettement à intérêt."
+  },
+  {
+    id:"aaoifi", glyph:"٢",
+    nom:"AAOIFI — norme charaïque n° 21",
+    resume:"Standard international le plus répandu. Tolérance limitée, purification des dividendes obligatoire.",
+    src:"Comité charia présidé par Taqī al-ʿUthmānī",
+    rev:5, dette:30, liq:30, tang:30, denom:"capitalisation boursière (moyenne 12 mois)", base:"capi",
+    purif:true, purifBase:"dividendes"
+  },
+  {
+    id:"malaisien", glyph:"٣",
+    nom:"Securities Commission Malaysia / Meezan",
+    resume:"Seuils gradués fondés sur la maslaha. Position la plus large des trois.",
+    src:"SC Malaysia Shariah Advisory Council ; Meezan Islamic Fund Criteria",
+    rev:5, dette:45, liq:33, tang:10, denom:"actif total", base:"actif",
+    purif:true, purifBase:"dividendes et plus-values",
+    reserve:"Le palier à 20 % admettant les actions bancaires est refusé par de nombreux comités."
+  }
+];
+
+const NOMS={rev:"revenus illicites",dette:"dette portant intérêt",liq:"liquidités et placements",tang:"actifs tangibles"};
+
+let choix = POSITIONS[1];
+let modeBrut = false;
+let derniere = null;
+
+const wrapPos = document.getElementById('positions');
+POSITIONS.forEach((p,i)=>{
+  const b=document.createElement('button');
+  b.className='pos'; b.type='button';
+  b.setAttribute('aria-pressed', i===1?'true':'false');
+  b.innerHTML=`<span class="dial">${p.glyph}</span><span>
+      <b>${p.nom}</b><small>${p.resume}</small><span class="src">${p.src}</span></span>`;
+  b.onclick=()=>{
+    choix=p;
+    [...wrapPos.children].forEach(c=>c.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true');
+    majDenom(); recalc();
+    if(document.getElementById('out').style.display==='block') analyser();
+  };
+  wrapPos.appendChild(b);
+});
+
+function el(id){return document.getElementById(id)}
+function num(id){const v=parseFloat(el(id).value); return isNaN(v)?0:v;}
+function vide(id){return el(id).value.trim()==='';}
+
+/* ---- mémos de repérage ---- */
+document.querySelectorAll('.aide').forEach(b=>{
+  b.onclick=()=>{
+    const m=el('memo-'+b.dataset.memo);
+    if(m) m.classList.toggle('open');
+  };
+});
+
+/* ---- bascule de mode ---- */
+function setMode(brut){
+  modeBrut=brut;
+  el('mBrut').setAttribute('aria-pressed', brut?'true':'false');
+  el('mPct').setAttribute('aria-pressed', brut?'false':'true');
+  el('zoneBrut').style.display = brut?'block':'none';
+  el('zonePct').style.display  = brut?'none':'block';
+  majDenom();
+}
+el('mBrut').onclick=()=>setMode(true);
+el('mPct').onclick=()=>setMode(false);
+
+function majDenom(){
+  el('denomNote').textContent = choix.base==='actif'
+    ? "Position retenue : les ratios sont rapportés au total de l'actif."
+    : "Position retenue : les ratios sont rapportés à la capitalisation boursière.";
+}
+majDenom();
+
+/* ---- calcul des ratios à partir des montants ---- */
+function pct(n,d){ return (d>0) ? (n/d*100) : null; }
+function recalc(){
+  if(!modeBrut) return null;
+  const capi=num('bCapi'), actif=num('bActif'), dette=num('bDette'),
+        liq=num('bLiq'), crea=num('bCrea'), caT=num('bCaTot'), caI=num('bCaIll');
+  const den = choix.base==='actif' ? actif : capi;
+  const rDette=pct(dette,den), rLiq=pct(liq,den), rRev=pct(caI,caT);
+  const rTang = actif>0 ? ((actif-crea-liq)/actif*100) : null;
+  const f=v=> v===null ? '—' : v.toFixed(2)+' %';
+  el('cDette').textContent=f(rDette);
+  el('cLiq').textContent=f(rLiq);
+  el('cTang').textContent=f(rTang);
+  el('cRev').textContent=f(rRev);
+
+  // --- contrôle de cohérence du bilan ---
+  const alertes=[];
+  if(actif>0 && (liq+crea)>actif)
+    alertes.push("La trésorerie et les créances dépassent le total de l'actif : vérifier les montants (erreur de zéro ou d'unité ?).");
+  if(caT>0 && caI>caT)
+    alertes.push("Les revenus illicites dépassent le chiffre d'affaires total.");
+  if(rTang!==null && rTang<0)
+    alertes.push("Les actifs tangibles ressortent négatifs — le bilan saisi est impossible.");
+  if(actif>0 && dette>actif*3)
+    alertes.push("La dette dépasse trois fois le total de l'actif : montant inhabituel, à revérifier.");
+  const box=el('coherence');
+  if(alertes.length){
+    box.innerHTML='<b>Bilan incohérent</b>'+alertes.map(a=>'<p>'+a+'</p>').join('');
+    box.style.display='block';
+  } else { box.style.display='none'; box.innerHTML=''; }
+
+  return {rDette,rLiq,rTang,rRev,incoherent:alertes.length>0};
+}
+['bCapi','bActif','bDette','bLiq','bCrea','bCaTot','bCaIll'].forEach(id=>{
+  el(id).addEventListener('input', recalc);
+});
+
+function ligne(nom,valeur,seuil,etat,ref){
+  return `<div class="crit">
+    <span class="name">${nom}</span>
+    <span class="val ${etat}">${valeur} ${seuil?`<span style="color:var(--ink-soft)">/ ${seuil}</span>`:''}</span>
+    ${ref?`<span class="ref">${ref}</span>`:''}
+  </div>`;
+}
+
+function analyser(){
+  const p=choix;
+  const secteurEl=el('secteur');
+  const secteurRenseigne = secteurEl.value!=='';
+  const secteurOk = secteurEl.value==='oui';
+  const nom=el('nom').value.trim()||'Cette société';
+  const exercice=el('exercice').value.trim();
+  const divid=num('div');
+
+  let rev,dette,liq,tang, manquants=[];
+  let incoherent=false;
+  if(modeBrut){
+    const r=recalc()||{};
+    incoherent=!!r.incoherent;
+    rev=r.rRev; dette=r.rDette; liq=r.rLiq; tang=r.rTang;
+    if(rev===null||rev===undefined) manquants.push(NOMS.rev);
+    if(dette===null||dette===undefined) manquants.push(NOMS.dette);
+    if(p.liq!==null && (liq===null||liq===undefined)) manquants.push(NOMS.liq);
+    if(p.tang!==null && (tang===null||tang===undefined)) manquants.push(NOMS.tang);
+    rev=rev??0; dette=dette??0; liq=liq??0; tang=tang??0;
+  } else {
+    const requis=['rev','dette'];
+    if(p.liq!==null) requis.push('liq');
+    if(p.tang!==null) requis.push('tang');
+    manquants=requis.filter(vide).map(id=>NOMS[id]);
+    requis.forEach(id=>el(id).classList.toggle('na', vide(id)));
+    rev=num('rev'); dette=num('dette'); liq=num('liq'); tang=num('tang');
+  }
+  secteurEl.classList.toggle('na', !secteurRenseigne);
+
+  const incomplet = !secteurRenseigne || manquants.length>0 || incoherent;
+  const cRev = rev<=p.rev, cDette = dette<=p.dette;
+  const cLiq = p.liq===null ? true : liq<=p.liq;
+  const cTang = p.tang===null ? true : tang>=p.tang;
+  const conforme = secteurOk && cRev && cDette && cLiq && cTang;
+
+  let vClass,vMark,vTexte,vSous;
+  if(incomplet){
+    vClass='hold'; vMark='?';
+    vTexte=`${nom} — analyse incomplète`;
+    vSous=`${incoherent?"Les montants saisis ne forment pas un bilan cohérent — voir l'alerte plus haut. ":''}${!secteurRenseigne?"Le secteur d'activité n'est pas renseigné. ":''}${manquants.length?`Données manquantes : ${manquants.join(', ')}. `:''}Aucun verdict tant que ces points ne sont pas réglés.`;
+  } else {
+    vClass=conforme?'pass':'fail'; vMark=conforme?'✓':'✕';
+    vTexte=`${nom} — ${conforme?'conforme':'non conforme'}`;
+    vSous=`selon ${p.nom}${p.denom!=='—'?`, dénominateur : ${p.denom}`:''}${exercice?` · exercice ${exercice}`:''}`;
+  }
+  el('verdict').innerHTML=`<div class="verdict ${vClass}">
+      <span class="mark">${vMark}</span><strong>${vTexte}</strong><em>${vSous}</em></div>`;
+
+  const fm=v=>v.toFixed(2)+' %';
+  let h='';
+  h+=ligne("Secteur d'activité licite",
+      secteurRenseigne?(secteurOk?'oui':'non'):'non renseigné','',
+      secteurRenseigne?(secteurOk?'ok':'no'):'wait',
+      'Exclusion unanime des secteurs illicites — condition première');
+  h+=ligne('Revenus illicites', fm(rev), '≤ '+p.rev+' %', cRev?'ok':'no','');
+  h+=ligne('Dette portant intérêt', fm(dette), '≤ '+p.dette+' %', cDette?'ok':'no',
+    p.id==='lifta'?'Sociétés à endettement nul uniquement':'Dette financière seule, hors dettes fournisseurs');
+  if(p.liq!==null) h+=ligne('Liquidités et placements rémunérés', fm(liq), '≤ '+p.liq+' %', cLiq?'ok':'no',
+    "Trésorerie et titres productifs d'intérêt");
+  if(p.tang!==null) h+=ligne('Actifs tangibles', fm(tang), '≥ '+p.tang+' %', cTang?'ok':'no','Condition de négociabilité du titre');
+  if(p.reserve) h+=`<div class="crit"><span class="ref" style="grid-column:1/-1;color:var(--carmine)">Réserve — ${p.reserve}</span></div>`;
+  el('crits').innerHTML=h;
+
+  let pu='', montantPurif=0;
+  if(incomplet){ pu=''; }
+  else if(!p.purif){ pu=`<div class="purif"><b>Purification</b><p>${p.purifNote}</p></div>`; }
+  else if(conforme && rev>0 && divid>0){
+    montantPurif=+(divid*rev/100).toFixed(2);
+    pu=`<div class="purif"><b>Montant à purifier : ${montantPurif.toFixed(2)} €</b>
+      <p>Soit ${fm(rev)} de ${divid} € — assiette : ${p.purifBase}. À verser en aumône sans intention de récompense : il s'agit d'un rejet du gain impur, non d'une sadaqa méritoire.</p></div>`;
+  }
+  else if(conforme){
+    pu=`<div class="purif"><b>Purification</b><p>Aucun montant à purifier avec les chiffres saisis. Assiette retenue : ${p.purifBase}.</p></div>`;
+  }
+  else {
+    pu=`<div class="purif" style="border-left-color:var(--carmine);background:rgba(147,48,58,.06)"><b>Société non conforme</b>
+      <p>La purification ne rend pas licite une société qui échoue au filtre. Si le titre est déjà détenu, la majorité des comités recommandent la cession sous 3 à 6 mois, en purifiant le gain réalisé sur la période de non-conformité.</p></div>`;
+  }
+  el('purif').innerHTML=pu;
+
+  derniere={date:new Date().toLocaleDateString('fr-FR'),nom,exercice,position:p.nom,denom:p.denom,
+    secteur:secteurRenseigne?(secteurOk?'licite':'illicite'):'non renseigné',
+    rev,dette,liq,tang,seuils:p,divid,montantPurif,
+    verdict:incomplet?'incomplet':(conforme?'conforme':'non conforme')};
+
+  el('out').style.display='block';
+}
+el('go').onclick=analyser;
+
+/* ---- dossier : export, copie, impression ---- */
+function fiche(){
+  if(!derniere) return '';
+  const d=derniere, s=d.seuils;
+  const l=[];
+  l.push(`MĪZĀN — Analyse de conformité charaïque`);
+  l.push(`${d.nom}${d.exercice?` · exercice ${d.exercice}`:''} — ${d.verdict.toUpperCase()}`);
+  l.push(`Analysé le ${d.date} selon ${d.position}${d.denom!=='—'?` (dénominateur : ${d.denom})`:''}`);
+  l.push('');
+  l.push(`Secteur d'activité : ${d.secteur}`);
+  l.push(`Revenus illicites : ${d.rev.toFixed(2)} % (seuil ≤ ${s.rev} %)`);
+  l.push(`Dette portant intérêt : ${d.dette.toFixed(2)} % (seuil ≤ ${s.dette} %)`);
+  if(s.liq!==null) l.push(`Liquidités et placements : ${d.liq.toFixed(2)} % (seuil ≤ ${s.liq} %)`);
+  if(s.tang!==null) l.push(`Actifs tangibles : ${d.tang.toFixed(2)} % (seuil ≥ ${s.tang} %)`);
+  if(d.montantPurif>0) l.push(`Montant à purifier : ${d.montantPurif.toFixed(2)} € sur ${d.divid} € de dividende`);
+  l.push('');
+  l.push(`Ni fatwa ni conseil en investissement. À revérifier à chaque publication de comptes.`);
+  return l.join('\n');
+}
+
+el('csv').onclick=()=>{
+  if(!derniere){return}
+  const d=derniere,s=d.seuils;
+  const entetes=['Date analyse','Société','Exercice','Position savante','Dénominateur','Verdict','Secteur',
+    'Revenus illicites %','Seuil revenus %','Dette %','Seuil dette %','Liquidités %','Seuil liquidités %',
+    'Actifs tangibles %','Seuil tangibles %','Dividende €','À purifier €'];
+  const vals=[d.date,d.nom,d.exercice,d.position,d.denom,d.verdict,d.secteur,
+    d.rev.toFixed(2),s.rev,d.dette.toFixed(2),s.dette,
+    s.liq===null?'':d.liq.toFixed(2), s.liq===null?'':s.liq,
+    s.tang===null?'':d.tang.toFixed(2), s.tang===null?'':s.tang,
+    d.divid, d.montantPurif.toFixed(2)];
+  const esc=v=>`"${String(v).replace(/"/g,'""')}"`;
+  const csv='\uFEFF'+entetes.map(esc).join(';')+'\r\n'+vals.map(esc).join(';')+'\r\n';
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download=`mizan_${(d.nom||'analyse').replace(/[^\w\-]+/g,'_')}_${d.exercice||''}.csv`;
+  a.click(); URL.revokeObjectURL(a.href);
+};
+
+el('copie').onclick=async ()=>{
+  const t=fiche(); if(!t) return;
+  const b=el('copie'), init=b.textContent;
+  try{ await navigator.clipboard.writeText(t); b.textContent='Fiche copiée'; }
+  catch{ b.textContent='Copie refusée par le navigateur'; }
+  setTimeout(()=>b.textContent=init,2000);
+};
+
+el('imprime').onclick=()=>window.print();
+
+document.querySelectorAll('.liens button').forEach(b=>{
+  b.onclick=()=>{
+    const t=el('ticker').value.trim();
+    const nom=el('nom').value.trim();
+    if(!t && !nom){ el('ticker').focus(); return; }
+    const base=t||nom;
+    const court=base.split('.')[0];
+    const urls={
+      mstar:`https://www.morningstar.com/search?query=${encodeURIComponent(court)}`,
+      abc:`https://www.abcbourse.com/recherche?q=${encodeURIComponent(court)}`,
+      inv:`https://fr.investing.com/search/?q=${encodeURIComponent(court)}`,
+      rapport:`https://duckduckgo.com/?q=${encodeURIComponent(base+' document enregistrement universel bilan consolidé')}`
+    };
+    window.open(urls[b.dataset.src],'_blank','noopener');
+  };
+});
+</script>
+</body>
+</html>
