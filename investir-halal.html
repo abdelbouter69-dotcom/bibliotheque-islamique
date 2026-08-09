@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Investir selon la charia — Guide libre et gratuit</title>
+<meta name="description" content="Méthode complète d'investissement en bourse selon la finance islamique. Accès libre, sans compte, sans paiement.">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#131A2B;
+  --ink-soft:#2A3348;
+  --parchment:#F7F5EF;
+  --rule:#C9C4B4;
+  --verdigris:#2E6B5E;
+  --carmine:#93303A;
+  --gold:#A8863F;
+  --shadow:rgba(19,26,43,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  background:var(--ink);
+  color:var(--ink);
+  font-family:'Archivo',system-ui,sans-serif;
+  line-height:1.6;
+  padding:0 0 4rem;
+}
+.wrap{max-width:780px;margin:0 auto;padding:0 1.1rem}
+
+/* ---------- header ---------- */
+header{padding:3.4rem 0 2.6rem;color:var(--parchment)}
+.eyebrow{
+  font-family:'Archivo Narrow',sans-serif;
+  font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.9rem;
+}
+h1{
+  font-family:'Amiri',serif;font-weight:700;
+  font-size:clamp(2.1rem,6vw,3.1rem);line-height:1.15;
+  letter-spacing:-.01em;
+}
+h1 .ar{display:block;font-size:.62em;color:var(--rule);margin-top:.25rem;font-weight:400}
+.lede{
+  margin-top:1.1rem;max-width:56ch;
+  color:#D9D5C8;font-size:1.02rem;
+}
+.libre{
+  display:inline-flex;align-items:center;gap:.5rem;
+  margin-top:1.5rem;padding:.5rem .9rem;
+  border:1px solid rgba(168,134,63,.45);border-radius:2px;
+  font-family:'Archivo Narrow',sans-serif;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);
+}
+
+/* ---------- panels ---------- */
+.panel{
+  background:var(--parchment);
+  border-radius:3px;
+  padding:1.9rem 1.6rem;
+  margin-bottom:1.15rem;
+  box-shadow:0 1px 3px var(--shadow);
+}
+.panel h2{
+  font-family:'Amiri',serif;font-size:1.42rem;font-weight:700;
+  padding-bottom:.6rem;margin-bottom:1.1rem;
+  border-bottom:1px solid var(--rule);
+}
+.panel h3{
+  font-family:'Archivo Narrow',sans-serif;
+  font-size:.82rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--verdigris);margin:1.6rem 0 .55rem;
+}
+.panel h3:first-of-type{margin-top:0}
+.panel p{margin-bottom:.85rem}
+.panel p:last-child{margin-bottom:0}
+
+/* ---------- échelle (signature) ---------- */
+.echelle{list-style:none;counter-reset:pal;margin:.4rem 0 0}
+.echelle li{
+  counter-increment:pal;
+  position:relative;
+  padding:0 0 1.5rem 3.4rem;
+  border-left:2px solid var(--rule);
+  margin-left:1.05rem;
+}
+.echelle li:last-child{border-left-color:transparent;padding-bottom:.2rem}
+.echelle li::before{
+  content:counter(pal);
+  position:absolute;left:-1.05rem;top:-.15rem;
+  width:2.1rem;height:2.1rem;
+  display:grid;place-items:center;
+  background:var(--parchment);
+  border:2px solid var(--rule);border-radius:50%;
+  font-family:'Archivo Narrow',sans-serif;font-weight:600;
+  font-size:.92rem;color:var(--ink-soft);
+}
+.echelle li.ici::before{
+  border-color:var(--verdigris);color:var(--verdigris);
+}
+.echelle .t{font-weight:600;display:block;margin-bottom:.15rem}
+.echelle .d{font-size:.94rem;color:var(--ink-soft)}
+.echelle .marque{
+  display:inline-block;margin-top:.45rem;
+  font-family:'Archivo Narrow',sans-serif;font-size:.72rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--verdigris);
+}
+
+/* ---------- avertissement ---------- */
+.garde{
+  background:#FBF3F0;
+  border-left:3px solid var(--carmine);
+  padding:1.1rem 1.2rem;margin:1.3rem 0;
+  border-radius:0 3px 3px 0;
+}
+.garde b{color:var(--carmine)}
+.garde p{font-size:.95rem;margin-bottom:.5rem}
+.garde p:last-child{margin-bottom:0}
+
+/* ---------- tableaux ---------- */
+.tbl{width:100%;border-collapse:collapse;margin:.6rem 0 1rem;font-size:.93rem}
+.tbl th{
+  text-align:left;font-family:'Archivo Narrow',sans-serif;
+  font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:600;
+  border-bottom:1px solid var(--rule);padding:.45rem .5rem .45rem 0;
+}
+.tbl td{padding:.55rem .5rem .55rem 0;border-bottom:1px solid #E4E0D4;vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl .ar{font-family:'Amiri',serif;font-size:1.05em}
+.seuil{font-family:'Archivo Narrow',sans-serif;font-weight:600;color:var(--verdigris);white-space:nowrap}
+
+/* ---------- listes ---------- */
+.puces{list-style:none;margin:.3rem 0 .9rem}
+.puces li{position:relative;padding-left:1.15rem;margin-bottom:.4rem;font-size:.96rem}
+.puces li::before{
+  content:"";position:absolute;left:0;top:.62em;
+  width:5px;height:5px;background:var(--gold);border-radius:50%;
+}
+
+/* ---------- formule ---------- */
+.formule{
+  background:#EFEDE4;border:1px solid var(--rule);
+  padding:.9rem 1.1rem;margin:.7rem 0 1rem;border-radius:3px;
+  font-family:'Archivo Narrow',sans-serif;font-size:.98rem;text-align:center;
+}
+
+/* ---------- CTA screener ---------- */
+.outil{
+  display:block;background:var(--verdigris);color:var(--parchment);
+  padding:1.4rem 1.6rem;margin-bottom:1.15rem;border-radius:3px;
+  text-decoration:none;transition:background .18s ease;
+}
+.outil:hover,.outil:focus-visible{background:#25574C}
+.outil .k{
+  font-family:'Archivo Narrow',sans-serif;font-size:.74rem;
+  letter-spacing:.13em;text-transform:uppercase;opacity:.8;
+}
+.outil .n{font-family:'Amiri',serif;font-size:1.5rem;font-weight:700;margin:.2rem 0 .3rem}
+.outil .p{font-size:.94rem;opacity:.92}
+
+/* ---------- soutien ---------- */
+.soutien{background:#EFEDE4;border:1px solid var(--rule);box-shadow:none}
+.soutien h3{margin-top:0;color:var(--gold)}
+.soutien p{font-size:.95rem}
+.soutien a{font-weight:600;text-decoration:none;border-bottom:1px solid var(--verdigris)}
+.soutien a:hover,.soutien a:focus-visible{color:var(--ink)}
+
+/* ---------- notes bas ---------- */
+.note{font-size:.88rem;color:var(--ink-soft);font-style:italic}
+footer{
+  color:var(--rule);text-align:center;
+  padding:2.4rem 0 0;font-size:.85rem;line-height:1.8;
+}
+footer .ar{font-family:'Amiri',serif;font-size:1.15rem;color:var(--gold);display:block;margin-bottom:.7rem}
+a{color:var(--verdigris)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+@media(max-width:560px){
+  .panel{padding:1.5rem 1.15rem}
+  .echelle li{padding-left:2.9rem}
+  .tbl{font-size:.88rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Guide libre — aucune inscription, aucun paiement</p>
+  <h1>Investir selon la charia<span class="ar">الاستثمار وفق الشريعة</span></h1>
+  <p class="lede">La méthode complète, avec ses sources et ses divergences. Ce qui se vend ailleurs plusieurs milliers d'euros tient dans cette page — lisez-la, gardez-la, partagez-la.</p>
+  <span class="libre">Écrit pour être donné</span>
+</header>
+
+<!-- ===== L'ORDRE DES PRIORITÉS — signature ===== -->
+<section class="panel">
+  <h2>Avant tout : l'ordre des priorités</h2>
+  <p>La bourse arrive en dernier, pas en premier. Investir avant d'avoir franchi les marches précédentes, c'est risquer un argent dont on a besoin maintenant. Cette échelle se monte dans l'ordre.</p>
+
+  <ol class="echelle">
+    <li>
+      <span class="t">Sortir des dettes à intérêt</span>
+      <span class="d">Découvert, crédit renouvelable, crédit à la consommation. Le ribā coûte chaque mois davantage que ce qu'un placement peut rapporter — et il est interdit. C'est la première marche, sans exception.</span>
+    </li>
+    <li>
+      <span class="t">Constituer une épargne de précaution</span>
+      <span class="d">Trois à six mois de dépenses, disponibles immédiatement. C'est ce qui évite de devoir vendre au pire moment quand une panne de voiture ou un imprévu survient.</span>
+    </li>
+    <li>
+      <span class="t">Vérifier son horizon</span>
+      <span class="d">Cinq ans minimum, idéalement dix. Si l'argent doit servir avant, il ne va pas en bourse. En dessous de cet horizon, on entre dans la spéculation.</span>
+    </li>
+    <li class="ici">
+      <span class="t">Alors seulement, investir</span>
+      <span class="d">Avec un montant dont l'absence ne change rien à votre mois. Tout ce qui suit dans cette page concerne cette marche.</span>
+      <span class="marque">← vous êtes ici pour la suite</span>
+    </li>
+  </ol>
+
+  <div class="garde">
+    <p><b>Si vous traversez des difficultés financières</b>, vous n'êtes pas au bon endroit — et c'est une bonne nouvelle : vous n'avez rien à acheter. Ne payez personne pour apprendre ce qui est écrit ici, et n'investissez pas encore. Remontez d'abord les marches 1 et 2.</p>
+    <p>Méfiez-vous des formations qui promettent la « liberté financière » à ceux qui n'ont pas les moyens de les payer. Le paiement en plusieurs fois est le signe que le prix dépasse votre capacité.</p>
+  </div>
+</section>
+
+<!-- ===== FONDEMENTS ===== -->
+<section class="panel">
+  <h2>Les trois interdits</h2>
+  <p>Acheter une action, c'est devenir copropriétaire d'une entreprise réelle — licite par principe. Le problème ne vient jamais de l'action elle-même, mais de l'activité de l'entreprise et de la façon dont elle se finance.</p>
+
+  <table class="tbl">
+    <thead><tr><th>Interdit</th><th>Définition</th><th>En bourse</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Ribā</b><br><span class="ar">الربا</span></td>
+        <td>L'intérêt, l'usure</td>
+        <td>Banques et assurances conventionnelles, obligations, comptes rémunérés, effet de levier</td>
+      </tr>
+      <tr>
+        <td><b>Gharar</b><br><span class="ar">الغرر</span></td>
+        <td>L'incertitude excessive</td>
+        <td>Produits dérivés, options, futures, CFD, vente à découvert</td>
+      </tr>
+      <tr>
+        <td><b>Maysir</b><br><span class="ar">الميسر</span></td>
+        <td>Le jeu de hasard</td>
+        <td>Trading à très court terme, paris sur les cours, sociétés de jeux d'argent</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== DOUBLE FILTRE ===== -->
+<section class="panel">
+  <h2>Le double filtre de conformité</h2>
+
+  <h3>Filtre sectoriel — qualitatif</h3>
+  <p>Exclusion des entreprises dont l'activité principale relève de :</p>
+  <ul class="puces">
+    <li>Banques, assurances et sociétés de crédit conventionnelles</li>
+    <li>Alcool, tabac, porc et produits dérivés</li>
+    <li>Jeux d'argent, casinos, paris</li>
+    <li>Pornographie, divertissement illicite</li>
+    <li>Armement — selon les écoles</li>
+  </ul>
+
+  <h3>Filtre financier — quantitatif (norme AAOIFI n°21)</h3>
+  <p>Calculé sur la capitalisation boursière, en moyenne 12 ou 24 mois selon les indices :</p>
+  <table class="tbl">
+    <thead><tr><th>Ratio</th><th>Seuil</th></tr></thead>
+    <tbody>
+      <tr><td>Dette portant intérêt / capitalisation</td><td class="seuil">&lt; 30 %</td></tr>
+      <tr><td>Liquidités + placements rémunérés</td><td class="seuil">&lt; 30 %</td></tr>
+      <tr><td>Créances + liquidités</td><td class="seuil">&lt; 70 %</td></tr>
+      <tr><td>Revenus illicites / revenu total</td><td class="seuil">&lt; 5 %</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Les seuils divergent selon les écoles</h3>
+  <table class="tbl">
+    <thead><tr><th>Référence</th><th>Dette</th><th>Revenus illicites</th></tr></thead>
+    <tbody>
+      <tr><td>LIFTA — la plus stricte</td><td class="seuil">0 %</td><td class="seuil">0 %</td></tr>
+      <tr><td>AAOIFI / MSCI / Dow Jones</td><td class="seuil">30 %</td><td class="seuil">5 %</td></tr>
+      <tr><td>Standard malaisien — la plus souple</td><td class="seuil">45 %</td><td class="seuil">10 %</td></tr>
+    </tbody>
+  </table>
+
+  <div class="garde">
+    <p><b>Point de vigilance scientifique.</b> La tolérance des 5 % relève d'un <i>ijtihād</i> (اجتهاد) contemporain et collectif — AAOIFI, Académie de Fiqh de Djeddah — et non d'un consensus (<i>ijmāʿ</i>). Des savants comme Ibn ʿUthaymīn رحمه الله déconseillaient l'entrée dans toute société ayant recours au ribā, même minoritaire.</p>
+    <p>Ces seuils sont donc respectables mais discutables entre eux, et non contraignants comme un texte révélé. Chacun choisit son niveau d'exigence en connaissance de cause, et consulte un savant de confiance pour trancher.</p>
+  </div>
+</section>
+
+<!-- ===== OUTIL ===== -->
+<a class="outil" href="mizan-screener.html">
+  <span class="k">Outil libre — aucune donnée collectée</span>
+  <span class="n">Mīzān <span style="font-family:'Amiri',serif">الميزان</span></span>
+  <span class="p">Choisissez votre position savante, saisissez les chiffres d'une société : l'outil applique les seuils et vous montre le calcul. →</span>
+</a>
+
+<!-- ===== PURIFICATION ===== -->
+<section class="panel">
+  <h2>La purification — التطهير</h2>
+  <p>Sur les dividendes reçus, on calcule la part correspondant aux revenus illicites :</p>
+  <div class="formule">montant à purifier = dividende reçu × (revenus illicites ÷ revenu total)</div>
+  <p>Cette somme est donnée en aumône <b>sans intention de récompense</b> : ce n'est pas une <i>ṣadaqa</i> méritoire, mais le rejet d'un gain impur. Destination : œuvres d'intérêt général — et non la construction de mosquées ni le Coran, selon la majorité.</p>
+  <p class="note">La purification porte sur les dividendes. La question des plus-values fait l'objet de divergences entre savants contemporains.</p>
+</section>
+
+<!-- ===== ZAKAT ===== -->
+<section class="panel">
+  <h2>La zakāt sur les actions — الزكاة</h2>
+  <p>Ne pas confondre avec la purification. Ce sont deux obligations distinctes qui se cumulent : la purification retire un gain impur de vos dividendes ; la <b>zakāt est un droit annuel dû sur le capital lui-même</b>, même si vos actions sont parfaitement conformes.</p>
+
+  <h3>Les deux conditions préalables</h3>
+  <ul class="puces">
+    <li><b>Le niṣāb</b> — le seuil en dessous duquel rien n'est dû : la contre-valeur de <b>85 grammes d'or</b>. On additionne pour cela l'ensemble de ses avoirs zakatables, pas seulement le portefeuille.</li>
+    <li><b>Le ḥawl</b> — une année lunaire complète de détention, soit environ 354 jours. Choisissez une date fixe dans l'année et gardez-la.</li>
+  </ul>
+
+  <h3>Le taux dépend de votre intention</h3>
+  <p>C'est le point que beaucoup ignorent : le calcul n'est pas le même selon la raison pour laquelle vous détenez vos actions.</p>
+
+  <table class="tbl">
+    <thead><tr><th>Intention</th><th>Assiette</th><th>Taux</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Détention longue</b><br><span class="note">vivre des dividendes</span></td>
+        <td>La part d'<b>actifs zakatables</b> de l'entreprise : trésorerie, créances, stocks — <i>hors</i> usines, machines et immeubles</td>
+        <td class="seuil">2,5 %</td>
+      </tr>
+      <tr>
+        <td><b>Détention pour revente</b><br><span class="note">l'action traitée comme une marchandise</span></td>
+        <td>La <b>valeur boursière totale</b> du portefeuille au jour de l'échéance</td>
+        <td class="seuil">2,5 %</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Calcul pratique — détention longue</h3>
+  <p>La difficulté est d'estimer la part zakatable de chaque société. Deux approches :</p>
+  <ul class="puces">
+    <li><b>Le calcul exact</b> — dans le bilan : (trésorerie + créances + stocks) ÷ total de l'actif. Ce pourcentage appliqué à la valeur de votre ligne donne l'assiette. C'est rigoureux mais long si vous détenez plusieurs lignes.</li>
+    <li><b>L'approximation prudente</b> — retenir <b>30 %</b> de la valeur du portefeuille comme assiette zakatable. C'est une estimation forfaitaire admise par plusieurs comités contemporains lorsque le détail n'est pas accessible. Dans le doute, elle a l'avantage d'être simple et de ne pas sous-estimer.</li>
+  </ul>
+  <div class="formule">zakāt due = assiette zakatable × 2,5 %</div>
+  <p class="note">Exemple : portefeuille de 10 000 €, approximation à 30 % → assiette 3 000 € → zakāt 75 €.</p>
+
+  <h3>Le cas des ETF</h3>
+  <p>Un ETF est un panier de sociétés : le raisonnement est le même, appliqué au fonds entier. En pratique, faute d'accès au détail des 350 lignes, l'approximation forfaitaire est la voie retenue par la plupart. Certains fournisseurs d'ETF islamiques publient un <b>ratio de zakāt annuel</b> — vérifiez sur le site de l'émetteur, c'est plus juste que toute estimation.</p>
+
+  <div class="garde">
+    <p><b>Une question réellement divergente.</b> Contrairement aux seuils de screening, la zakāt sur les actions n'a pas de traitement unifié. Les avis diffèrent sur l'assiette, sur le sort des plus-values latentes, et sur le forfait de 30 %. Ce qui est écrit ici reflète la position la plus répandue chez les comités contemporains — ce n'est pas un consensus.</p>
+    <p>La zakāt est une obligation cultuelle : <b>consultez un savant de confiance</b> pour établir votre calcul, surtout si votre patrimoine est important ou composite. Ne vous contentez pas d'une page web, celle-ci comprise.</p>
+  </div>
+</section>
+
+<!-- ===== FILTRE 3 ÉTAGES ===== -->
+<section class="panel">
+  <h2>Le filtre à trois étages</h2>
+  <p>Une fois la conformité établie, deux étages restent à franchir avant d'acheter.</p>
+
+  <h3>Étage 1 — Conformité éthique</h3>
+  <p>Le double filtre ci-dessus. Aucune exception, quel que soit l'attrait financier de la valeur.</p>
+
+  <h3>Étage 2 — Qualité de l'entreprise</h3>
+  <ul class="puces">
+    <li>Marges brute, opérationnelle et nette : stables ou croissantes</li>
+    <li>Croissance du chiffre d'affaires et du bénéfice sur cinq ans</li>
+    <li>ROE — rentabilité des capitaux propres</li>
+    <li>Endettement maîtrisé, cohérent avec l'étage 1</li>
+  </ul>
+
+  <h3>Étage 3 — Valorisation</h3>
+  <ul class="puces">
+    <li>PER : le prix payé pour 1 € de bénéfice</li>
+    <li>PEG : le PER rapporté à la croissance</li>
+    <li>Comparaison avec la moyenne historique de l'entreprise et de son secteur</li>
+  </ul>
+
+  <div class="garde">
+    <p><b>Ne jamais inverser l'ordre.</b> Une entreprise magnifique et bon marché mais non conforme reste exclue. Le filtre éthique passe avant tout.</p>
+  </div>
+</section>
+
+<!-- ===== QU'EST-CE QU'UN ETF ===== -->
+<section class="panel">
+  <h2>Qu'est-ce qu'un ETF ?</h2>
+  <p>Le mot est technique, la chose est simple. Un ETF est un <b>panier d'actions</b> que vous achetez d'un seul geste.</p>
+
+  <h3>L'image du panier</h3>
+  <p>Acheter une action, c'est acheter une part d'<i>une</i> entreprise. Si elle s'effondre, votre argent s'effondre avec elle.</p>
+  <p>Acheter un ETF, c'est acheter une petite part de <i>centaines</i> d'entreprises à la fois. Le MSCI World Islamic en contient environ 350, réparties dans une vingtaine de pays. Si l'une d'elles fait faillite, elle ne représentait qu'une fraction du panier : l'ensemble encaisse le choc.</p>
+  <p>C'est le principe de « ne pas mettre tous ses œufs dans le même panier » — sauf qu'ici, le panier est déjà constitué. Vous n'avez pas à choisir les entreprises une par une, ni à analyser chacune d'elles.</p>
+
+  <h3>Ce que ça change concrètement</h3>
+  <ul class="puces">
+    <li><b>Un seul achat</b> vous rend copropriétaire de centaines de sociétés. Avec 50 €, vous détenez une fraction de chacune.</li>
+    <li><b>Le tri est déjà fait.</b> Dans un ETF islamique, le fournisseur applique le double filtre en permanence et retire les sociétés qui ne passent plus les seuils.</li>
+    <li><b>Le panier se rééquilibre seul</b>, plusieurs fois par an, sans que vous ayez à intervenir.</li>
+    <li><b>Les frais sont annuels et prélevés automatiquement</b> — c'est le TER, 0,30 % par an pour le World Islamic, soit 3 € par an pour 1 000 € investis.</li>
+  </ul>
+
+  <div class="garde">
+    <p><b>Ce qu'un ETF n'est pas.</b> Ce n'est pas un placement garanti : le panier monte et descend avec les marchés, et vous pouvez perdre une partie de votre capital. La diversification réduit le risque lié à <i>une</i> entreprise, pas le risque lié au marché entier.</p>
+    <p>Attention aussi : tous les ETF ne se valent pas. Certains contiennent des obligations (ribā), d'autres utilisent des mécanismes de réplication complexes. C'est pourquoi on vérifie toujours l'<b>ISIN</b>, jamais le nom.</p>
+  </div>
+</section>
+
+<!-- ===== PRATIQUE FRANCE ===== -->
+<section class="panel">
+  <h2>Mise en pratique en France</h2>
+
+  <h3>Le choix du compte</h3>
+  <table class="tbl">
+    <thead><tr><th>Compte</th><th>Verdict</th><th>Raison</th></tr></thead>
+    <tbody>
+      <tr><td><b>PEA</b></td><td>Inutilisable pour les ETF</td><td>Aucun ETF islamique n'est éligible au PEA en France</td></tr>
+      <tr><td><b>CTO</b></td><td>Compte principal</td><td>Seul accès aux ETF islamiques — flat tax 30 % assumée</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Le PEA reste théoriquement utilisable pour des actions individuelles européennes screenées manuellement avec le filtre à trois étages — au prix d'un suivi régulier.</p>
+
+  <h3>Trois points de vigilance chez le courtier</h3>
+  <ul class="puces">
+    <li><b>Compte sans marge</b> — type « Basic », pour éviter tout accès au crédit (ribā)</li>
+    <li><b>Vérifier les ETF par leur ISIN</b>, jamais par le nom, avant d'ouvrir le compte</li>
+    <li><b>Limiter le cash dormant</b> — certains courtiers rémunèrent les liquidités non investies. Investir rapidement après chaque virement, ce que le DCA mensuel fait naturellement</li>
+  </ul>
+
+  <h3>Les ETF islamiques de référence</h3>
+  <table class="tbl">
+    <thead><tr><th>ETF</th><th>ISIN</th><th>TER</th></tr></thead>
+    <tbody>
+      <tr><td>iShares MSCI World Islamic UCITS</td><td>IE00B27YCN58</td><td class="seuil">0,30 %</td></tr>
+      <tr><td>iShares MSCI EM Islamic UCITS</td><td>à vérifier</td><td class="seuil">~0,60–0,85 %</td></tr>
+      <tr><td>HSBC Islamic Global Equity Index</td><td>à vérifier</td><td>à vérifier</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Toujours revérifier ISIN, frais et disponibilité au moment de l'achat. Ces données changent.</p>
+
+  <h3>Composition observée du MSCI World Islamic</h3>
+  <p>Environ 68 % de pondération américaine, France ~5,6 %. Technologie ~36 %, énergie ~13,5 %, santé ~12 %, matériaux ~10,5 %. <b>Aucun secteur financier</b> — effet direct du filtre sectoriel.</p>
+</section>
+
+<!-- ===== MÉTHODE ===== -->
+<section class="panel">
+  <h2>La méthode, en cinq règles</h2>
+  <ul class="puces">
+    <li><b>Horizon de cinq ans minimum</b>, idéalement dix. En dessous, on entre dans la spéculation.</li>
+    <li><b>DCA</b> — un montant fixe chaque mois, quel que soit le cours. Cinq minutes par mois suffisent.</li>
+    <li><b>Ne jamais vendre par panique.</b> La volatilité est le prix de la performance longue.</li>
+    <li><b>Purifier chaque année</b> les dividendes reçus.</li>
+    <li><b>Revérifier annuellement</b> la conformité des lignes détenues : les ratios d'une entreprise évoluent.</li>
+  </ul>
+  <p class="note">Les performances passées ne préjugent pas des performances futures. Aucun chiffre de rendement n'est promis ici, et méfiez-vous de quiconque en promet.</p>
+</section>
+
+<!-- ===== GLOSSAIRE ===== -->
+<section class="panel">
+  <h2>Glossaire</h2>
+  <table class="tbl">
+    <tbody>
+      <tr><td><b>Ribā</b> <span class="ar">الربا</span></td><td>L'intérêt, l'usure — tout accroissement sans contrepartie réelle</td></tr>
+      <tr><td><b>Gharar</b> <span class="ar">الغرر</span></td><td>L'incertitude excessive dans un contrat</td></tr>
+      <tr><td><b>Maysir</b> <span class="ar">الميسر</span></td><td>Le jeu de hasard, le gain fondé sur le pari</td></tr>
+      <tr><td><b>Ijtihād</b> <span class="ar">اجتهاد</span></td><td>Effort de réflexion d'un savant sur une question que les textes ne tranchent pas explicitement</td></tr>
+      <tr><td><b>Ijmāʿ</b> <span class="ar">الإجماع</span></td><td>Le consensus des savants — degré de certitude supérieur à l'ijtihād</td></tr>
+      <tr><td><b>Taṭhīr</b> <span class="ar">تطهير</span></td><td>La purification : reverser en aumône la part illicite d'un gain</td></tr>
+      <tr><td><b>Ṣadaqa</b> <span class="ar">صدقة</span></td><td>L'aumône volontaire, faite avec intention de récompense</td></tr>
+      <tr><td><b>AAOIFI</b></td><td>Organisation de comptabilité et d'audit des institutions financières islamiques (Bahreïn)</td></tr>
+      <tr><td><b>DCA</b></td><td>Investir un montant fixe à intervalle régulier, quel que soit le cours</td></tr>
+      <tr><td><b>ETF</b></td><td>Un panier contenant des centaines d'actions, acheté en une seule fois — coté en bourse comme une action ordinaire</td></tr>
+      <tr><td><b>PER</b></td><td>Prix de l'action ÷ bénéfice par action</td></tr>
+      <tr><td><b>TER</b></td><td>Frais annuels totaux d'un ETF</td></tr>
+      <tr><td><b>ISIN</b></td><td>Code international unique identifiant un titre financier</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== AVERTISSEMENT ===== -->
+<section class="panel">
+  <h2>Avertissement</h2>
+  <p>Cette page est une synthèse méthodologique personnelle, à visée informative. Ce n'est pas un conseil en investissement, et son auteur n'est ni conseiller financier ni savant. Les chiffres cités — ratios, frais, compositions — sont périssables et doivent être revérifiés à leur source avant toute décision.</p>
+  <p>Sur le plan religieux, les seuils de tolérance relèvent d'<i>ijtihādāt</i> contemporains. Consultez un savant de confiance pour trancher votre propre niveau d'exigence.</p>
+</section>
+
+<!-- ===== SOUTIEN ===== -->
+<section class="panel soutien">
+  <h3>Si ce travail vous a servi</h3>
+  <p>Cette page restera libre, sans compte ni paiement — le savoir ne se vend pas. Si vous souhaitez soutenir ce travail, vous pouvez découvrir mes autres publications : calligraphies numériques des Noms divins, manuels de mémorisation du Coran, ouvrages.</p>
+  <p><a href="https://abdelbouter.gumroad.com" target="_blank" rel="noopener">Voir les publications →</a></p>
+  <p class="note">Rien ici n'est conditionné à un achat. Prenez ce dont vous avez besoin et transmettez-le.</p>
+</section>
+
+<footer>
+  <span class="ar">وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ</span>
+  « Et établissez la pesée avec équité, et ne faussez pas la balance » — Ar-Raḥmān, 9<br>
+  Bibliothèque Islamique — page en accès libre, sans compte ni paiement<br>
+  <span class="ar" style="font-size:1rem">وَاللَّهُ أَعْلَم</span>
+</footer>
+
+</div>
+</body>
+</html>
