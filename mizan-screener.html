@@ -131,6 +131,23 @@ input,select{
 select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink-soft) 50%),linear-gradient(135deg,var(--ink-soft) 50%,transparent 50%);background-position:calc(100% - 15px) 55%,calc(100% - 10px) 55%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:2rem}
 input:focus,select:focus{outline:2px solid var(--verdigris);outline-offset:-1px}
 .na{border-color:var(--carmine)}
+
+/* ---- étage 2 : qualité financière ---- */
+.etage2{margin-top:1.15rem}
+.etage2 .chapeau{font-size:.86rem;color:var(--ink-soft);padding:.7rem .85rem;margin-bottom:.9rem;background:#EFEDE4;border-left:2px solid var(--ink-soft)}
+.etage2 .chapeau b{color:var(--ink)}
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem .9rem}
+@media(max-width:560px){.qgrid{grid-template-columns:1fr}}
+.qual{display:grid;grid-template-columns:1fr auto auto auto;gap:.5rem;align-items:baseline;padding:.45rem 0;border-bottom:1px solid #E4E0D4;font-size:.9rem}
+.qual:last-child{border-bottom:none}
+.qual .qv{font-family:'Archivo Narrow',sans-serif;font-weight:600}
+.qual .qs{font-size:.78rem;color:var(--ink-soft);white-space:nowrap}
+.qual .qb{width:1.1rem;height:1.1rem;border-radius:50%;display:grid;place-items:center;font-size:.66rem;line-height:1;color:#fff}
+.qb.y{background:var(--verdigris)}
+.qb.n{background:var(--carmine)}
+.qb.w{background:var(--rule);color:var(--ink-soft)}
+.q-titre{font-family:'Archivo Narrow',sans-serif;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:1.2rem 0 .6rem}
+.q-note{font-size:.82rem;color:var(--ink-soft);margin-top:.9rem;font-style:italic}
 .hint{font-size:.78rem;color:var(--ink-soft);margin-top:.5rem}
 .calc{
   grid-column:1/-1;margin-top:.2rem;padding:.75rem .85rem;
@@ -344,13 +361,13 @@ footer strong{color:rgba(247,245,239,.7);font-weight:500}
   <div id="zoneBrut" style="display:none">
     <p class="hint" style="margin-top:0;margin-bottom:.8rem">Recopier les montants tels quels depuis le bilan — même unité pour tous (millions, milliers, euros). Mīzān calcule les ratios.</p>
     <div class="grid">
-      <label><span class="lab">Capitalisation boursière</span><input id="bCapi" type="number" step="any" placeholder="0"></label>
-      <label><span class="lab">Total de l'actif</span><input id="bActif" type="number" step="any" placeholder="0"></label>
-      <label><span class="lab">Dette financière totale</span><input id="bDette" type="number" step="any" placeholder="0"></label>
-      <label><span class="lab">Trésorerie + placements</span><input id="bLiq" type="number" step="any" placeholder="0"></label>
-      <label><span class="lab">Créances clients</span><input id="bCrea" type="number" step="any" placeholder="0"></label>
-      <label><span class="lab">Chiffre d'affaires total</span><input id="bCaTot" type="number" step="any" placeholder="0"></label>
-      <label><span class="lab">dont revenus illicites</span><input id="bCaIll" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Capitalisation boursière <button type="button" class="aide" data-memo="bCapi" aria-label="Où trouver">?</button></span><input id="bCapi" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Total de l'actif <button type="button" class="aide" data-memo="bActif" aria-label="Où trouver">?</button></span><input id="bActif" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Dette financière totale <button type="button" class="aide" data-memo="bDette" aria-label="Où trouver">?</button></span><input id="bDette" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Trésorerie + placements <button type="button" class="aide" data-memo="bLiq" aria-label="Où trouver">?</button></span><input id="bLiq" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Créances clients <button type="button" class="aide" data-memo="bCrea" aria-label="Où trouver">?</button></span><input id="bCrea" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Chiffre d'affaires total <button type="button" class="aide" data-memo="bCaTot" aria-label="Où trouver">?</button></span><input id="bCaTot" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">dont revenus illicites <button type="button" class="aide" data-memo="bCaIll" aria-label="Où trouver">?</button></span><input id="bCaIll" type="number" step="any" placeholder="0"></label>
       <div class="calc" id="calcOut">
         <b>Ratios calculés</b>
         <div class="r"><span>Dette portant intérêt</span><span id="cDette">—</span></div>
@@ -368,6 +385,46 @@ footer strong{color:rgba(247,245,239,.7);font-weight:500}
     <label><span class="lab">Exercice analysé</span><input id="exercice" placeholder="2025"></label>
   </div>
 
+      <div class="memo" id="memo-bCapi">
+        <b>Où le trouver</b>
+        <u>Morningstar</u> — encadré <i>Key Statistics</i>, ligne <i>Market Cap</i>. <u>ABC Bourse</u> — fiche société, « Capitalisation ».<br>
+        <u>À la main</u> — cours de l'action × nombre d'actions en circulation.
+        <em>Ce n'est pas dans le bilan : la capitalisation est une donnée de marché, elle change chaque jour.</em>
+      </div>
+      <div class="memo" id="memo-bActif">
+        <b>Où le trouver</b>
+        <u>Morningstar</u> — <i>Financials</i> → <i>Balance Sheet</i> → <i>Total Assets</i>.<br>
+        <u>Rapport annuel</u> — Bilan consolidé, dernière ligne de la colonne Actif.
+        <em>Toujours le bilan consolidé du groupe, jamais les comptes sociaux de la maison mère seule.</em>
+      </div>
+      <div class="memo" id="memo-bDette">
+        <b>Où le trouver</b>
+        <u>Morningstar</u> — <i>Balance Sheet</i> → <i>Total Debt</i>.<br>
+        <u>Rapport annuel</u> — Passif : additionner « Emprunts et dettes financières » courants et non courants.
+        <em>Ne pas confondre avec « Total des dettes » : les dettes fournisseurs et fiscales ne portent pas d'intérêt.</em>
+      </div>
+      <div class="memo" id="memo-bLiq">
+        <b>Où le trouver</b>
+        <u>Morningstar</u> — <i>Cash and Equivalents</i> + <i>Short-Term Investments</i>.<br>
+        <u>Rapport annuel</u> — Actif courant : « Trésorerie et équivalents », plus les placements rémunérés listés séparément.
+      </div>
+      <div class="memo" id="memo-bCrea">
+        <b>Où le trouver</b>
+        <u>Morningstar</u> — <i>Accounts Receivable</i>.<br>
+        <u>Rapport annuel</u> — Actif courant : « Clients et comptes rattachés ».
+        <em>Une créance, c'est de l'argent qu'on vous doit. Le critère vérifie que la société n'est pas faite que de promesses.</em>
+      </div>
+      <div class="memo" id="memo-bCaTot">
+        <b>Où le trouver</b>
+        <u>Morningstar</u> — <i>Income Statement</i> → <i>Revenue</i>.<br>
+        <u>Rapport annuel</u> — Compte de résultat, première ligne : « Chiffre d'affaires ».
+      </div>
+      <div class="memo" id="memo-bCaIll">
+        <b>Où le trouver</b>
+        Le chiffre le plus difficile — aucun site ne le donne tout fait.<br>
+        <u>Rapport annuel</u> — annexe « Information sectorielle » : additionner les segments non conformes, puis ajouter les produits d'intérêt du résultat financier.
+        <em>Si la ventilation est floue, ne devinez pas : laissez vide. Mīzān suspendra son verdict plutôt que de trancher sur une estimation.</em>
+      </div>
   <div class="sources">
     <label style="margin-bottom:.6rem">
       <span class="lab">Ticker pour ouvrir les sources</span>
@@ -382,6 +439,28 @@ footer strong{color:rgba(247,245,239,.7);font-weight:500}
     <p class="hint" style="margin-top:.6rem">Morningstar pour les actifs, la dette et la trésorerie. Le rapport annuel pour la ventilation sectorielle — seul endroit où trouver la part de revenus illicites.</p>
   </div>
 
+
+  <div class="etage2">
+    <p class="chapeau"><b>Second étage — qualité financière (facultatif).</b> Ces critères ne décident pas du licite : ils disent si l'entreprise est bien gérée et à quel prix elle se paie. Le verdict de conformité est rendu même si vous laissez tout vide.</p>
+    <div class="grille">
+      <label><span class="lab">Marché <button type="button" class="aide" data-memo="qMarche" aria-label="Pourquoi deux jeux">?</button></span>
+        <select id="qMarche"><option value="eu">Europe</option><option value="us">États-Unis</option></select></label>
+      <label><span class="lab">Marge brute %</span><input id="qMb" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Marge nette %</span><input id="qMn" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">ROE %</span><input id="qRoe" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">ROIC %</span><input id="qRoic" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">PER</span><input id="qPer" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">PEG</span><input id="qPeg" type="number" step="any" placeholder="0"></label>
+      <label><span class="lab">Croissance du bénéfice %/an</span><input id="qCrois" type="number" step="any" placeholder="0"></label>
+    </div>
+    <div class="memo" id="memo-qMarche">
+      <b>Pourquoi deux jeux de seuils</b>
+      Les sociétés américaines dégagent structurellement des marges et des rentabilités plus élevées que les européennes, à secteur comparable. Un seuil unique surestimerait les unes et écarterait les autres sans raison.<br>
+      <u>Morningstar</u> — <i>Financials</i> pour les marges et la croissance, <i>Valuation</i> pour le PER et le PEG. <u>ABC Bourse</u> — onglet « Ratios ».
+      <em>Repères d'analyse financière courante, sans portée religieuse : ils n'entrent pas dans le verdict de conformité.</em>
+    </div>
+  </div>
+
   <button class="cta" id="go">Analyser</button>
 </section>
 
@@ -390,6 +469,7 @@ footer strong{color:rgba(247,245,239,.7);font-weight:500}
   <div id="verdict"></div>
   <div id="crits"></div>
   <div id="purif"></div>
+  <div id="qualite"></div>
   <div class="dossier">
     <button type="button" id="csv">Exporter en tableur (.csv)</button>
     <button type="button" id="copie">Copier la fiche</button>
@@ -704,6 +784,8 @@ function analyser(){
     rev,dette,liq,tang,seuils:p,divid,montantPurif,
     verdict:incomplet?'incomplet':(conforme?'conforme':'non conforme')};
 
+  const q=analyseQualite(); if(q) derniere.qualite=q;
+
   el('out').style.display='block';
 }
 el('go').onclick=analyser;
@@ -756,6 +838,35 @@ el('copie').onclick=async ()=>{
 };
 
 el('imprime').onclick=()=>window.print();
+
+
+/* ---- second étage : qualité financière ---- */
+const SEUILS_Q={eu:{mb:40,mn:10,roe:10,roic:10,per:40,peg:1,crois:15},us:{mb:40,mn:20,roe:15,roic:15,per:40,peg:1,crois:15}};
+function qval(id){const v=el(id).value.trim();return v===''?null:parseFloat(v);}
+function analyseQualite(){
+  const m=el('qMarche').value, S=SEUILS_Q[m];
+  const lignes=[
+    ['Marge brute',qval('qMb'),S.mb,'sup','%'],
+    ['Marge nette',qval('qMn'),S.mn,'sup','%'],
+    ['ROE',qval('qRoe'),S.roe,'sup','%'],
+    ['ROIC',qval('qRoic'),S.roic,'sup','%'],
+    ['PER',qval('qPer'),S.per,'inf',''],
+    ['PEG',qval('qPeg'),S.peg,'inf',''],
+    ['Croissance du bénéfice',qval('qCrois'),S.crois,'sup','%/an']
+  ];
+  const saisis=lignes.filter(l=>l[1]!==null&&!isNaN(l[1]));
+  if(!saisis.length){el('qualite').innerHTML='';return null;}
+  let ok=0,h='<p class="q-titre">Second étage — qualité financière</p><div class="qgrid">';
+  lignes.forEach(([nom,v,seuil,sens,u])=>{
+    let cls,mark,aff;
+    if(v===null||isNaN(v)){cls='w';mark='·';aff='—';}
+    else{const pass=sens==='sup'?v>=seuil:v<=seuil;if(pass)ok++;cls=pass?'y':'n';mark=pass?'\u2713':'\u2715';aff=v.toFixed(2)+(u?' '+u:'');}
+    h+='<div class="qual"><span>'+nom+'</span><span class="qv">'+aff+'</span><span class="qs">'+(sens==='sup'?'\u2265 ':'\u2264 ')+seuil+(u?' '+u:'')+'</span><span class="qb '+cls+'">'+mark+'</span></div>';
+  });
+  h+='</div><p class="q-note">'+ok+' critère'+(ok>1?'s':'')+' sur '+saisis.length+' renseigné'+(saisis.length>1?'s':'')+' au-dessus du repère — seuils '+(m==='us'?'États-Unis':'Europe')+". Ces repères relèvent de l'analyse financière courante et n'ont aucune portée religieuse : ils n'entrent pas dans le verdict de conformité.</p>";
+  el('qualite').innerHTML=h;
+  return {marche:m,ok,total:saisis.length};
+}
 
 document.querySelectorAll('.liens button').forEach(b=>{
   b.onclick=()=>{
