@@ -132,6 +132,12 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
 input:focus,select:focus{outline:2px solid var(--verdigris);outline-offset:-1px}
 .na{border-color:var(--carmine)}
 
+
+/* ---- retour accueil ---- */
+.retour{display:inline-flex;align-items:center;gap:.45rem;margin-bottom:1.4rem;padding:.45rem .85rem;border:1px solid rgba(168,134,63,.4);border-radius:2px;font-family:'Archivo Narrow',sans-serif;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:background .18s}
+.retour:hover,.retour:focus-visible{background:rgba(168,134,63,.12)}
+.retour-bas{display:block;text-align:center;margin-top:1.6rem;color:var(--rule);text-decoration:none;font-size:.9rem}
+.retour-bas:hover{color:var(--gold)}
 /* ---- étage 2 : qualité financière ---- */
 .etage2{margin-top:1.15rem}
 .etage2 .chapeau{font-size:.86rem;color:var(--ink-soft);padding:.7rem .85rem;margin-bottom:.9rem;background:#EFEDE4;border-left:2px solid var(--ink-soft)}
@@ -285,6 +291,7 @@ footer strong{color:rgba(247,245,239,.7);font-weight:500}
 <div class="wrap">
 
 <header>
+  <a class="retour" href="index.html">← Bibliothèque</a>
   <p class="eyebrow">Analyse de conformité charaïque</p>
   <h1>Mīzān<span class="ar">الميزان</span></h1>
   <p class="lede">Une même société est licite ou non selon la position savante retenue. Choisissez la vôtre : l'outil applique ses seuils et montre le calcul.</p>
@@ -565,6 +572,7 @@ footer strong{color:rgba(247,245,239,.7);font-weight:500}
 <footer>
   <strong>Cet outil n'est ni une fatwa ni un conseil en investissement.</strong>
   Il applique des seuils quantitatifs publiés par des institutions de fiqh, à partir de chiffres que vous saisissez. La conformité doit être revérifiée à chaque publication de comptes ; en cas de non-conformité constatée, la majorité des comités recommandent la cession sous 3 à 6 mois. Pour toute question de conscience, consultez un savant qualifié.
+  <a class="retour-bas" href="index.html">← Retour à la bibliothèque</a>
 </footer>
 
 </div>
