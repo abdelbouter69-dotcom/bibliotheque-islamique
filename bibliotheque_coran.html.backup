@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مكتبة القرآن الذكية — ArchiART</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Naskh Arabic','Amiri',serif;background:#F0E4CC;color:#2C1A0E;direction:rtl;}
+.header{background:linear-gradient(135deg,#04342C,#0F6E56);padding:1.25rem 1rem 1rem;text-align:center;}
+.basmala{font-family:'Amiri',serif;font-size:1.3rem;color:#FAC775;display:block;margin-bottom:6px;}
+.title-ar{font-family:'Amiri',serif;font-size:1.5rem;color:#fff;margin-bottom:2px;}
+.title-fr{font-size:11px;color:rgba(255,255,255,0.6);direction:ltr;margin-bottom:10px;}
+.pill{font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);border:0.5px solid rgba(255,255,255,0.2);display:inline-block;margin:2px;}
+.agents-nav{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:50;display:flex;align-items:stretch;}
+.agents-nav .agents-tabs{overflow-x:auto;flex:1;}
+.back-btn{flex:none;display:flex;align-items:center;gap:5px;padding:.8rem .9rem;font-size:12px;background:#04342C;color:#fff;border:none;cursor:pointer;font-family:'Noto Naskh Arabic',serif;text-decoration:none;white-space:nowrap;}
+.back-btn:hover{background:#0F6E56;}
+.back-btn:focus-visible{outline:2px solid #1D9E75;outline-offset:-2px;}
+.agents-tabs{display:flex;min-width:max-content;}
+.agent-btn{display:flex;align-items:center;gap:6px;padding:.8rem .9rem;font-size:12px;color:#666;background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;font-family:'Noto Naskh Arabic',serif;}
+.agent-btn.active{color:#085041;border-bottom-color:#1D9E75;}
+.content{max-width:900px;margin:0 auto;padding:1rem 1rem 3rem;}
+.agent-hero{border-radius:12px;overflow:hidden;margin-bottom:1rem;}
+.hero-inner{padding:1rem 1.25rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.hero-icon{font-size:2rem;flex-shrink:0;}
+.hero-ar{font-family:'Amiri',serif;font-size:1.2rem;color:#fff;line-height:1.7;}
+.hero-fr{font-size:11px;color:rgba(255,255,255,0.65);direction:ltr;}
+.agent-bar{background:#fff;border:1px solid #ddd;border-radius:12px;padding:.9rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.agt-ava{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.agt-info{flex:1;}
+.agt-name{font-family:'Amiri',serif;font-size:14px;color:#2C1A0E;}
+.agt-sub{font-size:11px;color:#888;direction:ltr;}
+.agt-btn{background:#04342C;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
+.levels-tabs{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap;}
+.lvl-tab{padding:5px 14px;border-radius:20px;font-size:11px;border:1px solid #ddd;background:#fff;color:#666;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
+.lvl-tab.active{background:#1D9E75;border-color:#0F6E56;color:#fff;}
+.level-info{background:#fff;border:1px solid #ddd;border-radius:12px;padding:.8rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
+.lv-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
+.lv-title-ar{font-family:'Amiri',serif;font-size:15px;}
+.lv-title-fr{font-size:10px;color:#888;}
+.lv-badge{margin-left:auto;font-size:10px;padding:3px 10px;border-radius:10px;}
+.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:1.5rem;}
+.book-card{background:#fff;border-radius:12px;border:1px solid #ddd;overflow:hidden;display:flex;flex-direction:column;}
+.book-cover{height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;position:relative;}
+.cover-n{position:absolute;top:5px;right:6px;font-size:9px;color:rgba(255,255,255,0.7);}
+.cover-ar{font-family:'Amiri',serif;font-size:12px;color:#fff;text-align:center;line-height:1.7;}
+.cover-auth{font-family:'Amiri',serif;font-size:9px;color:rgba(255,255,255,0.65);text-align:center;margin-top:3px;}
+.book-body{padding:8px 9px 9px;flex:1;display:flex;flex-direction:column;}
+.book-desc{font-size:10px;color:#666;line-height:1.5;flex:1;margin-bottom:6px;}
+.book-links{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:4px;}
+.btn-lnk{padding:3px 6px;border-radius:4px;font-size:9px;border:1px solid #ddd;background:#f5f5f5;color:#555;text-decoration:none;}
+.btn-agent{width:100%;padding:5px;border-radius:8px;font-size:10px;background:#04342C;color:#fff;border:none;cursor:pointer;font-family:'Noto Naskh Arabic',serif;}
+.modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;justify-content:center;}
+.modal-wrap.open{display:flex;}
+@media(min-width:600px){.modal-wrap{align-items:center;}}
+.modal{background:#fff;border-radius:12px 12px 0 0;width:100%;max-width:600px;max-height:88vh;display:flex;flex-direction:column;}
+@media(min-width:600px){.modal{border-radius:12px;max-height:80vh;}}
+.modal-head{display:flex;align-items:center;gap:10px;padding:.8rem 1rem;border-bottom:1px solid #eee;flex-shrink:0;}
+.m-ava{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.m-name{font-family:'Amiri',serif;font-size:14px;flex:1;}
+.m-close{background:none;border:none;font-size:20px;cursor:pointer;color:#888;}
+.chat-area{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:10px;}
+.msg{display:flex;gap:8px;max-width:92%;}
+.msg.user{flex-direction:row-reverse;align-self:flex-end;}
+.bubble{padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.8;font-family:'Amiri',serif;background:#f5f5f5;color:#2C1A0E;}
+.msg.user .bubble{background:#04342C;color:#fff;border-radius:12px 3px 12px 12px;}
+.msg.agent .bubble{border-radius:3px 12px 12px 12px;}
+.m-av-sm{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.typing-dots{display:flex;gap:4px;align-items:center;padding:10px 13px;}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:#888;animation:blink 1.2s infinite;}
+.typing-dots span:nth-child(2){animation-delay:.2s;}
+.typing-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.chat-foot{padding:.7rem .9rem;border-top:1px solid #eee;display:flex;gap:8px;flex-shrink:0;}
+.chat-in{flex:1;border:1px solid #ddd;border-radius:20px;padding:8px 13px;font-size:13px;outline:none;font-family:'Amiri',serif;background:#f9f9f9;resize:none;max-height:70px;color:#2C1A0E;}
+.chat-in:focus{border-color:#0F6E56;}
+.chat-send{width:36px;height:36px;border-radius:50%;background:#04342C;color:#fff;border:none;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.chat-send:disabled{opacity:.35;}
+.welcome{text-align:center;padding:2rem 1rem;color:#888;font-size:13px;line-height:2;}
+.err-msg{background:#fff3cd;border-radius:8px;padding:8px 12px;font-size:11px;color:#856404;direction:ltr;text-align:center;margin:4px 0;}
+/* ===== INTRODUCTION SECTION ===== */
+.intro-wrap{max-width:900px;margin:0 auto;padding:1rem 1rem 3rem;}
+.itr-hero{background:linear-gradient(135deg,#04342C,#1D9E75);border-radius:12px;padding:1.8rem;margin-bottom:1.2rem;text-align:center;}
+.itr-basmala{font-family:'Amiri',serif;font-size:1.7rem;color:#FAC775;margin-bottom:.4rem;}
+.itr-title-ar{font-family:'Amiri',serif;font-size:1.15rem;color:#fff;margin-bottom:.3rem;}
+.itr-title-fr{font-size:11px;color:rgba(255,255,255,.7);direction:ltr;margin-bottom:.2rem;}
+.itr-sub{font-size:10px;color:rgba(255,255,255,.55);direction:ltr;font-style:italic;}
+.itr-card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:.9rem;}
+.itr-card-title{font-size:11px;font-weight:700;color:#04342C;margin-bottom:.5rem;}
+.itr-ar{font-family:'Amiri',serif;font-size:13px;line-height:2;color:#1C1C1C;margin-bottom:.5rem;}
+.itr-fr{font-size:11px;line-height:1.75;color:#444;direction:ltr;margin-bottom:.5rem;}
+.itr-ayah{background:#E1F5EE;border-radius:8px;padding:7px 12px;font-family:'Amiri',serif;font-size:12.5px;color:#04342C;text-align:center;margin:.4rem 0;}
+.itr-hadith{background:#FEF3C7;border-left:3px solid #F59E0B;border-radius:0 8px 8px 0;padding:7px 12px;font-family:'Amiri',serif;font-size:12px;color:#78350F;margin:.4rem 0;}
+.itr-warn{background:#FEE2E2;border:1.5px solid #FCA5A5;border-radius:10px;padding:1rem 1.2rem;margin:.8rem 0;}
+.itr-warn-ar{font-family:'Amiri',serif;font-size:12.5px;color:#7F1D1D;line-height:2;}
+.itr-warn-fr{font-size:10.5px;color:#7F1D1D;direction:ltr;margin-top:.4rem;}
+.itr-part{background:linear-gradient(135deg,#04342C,#0F6E56);border-radius:12px;padding:1rem 1.2rem;margin:1.4rem 0 .8rem;}
+.itr-part-ar{font-family:'Amiri',serif;font-size:1rem;color:#FAC775;margin-bottom:3px;}
+.itr-part-fr{font-size:10px;color:rgba(255,255,255,.65);direction:ltr;}
+.itr-toc{width:100%;border-collapse:collapse;font-size:10.5px;margin-bottom:1rem;}
+.itr-toc th{background:#04342C;color:#fff;padding:6px 8px;font-family:'Amiri',serif;text-align:right;}
+.itr-toc td{padding:5px 8px;border-bottom:1px solid #F3F4F6;text-align:right;}
+.itr-toc td:last-child{direction:ltr;text-align:left;}
+.itr-toc tr:nth-child(even){background:#F9FAFB;}
+details.uloom{background:#fff;border:1px solid #E5E7EB;border-radius:10px;margin-bottom:.6rem;overflow:hidden;}
+details.uloom[open]{border-color:#1D9E75;}
+summary.uloom-s{padding:.7rem 1rem;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'Amiri',serif;font-size:12.5px;color:#1C1C1C;list-style:none;user-select:none;}
+summary.uloom-s::-webkit-details-marker{display:none;}
+summary.uloom-s::before{content:'▶';font-size:9px;color:#1D9E75;transition:transform .2s;min-width:14px;flex-shrink:0;}
+details.uloom[open] summary.uloom-s::before{transform:rotate(90deg);}
+.uloom-body{padding:.7rem 1rem .9rem;border-top:1px solid #F3F4F6;}
+.itr-note{background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;padding:8px 10px;font-size:10px;color:#78350F;direction:ltr;margin:.4rem 0;}
+.names-tbl{width:100%;border-collapse:collapse;font-size:10px;margin:.5rem 0;}
+.names-tbl th{background:#04342C;color:#fff;padding:4px 6px;font-family:'Amiri',serif;font-size:10.5px;text-align:right;}
+.names-tbl td{padding:4px 6px;border-bottom:1px solid #F3F4F6;text-align:right;}
+.names-tbl td:last-child{direction:ltr;text-align:left;}
+.names-tbl tr:nth-child(even){background:#F9FAFB;}
+.itr-bridge{background:linear-gradient(135deg,#04342C,#1D9E75);border-radius:12px;padding:1.2rem 1.4rem;margin:1.4rem 0;text-align:center;}
+.itr-bridge-ar{font-family:'Amiri',serif;font-size:1.05rem;color:#FAC775;margin-bottom:.3rem;}
+.itr-bridge-fr{font-size:10.5px;color:rgba(255,255,255,.8);direction:ltr;}
+</style>
+</head>
+<body>
+<div class="header">
+  <div style="text-align:left;margin-bottom:6px;"><a href="index.html" style="display:inline-block;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:5px 14px;font-size:12px;text-decoration:none;font-family:'Noto Naskh Arabic',serif;">← Accueil</a></div>
+  <span class="basmala">بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ</span>
+  <div class="title-ar">مَكْتَبَةُ القُرْآنِ الذَّكِيَّة</div>
+  <div class="title-fr">Bibliothèque intelligente du Coran — ArchiART</div>
+  <div style="margin-top:8px;">
+    <span class="pill">🔊 التجويد</span>
+    <span class="pill">📗 التفسير</span>
+    <span class="pill">🌟 علوم القرآن</span>
+    <span class="pill">🎯 الحفظ</span>
+    <span class="pill">🔎 إعراب القرآن</span>
+  </div>
+</div>
+<nav class="agents-nav"><a class="back-btn" href="index.html" aria-label="Retour à l'accueil">← الرئيسية</a><div class="agents-tabs" id="agentTabs"></div></nav>
+<div class="content" id="mainContent"></div>
+
+<!-- ===== INTRODUCTION PAGE ===== -->
+<div class="intro-wrap" id="introWrap" style="display:none">
+
+  <div class="itr-hero">
+    <div class="itr-basmala">بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div class="itr-title-ar">الْقُرْآنُ الصَّوْتِيُّ — مُقَدِّمَةٌ تَعْرِيفِيَّة</div>
+    <div class="itr-title-fr">Le Coran Phonétique — Introduction · Abdelkader Bouterfas · ArchiART</div>
+    <div class="itr-sub">Méthode inédite pour apprendre à réciter le Coran à partir de la phonétique française, fondée sur les règles authentiques du Tajwīd.</div>
+  </div>
+
+  <div class="itr-card">
+    <div class="itr-ar">الْحَمْدُ لِلَّهِ الَّذِي عَلَّمَ الْقُرْآنَ، خَلَقَ الْإِنْسَانَ، عَلَّمَهُ الْبَيَانَ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى نَبِيِّهِ الَّذِي أُنْزِلَ عَلَيْهِ الْقُرْآنُ بِلِسَانٍ عَرَبِيٍّ مُبِينٍ، وَعَلَى آلِهِ وَصَحْبِهِ أَجْمَعِينَ. أَمَّا بَعْدُ:</div>
+    <div class="itr-fr">Au nom d'Allah, le Tout-Miséricordieux, le Très-Miséricordieux.</div>
+  </div>
+
+  <div class="itr-card">
+    <div class="itr-card-title">🎯 لِمَاذَا هَذَا الْكِتَابُ ؟ — Pourquoi ce livre ?</div>
+    <div class="itr-fr">Beaucoup de musulmans francophones aiment le Coran et désirent ardemment le réciter — mais l'écriture arabe et ses sons (les <em>makhārij</em>, les lettres emphatiques, les allongements…) constituent un obstacle réel. <em>Le Coran Phonétique</em> est né de ce constat : <strong>bâtir un pont entre les sons du français et ceux de l'arabe</strong>, afin que le lecteur francophone puisse prononcer correctement, puis progresser vers la lecture directe du Muṣḥaf, sans jamais sacrifier la justesse de la récitation.</div>
+    <div class="itr-ayah">﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾ <span style="direction:ltr;font-size:9px;color:#666">(المزّمّل/٤) — « Et récite le Coran avec soin et lenteur. »</span></div>
+  </div>
+
+  <div class="itr-card">
+    <div class="itr-card-title">🆕 عَمَلٌ هُوَ الْأَوَّلُ مِنْ نَوْعِهِ — Une approche inédite</div>
+    <div class="itr-fr">C'est, à notre connaissance, <strong>la première fois</strong> qu'une telle méthode est élaborée de façon systématique en langue française : non pas une simple translittération approximative, mais un <strong>système phonétique raisonné</strong>, adossé aux <strong>règles authentiques du Tajwīd</strong> transmises par les maîtres de la lecture.<br><br>Le but n'est pas de remplacer l'apprentissage auprès d'un maître (la <em>talaqqī</em> reste irremplaçable), mais d'en être <strong>la porte d'entrée</strong> : donner au débutant francophone les clés pour démarrer, écouter, corriger et avancer.</div>
+  </div>
+
+  <div class="itr-card">
+    <div class="itr-card-title">🧭 كَيْفَ بُنِيَ الْكِتَابُ ؟ — Comment ce livre est construit</div>
+    <div class="itr-fr">Cet ouvrage se lit en deux temps :<br><br>
+    <strong>① الأساس — Le fondement (sciences du Coran) :</strong> une introduction aux <em>ʿulūm al-Qurʾān</em> tirée du <em>Mukhtaṣar al-Itqān</em> de l'imam al-Suyūṭī : les noms du Coran, la Révélation, les étiquettes de récitation et d'écriture, les sept <em>aḥruf</em>… Cette base donne la <strong>vénération et la compréhension</strong> avant le geste.<br><br>
+    <strong>② التطبيق — La pratique (méthode phonétique + Tajwīd) :</strong> les leçons de transcription phonétique des sons arabes, les points d'articulation, et les règles du Tajwīd (Idghām, Ikhfāʾ, Ghunna, Madd…) expliquées pas à pas pour le francophone.</div>
+  </div>
+
+  <div class="itr-card">
+    <div class="itr-card-title">📜 مَنْهَجُنَا — Notre méthodologie</div>
+    <div class="itr-fr">
+    • <strong>Sources authentifiées uniquement</strong> : Ibn Bāz, Ibn ʿUthaymīn, al-Albānī et les imams classiques. Chaque hadith est vérifié selon son degré d'authenticité.<br>
+    • <strong>Tashkīl complet</strong> sur tout le texte arabe — la vocalisation est à la lettre ce que la parure est à celui qui la porte.<br>
+    • <strong>Bilinguisme</strong> (arabe / français) pour que chacun avance à son rythme.</div>
+  </div>
+
+  <div class="itr-card">
+    <div class="itr-card-title">🤲 نِيَّةٌ وَأَدَبٌ — Intention et adab</div>
+    <div class="itr-fr">Nous demandons à Allah ﷻ de faire de ce travail une œuvre sincère et utile, un moyen pour que les langues se délient sur Son Livre et que les cœurs s'y attachent. Toute justesse vient de Lui, et toute erreur vient de nous et du Shayṭān.</div>
+    <div class="itr-hadith">«خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ» <span style="direction:ltr;font-size:9px">(رواه البخاري) ✅</span></div>
+    <div class="itr-ar" style="font-size:12px">وَاللَّهُ الْمُوَفِّقُ، وَصَلَّى اللَّهُ عَلَى نَبِيِّنَا مُحَمَّدٍ وَعَلَى آلِهِ وَصَحْبِهِ وَسَلَّمَ.</div>
+  </div>
+
+  <div class="itr-card" style="border-color:#1D9E75;border-width:2px;">
+    <div class="itr-card-title">🚪 إِلَى الطَّالِبِ — Au seuil du Tajwīd</div>
+    <div class="itr-ar">أَخِي الطَّالِبَ، أُخْتِي الطَّالِبَةَ: مَا قَرَأْتَهُ حَتَّى الْآنَ كَانَ <strong>تَمْهِيدًا</strong> — تَعْرِفُ بِهِ قَدْرَ هَذَا الْكِتَابِ الْعَظِيمِ، وَكَيْفَ نَزَلَ، وَكَيْفَ تُؤَدَّى تِلَاوَتُهُ بِأَدَبٍ. وَالْآنَ تَفْتَحُ بَابَ <strong>عِلْمِ التَّجْوِيدِ</strong>.</div>
+    <div class="itr-fr">Cher étudiant, chère étudiante : ce que tu viens de lire était le <strong>seuil</strong> — il t'a fait connaître la valeur de ce grand Livre, comment il est descendu, et avec quel adab on le récite. Tu ouvres à présent la porte de la <strong>science du Tajwīd</strong> — donner à chaque lettre son droit : son point d'articulation (<em>makhraj</em>), ses qualités (<em>ṣifāt</em>), et la juste mesure des allongements. Ne te presse pas, accompagne ta lecture de l'écoute d'un récitateur sûr. Commence — et qu'Allah délie ta langue sur Son Livre.</div>
+    <div class="itr-hadith">«اقْرَأْ وَارْتَقِ وَرَتِّلْ كَمَا كُنْتَ تُرَتِّلُ فِي الدُّنْيَا» <span style="direction:ltr;font-size:9px">(ṣaḥīḥ — Abū Dāwūd, at-Tirmidhī) ✅</span></div>
+    <div class="itr-ar" style="text-align:center;font-size:14px;color:#04342C;font-weight:bold;margin-top:.4rem">فَلْنَبْدَأْ عَلَى بَرَكَةِ اللَّهِ</div>
+  </div>
+
+  <div class="itr-warn">
+    <div class="itr-warn-ar">⚠️ تَنْبِيهٌ مُهِمٌّ — هَذَا الْكِتَابُ وَسِيلَةٌ لِلتَّعَلُّمِ، وَلَا يُغْنِي عَنِ الْمُعَلِّمِ. فَالْقُرْآنُ يُؤْخَذُ بِالتَّلَقِّي وَالْمُشَافَهَةِ عَنْ شَيْخٍ مُتْقِنٍ، كَمَا أَخَذَهُ النَّبِيُّ ﷺ عَنْ جِبْرِيلَ، وَأَخَذَهُ الصَّحَابَةُ عَنْهُ، جِيلًا بَعْدَ جِيلٍ. فَاحْرِصْ دَائِمًا عَلَى عَرْضِ قِرَاءَتِكَ عَلَى مُعَلِّمٍ مَاهِرٍ بِالتَّجْوِيدِ.</div>
+    <div class="itr-warn-fr">⚠️ <strong>Note importante</strong> — Ce livre est un support d'apprentissage : il ne remplace pas le professeur. Le Coran s'apprend par transmission orale (<em>talaqqī / mushāfaha</em>) auprès d'un maître qualifié. <strong>Présente toujours ta récitation à un enseignant compétent en Tajwīd.</strong></div>
+  </div>
+
+  <div class="itr-part">
+    <div class="itr-part-ar">✦ الْقِسْمُ الْأَوَّلُ : الْأَسَاسُ — عُلُومُ الْقُرْآنِ</div>
+    <div class="itr-part-fr">Partie I — Le fondement : les sciences du Coran · Mukhtaṣar al-Itqān · Imam al-Suyūṭī</div>
+  </div>
+
+  <table class="itr-toc">
+    <thead><tr><th>#</th><th>العنوان</th><th>Titre</th></tr></thead>
+    <tbody>
+      <tr><td>١</td><td>أَسْمَاءُ الْقُرْآنِ الْكَرِيمِ</td><td>Les Noms du Coran (46 noms)</td></tr>
+      <tr><td>٢</td><td>أُمَّهَاتُ عُلُومِ الْقُرْآنِ</td><td>Les sciences-mères du Coran</td></tr>
+      <tr><td>٣</td><td>التَّرْهِيبُ مِنْ نِسْيَانِهِ</td><td>L'avertissement contre l'oubli</td></tr>
+      <tr><td>٤</td><td>آدَابُ التِّلَاوَةِ</td><td>Étiquettes de la récitation</td></tr>
+      <tr><td>٥</td><td>أَفْضَلُ الْقُرْآنِ وَأَبْلَغُهُ</td><td>Le plus virtueux du Coran</td></tr>
+      <tr><td>٦</td><td>كَيْفِيَّةُ الْإِنْزَالِ</td><td>Comment s'est faite la descente</td></tr>
+      <tr><td>٧</td><td>الْوَحْيُ : تَعْرِيفُهُ</td><td>La Révélation : définition</td></tr>
+      <tr><td>٨</td><td>كَيْفِيَّةُ الْوَحْيِ</td><td>Les modes de la Révélation</td></tr>
+      <tr><td>٩</td><td>الْأَحْرُفُ السَّبْعَةُ</td><td>Les sept aḥruf</td></tr>
+      <tr><td>١٠</td><td>آدَابُ كِتَابَةِ الْمُصْحَفِ</td><td>Étiquettes d'écriture du Muṣḥaf</td></tr>
+      <tr><td>١١</td><td>تَعَلُّمُ الْقُرْآنِ وَحِفْظُهُ</td><td>Apprendre et mémoriser le Coran</td></tr>
+      <tr><td>١٢</td><td>اشْتِرَاطُ الْإِجَازَةِ</td><td>La licence (ijāza) du cheikh</td></tr>
+      <tr><td>١٣</td><td>إِعْرَابُ الْقُرْآنِ</td><td>L'analyse grammaticale</td></tr>
+      <tr><td>١٤</td><td>غَرِيبُ الْقُرْآنِ الْكَرِيمِ</td><td>Le vocabulaire rare</td></tr>
+    </tbody>
+  </table>
+
+  <!-- §1 -->
+  <details class="uloom">
+    <summary class="uloom-s">١ — أَسْمَاءُ الْقُرْآنِ الْكَرِيمِ · Les Noms du Noble Coran (٤٦ اسماً)</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">الْقُرْآنُ: اسْمُ عَلَمٍ غَيْرُ مُشْتَقٍّ، خَاصٌّ بِكَلَامِ اللَّهِ، فَهُوَ غَيْرُ مَهْمُوزٍ، وَيَظْهَرُ أَنَّهُ لَمْ يُؤْخَذْ مِنْ «قِرَاءَةٍ»، وَلَكِنَّهُ اسْمٌ لِكِتَابِ اللَّهِ مِثْلَ التَّوْرَاةِ وَالْإِنْجِيلِ. وَكَانَ أَبُو بَكْرٍ الصِّدِّيقُ رَضِيَ اللَّهُ عَنْهُ أَوَّلَ مَنْ سَمَّاهُ «الْمُصْحَفَ».</div>
+      <div class="itr-fr" style="margin-bottom:8px"><em>Al-Qurʾān</em> est un nom propre non dérivé, réservé à la Parole d'Allah. Abū Bakr al-Ṣiddīq رضي الله عنه fut le premier à le nommer <em>al-Muṣḥaf</em>.</div>
+      <table class="names-tbl">
+        <thead><tr><th>#</th><th>الِاسْمُ</th><th>المرجع</th><th>Traduction</th></tr></thead>
+        <tbody>
+          <tr><td>١</td><td>بُشْرَى</td><td>البقرة/٩٧</td><td>Bonne nouvelle</td></tr>
+          <tr><td>٢</td><td>عِلْمٌ</td><td>البقرة/١٤٥</td><td>Science (révélée)</td></tr>
+          <tr><td>٣</td><td>الْعُرْوَةُ الْوُثْقَى</td><td>البقرة/٢٥٦</td><td>L'anse la plus solide</td></tr>
+          <tr><td>٤</td><td>حَقٌّ</td><td>آل عمران/٦٢</td><td>Vérité</td></tr>
+          <tr><td>٥</td><td>حَبْلُ اللَّهِ</td><td>آل عمران/١٠٣</td><td>La corde d'Allah</td></tr>
+          <tr><td>٦</td><td>بَيَانٌ لِلنَّاسِ</td><td>آل عمران/١٣٨</td><td>Exposé clair pour les hommes</td></tr>
+          <tr><td>٧</td><td>مُنَادٍ</td><td>آل عمران/١٩٣</td><td>Le héraut qui appelle</td></tr>
+          <tr><td>٨</td><td>نُورٌ مُبِينٌ</td><td>النساء/١٧٤</td><td>Lumière éclatante</td></tr>
+          <tr><td>٩</td><td>مُهَيْمِنٌ</td><td>المائدة/٤٨</td><td>Gardien prééminent</td></tr>
+          <tr><td>١٠</td><td>عَدْلٌ</td><td>الأنعام/١١٥</td><td>Justice / Équité</td></tr>
+          <tr><td>١١</td><td>صِرَاطٌ مُسْتَقِيمٌ</td><td>الأنعام/١٥٣</td><td>Voie droite</td></tr>
+          <tr><td>١٢</td><td>بَصَائِرُ</td><td>الأعراف/٢٠٣</td><td>Preuves clairvoyantes</td></tr>
+          <tr><td>١٣</td><td>كَلَامُ اللَّهِ</td><td>التوبة/٦</td><td>Parole d'Allah</td></tr>
+          <tr><td>١٤</td><td>حَكِيمٌ</td><td>يونس/١</td><td>Plein de sagesse</td></tr>
+          <tr><td>١٥</td><td>مَوْعِظَةٌ</td><td>يونس/٥٧</td><td>Exhortation</td></tr>
+          <tr><td>١٦</td><td>هُدًى وَرَحْمَةٌ</td><td>يونس/٥٧</td><td>Guidance et miséricorde</td></tr>
+          <tr><td>١٧</td><td>عَرَبِيٌّ</td><td>يوسف/٢</td><td>Coran arabe</td></tr>
+          <tr><td>١٨</td><td>قَصَصٌ</td><td>يوسف/٣</td><td>Le plus beau des récits</td></tr>
+          <tr><td>١٩</td><td>بَلَاغٌ</td><td>إبراهيم/٥٢</td><td>Message clair</td></tr>
+          <tr><td>٢٠</td><td>هُدًى</td><td>الإسراء/٩</td><td>Guidance</td></tr>
+          <tr><td>٢١</td><td>شِفَاءٌ</td><td>الإسراء/٨٢</td><td>Guérison</td></tr>
+          <tr><td>٢٢</td><td>قَيِّمٌ</td><td>الكهف/٢</td><td>Droit et immuable</td></tr>
+          <tr><td>٢٣</td><td>وَحْيٌ</td><td>الأنبياء/٤٥</td><td>Révélation</td></tr>
+          <tr><td>٢٤</td><td>مُبَارَكٌ</td><td>الأنبياء/٥٠</td><td>Béni</td></tr>
+          <tr><td>٢٥</td><td>زَبُورٌ</td><td>الأنبياء/١٠٥</td><td>Écrit / Psaume</td></tr>
+          <tr><td>٢٦</td><td>الْفُرْقَانُ</td><td>الفرقان/١</td><td>Le Discernement</td></tr>
+          <tr><td>٢٧</td><td>تَنْزِيلٌ</td><td>الشعراء/١٩٢</td><td>Descente révélée</td></tr>
+          <tr><td>٢٨</td><td>أَحْسَنُ الْحَدِيثِ</td><td>الزمر/٢٣</td><td>Le plus beau des discours</td></tr>
+          <tr><td>٢٩</td><td>مَثَانِيَ</td><td>الزمر/٢٣</td><td>Versets répétés</td></tr>
+          <tr><td>٣٠</td><td>مُتَشَابِهٌ</td><td>الزمر/٢٣</td><td>En parfaite harmonie</td></tr>
+          <tr><td>٣١</td><td>الصِّدْقُ</td><td>الزمر/٣٣</td><td>La véracité</td></tr>
+          <tr><td>٣٢</td><td>نَذِيرٌ وَبَشِيرٌ</td><td>فصلت/٤</td><td>Avertisseur et annonciateur</td></tr>
+          <tr><td>٣٣</td><td>عَزِيزٌ</td><td>فصلت/٤١</td><td>Puissant / Inviolable</td></tr>
+          <tr><td>٣٤</td><td>رُوحٌ</td><td>الشورى/٥٢</td><td>Esprit (qui vivifie les cœurs)</td></tr>
+          <tr><td>٣٥</td><td>عَلِيٌّ حَكِيمٌ</td><td>الزخرف/٤</td><td>Sublime et sage</td></tr>
+          <tr><td>٣٦</td><td>كِتَابٌ مُبِينٌ</td><td>الدخان/٢</td><td>Livre explicite</td></tr>
+          <tr><td>٣٧</td><td>حِكْمَةٌ</td><td>القمر/٥</td><td>Sagesse parfaite</td></tr>
+          <tr><td>٣٨</td><td>قُرْآنٌ كَرِيمٌ</td><td>الواقعة/٧٧</td><td>Noble Coran</td></tr>
+          <tr><td>٣٩</td><td>أَمْرُ اللَّهِ</td><td>الطلاق/٥</td><td>Ordre d'Allah</td></tr>
+          <tr><td>٤٠</td><td>تَذْكِرَةٌ</td><td>الحاقة/٤٨</td><td>Rappel</td></tr>
+          <tr><td>٤١</td><td>عَجَبٌ</td><td>الجن/١</td><td>Merveilleux</td></tr>
+          <tr><td>٤٢</td><td>نَبَأٌ عَظِيمٌ</td><td>النبأ/٢</td><td>La grande nouvelle</td></tr>
+          <tr><td>٤٣</td><td>صُحُفٌ مُكَرَّمَةٌ</td><td>عبس/١٣</td><td>Feuillets honorés</td></tr>
+          <tr><td>٤٤</td><td>مَرْفُوعَةٌ مُطَهَّرَةٌ</td><td>عبس/١٤</td><td>Élevés et purifiés</td></tr>
+          <tr><td>٤٥</td><td>مَجِيدٌ</td><td>البروج/٢١</td><td>Glorieux</td></tr>
+          <tr><td>٤٦</td><td>قَوْلٌ فَصْلٌ</td><td>الطارق/١٣</td><td>Parole décisive</td></tr>
+        </tbody>
+      </table>
+      <div class="itr-ar" style="font-size:11px;color:#555;margin-top:4px">وَهَذِهِ الْأَسْمَاءُ كُلُّهَا تَدُلُّ عَلَى عَظَمَةِ هَذَا الْكِتَابِ الْكَرِيمِ وَجَلَالَةِ قَدْرِهِ.</div>
+    </div>
+  </details>
+
+  <!-- §2 -->
+  <details class="uloom">
+    <summary class="uloom-s">٢ — أُمَّهَاتُ عُلُومِ الْقُرْآنِ · Les sciences-mères du Coran</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">وَأُمَّهَاتُ عُلُومِ الْقُرْآنِ ثَلَاثَةٌ: <strong>تَوْحِيدٌ، وَتَذْكِيرٌ، وَأَحْكَامٌ</strong>.<br><br>
+      <strong>فَالتَّوْحِيدُ:</strong> يَدْخُلُ فِيهِ مَعْرِفَةُ الْمَخْلُوقَاتِ، وَمَعْرِفَةُ الْخَالِقِ بِأَسْمَائِهِ وَصِفَاتِهِ وَأَفْعَالِهِ.<br>
+      <strong>وَالتَّذْكِيرُ:</strong> مِنْهُ الْوَعْدُ وَالْوَعِيدُ، وَالْجَنَّةُ وَالنَّارُ، وَتَصْفِيَةُ الظَّاهِرِ وَالْبَاطِنِ.<br>
+      <strong>وَالْأَحْكَامُ:</strong> مِنْهَا التَّكَالِيفُ كُلُّهَا، وَتَبْيِينُ الْمَنَافِعِ وَالْمَضَارِّ، وَالْأَمْرُ وَالنَّهْيُ وَالنَّدْبُ.</div>
+      <div class="itr-fr">Les sciences-mères du Coran sont trois : <strong>Tawḥīd</strong> (unicité) · <strong>Tadhkīr</strong> (rappel) · <strong>Aḥkām</strong> (statuts légaux).<br>
+      • <em>Tawḥīd</em> : connaissance des créatures et du Créateur par Ses noms, attributs et actes.<br>
+      • <em>Tadhkīr</em> : promesse et menace, Paradis et Enfer, purification de l'extérieur et de l'intérieur.<br>
+      • <em>Aḥkām</em> : obligations légales, ce qui est utile et nuisible, ordre, interdiction et recommandation.</div>
+    </div>
+  </details>
+
+  <!-- §3 -->
+  <details class="uloom">
+    <summary class="uloom-s">٣ — التَّرْهِيبُ مِنْ نِسْيَانِهِ · L'avertissement contre l'oubli</summary>
+    <div class="uloom-body">
+      <div class="itr-hadith">«تَعَاهَدُوا الْقُرْآنَ، فَوَالَّذِي نَفْسُ مُحَمَّدٍ بِيَدِهِ لَهُوَ أَشَدُّ تَفَلُّتًا مِنَ الْإِبِلِ فِي عُقُلِهَا» <span style="direction:ltr;font-size:9px">(رواه البخاري ومسلم) ✅</span></div>
+      <div class="itr-fr">« Prenez soin du Coran (révisez-le), car par Celui qui tient l'âme de Muḥammad dans Sa main, il s'échappe plus vite que les chamelles de leurs entraves. » <em>(al-Bukhārī et Muslim)</em></div>
+      <div class="itr-note">⚠️ <strong>Authentification :</strong> Seul ce hadith (al-Bukhārī/Muslim) est authentique parmi les traditions citées sur l'oubli. Les autres narrations (« عُرضت عليَّ ذنوب أمتي… » et « من قرأ القرآن ثم نسيه لقي الله أجذم ») sont jugées <strong>ḍaʿīf</strong> par al-Albānī — ne pas les attribuer au Prophète ﷺ sans précision.</div>
+    </div>
+  </details>
+
+  <!-- §4 -->
+  <details class="uloom">
+    <summary class="uloom-s">٤ — آدَابُ التِّلَاوَةِ · Étiquettes de la récitation</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">يُسْتَحَبُّ الْوُضُوءُ لِقِرَاءَةِ الْقُرْآنِ لِأَنَّهُ أَفْضَلُ الْأَذْكَارِ. وَتُسَنُّ الْقِرَاءَةُ فِي مَكَانٍ نَظِيفٍ وَأَفْضَلُهُ الْمَسْجِدُ. وَيُسْتَحَبُّ أَنْ يَجْلِسَ مُسْتَقْبِلًا الْقِبْلَةَ خَاشِعًا بِسَكِينَةٍ وَوَقَارٍ. وَيُسَنُّ التَّعَوُّذُ قَبْلَ الْقِرَاءَةِ: ﴿فَإِذَا قَرَأْتَ الْقُرْآنَ فَاسْتَعِذْ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ﴾ (النحل/٩٨).</div>
+      <div class="itr-fr"><strong>Résumé des étiquettes :</strong><br>
+      • Wuḍūʾ recommandé · lieu propre (mosquée de préférence) · face à la qibla, avec recueillement.<br>
+      • <em>Taʿawwudh</em> avant la lecture · <em>basmala</em> avant chaque sourate.<br>
+      • <strong>Tartīl</strong> : « لَا تَنْثُرُوهُ نَثْرَ الدَّقَلِ وَلَا تَهُذُّوهُ هَذَّ الشِّعْرِ » (Ibn Masʿūd — mawqūf).<br>
+      • <strong>Tadabbur</strong> : au verset de miséricorde — invoque ; de châtiment — cherche refuge ; de glorification — glorifie.<br>
+      • Répéter un verset est permis — le Prophète ﷺ a récité toute une nuit sur un seul verset ✅.<br>
+      • <strong>Interdits :</strong> réciter en langue non arabe · lire une sourate à l'envers · le <em>taṭrīb</em> (chant artificiel).</div>
+      <div class="itr-note">⚠️ <strong>Divergence (fiqh) :</strong> L'interdiction absolue de réciter pour la femme en menstrues est un avis parmi d'autres — al-Albānī et d'autres ont permis la lecture de mémoire. À mentionner.</div>
+    </div>
+  </details>
+
+  <!-- §5 -->
+  <details class="uloom">
+    <summary class="uloom-s">٥ — أَفْضَلُ الْقُرْآنِ وَأَبْلَغُهُ · Le plus virtueux du Coran</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">هَلْ فِي الْقُرْآنِ شَيْءٌ أَفْضَلُ مِنْ شَيْءٍ؟ ذَهَبَ الْإِمَامُ أَبُو الْحَسَنِ الْأَشْعَرِيُّ وَالْقَاضِي الْبَاقِلَّانِيُّ إِلَى مَنْعِ التَّفَاضُلِ، لِأَنَّ الْجَمِيعَ كَلَامُ اللَّهِ.</div>
+      <div class="itr-fr">Y a-t-il une partie du Coran « plus vertueuse » ? Il faut distinguer <strong>deux plans</strong> :<br>
+      • <strong>En tant que Parole d'Allah :</strong> aucune partie n'est « meilleure » — tout est Sa Parole.<br>
+      • <strong>En vertu et récompense :</strong> préférence établie par des hadiths authentiques — al-Fātiḥa est la plus grande sourate, Āyat al-Kursī le plus grand verset, ﴿قُلْ هُوَ اللَّهُ أَحَدٌ﴾ équivaut à un tiers du Coran ✅ (al-Bukhārī).</div>
+      <div class="itr-note">📝 Le livre présente l'avis ašʿarite (<em>manʿ al-tafāḍul</em>). Selon Ibn Taymiyya, Ibn al-Qayyim et les imams contemporains (Ibn Bāz, al-ʿUthaymīn), la préférence en vertu est établie par les textes — distinction à préciser au lecteur.</div>
+    </div>
+  </details>
+
+  <!-- §6·7·8 -->
+  <details class="uloom">
+    <summary class="uloom-s">٦ · ٧ · ٨ — الْإِنْزَالُ وَالْوَحْيُ · La descente et la Révélation</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">اتَّفَقَ أَهْلُ السُّنَّةِ عَلَى أَنَّ كَلَامَ اللَّهِ مُنَزَّلٌ. وَالْوَحْيُ: مَا يُوحِي اللَّهُ إِلَى نَبِيٍّ فَيُثْبِتُهُ فِي قَلْبِهِ — الْقُرْآنُ بِاللَّفْظِ وَالْمَعْنَى، وَالسُّنَّةُ بِالْمَعْنَى دُونَ اللَّفْظِ.</div>
+      <div class="itr-fr"><strong>Les 5 modes de la Révélation :</strong><br>
+      ① Comme le <strong>tintement d'une cloche</strong> — le plus pénible (al-Bukhārī) ✅<br>
+      ② L'ange <strong>insuffle la parole dans le cœur</strong> du Prophète ﷺ (al-Ḥākim / al-Albānī : ṣaḥīḥ) ✅<br>
+      ③ L'ange apparaît sous <strong>forme humaine</strong> et lui parle — le plus léger (al-Bukhārī) ✅<br>
+      ④ L'ange vient <strong>dans le sommeil</strong> et transmet les versets.<br>
+      ⑤ <strong>Allah parle directement</strong> — en veille (nuit du Isrāʾ) ou dans le sommeil (hadith de Muʿādh, at-Tirmidhī : ṣaḥīḥ) ✅</div>
+      <div class="itr-note">📝 La date précise du Isrāʾ (27 Rajab) n'est pas établie par un texte authentique — à présenter comme une opinion, non comme un fait fixe.</div>
+    </div>
+  </details>
+
+  <!-- §9 -->
+  <details class="uloom">
+    <summary class="uloom-s">٩ — الْأَحْرُفُ السَّبْعَةُ · Les sept aḥruf</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">وَرَدَ حَدِيثُ «نَزَلَ الْقُرْآنُ عَلَى سَبْعَةِ أَحْرُفٍ» مِنْ رِوَايَةِ أَكْثَرَ مِنْ عِشْرِينَ صَحَابِيًّا حَتَّى بَلَغَ حَدَّ التَّوَاتُرِ. وَقَدِ اخْتَلَفُوا فِي مَعْنَاهُ عَلَى نَحْوِ أَرْبَعِينَ قَوْلًا.</div>
+      <div class="itr-fr">Le hadith est <strong>authentique et mutawātir</strong> ✅. Points essentiels :<br>
+      • <strong>Les « sept aḥruf » ≠ les « sept qirāʾāt »</strong> — deux réalités distinctes (confusion répandue).<br>
+      • Les 6 principaux avis des savants : (1) question obscure sans sens établi · (2) « sept » = nombre rhétorique de facilité · (3) sept lectures distinctes · (4) sept formulations synonymes · (5) modalités de prononciation (iẓhār, tafkhīm, madd…) · (6) sept dialectes éloquents.<br>
+      • Le Muṣḥaf de ʿUthmān رضي الله عنه retient un seul <em>rasm</em> — les qirāʾāt célèbres n'en sont qu'une partie transmise par chaînes authentiques (Ibn al-Jazarī, Ibn Taymiyya).</div>
+    </div>
+  </details>
+
+  <!-- §10 -->
+  <details class="uloom">
+    <summary class="uloom-s">١٠ — آدَابُ كِتَابَةِ الْمُصْحَفِ · Étiquettes d'écriture du Muṣḥaf</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">يُسْتَحَبُّ كِتَابَةُ الْمُصْحَفِ وَتَحْسِينُ كِتَابَتِهِ وَتَبْيِينُهَا. وَنَقْطُ الْمُصْحَفِ وَشَكْلُهُ مُسْتَحَبٌّ، لِأَنَّهُ صِيَانَةٌ لَهُ مِنَ اللَّحْنِ وَالتَّحْرِيفِ. وَأَوَّلُ مَنْ وَضَعَ الْهَمْزَ وَالتَّشْدِيدَ وَالرَّوْمَ وَالْإِشْمَامَ الْخَلِيلُ بْنُ أَحْمَدَ الْفَرَاهِيدِيُّ.</div>
+      <div class="itr-fr">• Soigner et clarifier l'écriture — recommandé.<br>
+      • La <strong>vocalisation (tashkīl)</strong> est recommandée — elle préserve le Coran de l'erreur (premier : Abū al-Aswad al-Duʾalī ; hamza/shadda/rawm/ishmām : al-Khalīl b. Aḥmad al-Farāhīdī).<br>
+      • Feuillets abîmés : laver à l'eau ou brûler (les ḥanafites préfèrent les enterrer).<br>
+      • <strong>Interdit :</strong> toucher le Muṣḥaf sans ablutions (avis de la majorité).</div>
+      <div class="itr-note">📝 Divergence : al-Albānī et d'autres considèrent les ablutions <strong>recommandées par respect</strong>, sans que l'interdiction soit catégorique — à mentionner selon la méthodologie.</div>
+    </div>
+  </details>
+
+  <!-- §11·12 -->
+  <details class="uloom">
+    <summary class="uloom-s">١١ · ١٢ — التَّعَلُّمُ وَالْإِجَازَةُ · Mémorisation et licence du cheikh</summary>
+    <div class="uloom-body">
+      <div class="itr-hadith">«خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ» <span style="direction:ltr;font-size:9px">(رواه البخاري) ✅</span></div>
+      <div class="itr-ar">إِنَّ حِفْظَ الْقُرْآنِ فَرْضُ كِفَايَةٍ عَلَى الْأُمَّةِ. وَالتَّجْوِيدُ: إِعْطَاءُ الْحُرُوفِ حُقُوقَهَا وَتَرْتِيبَهَا، مِنْ غَيْرِ إِسْرَافٍ وَلَا تَكَلُّفٍ.</div>
+      <div class="itr-fr">• Mémoriser le Coran = <strong>farḍ kifāya</strong> (obligation collective) — pour que le <em>tawātur</em> ne s'interrompe pas.<br>
+      • Le tajwīd = donner à chaque lettre son droit, sans excès ni affectation.<br>
+      • <strong>Interdits :</strong> le <em>taṭrīb</em> (chantonner en allongeant hors règle) · le <em>taḥzīn</em> (pleurnicherie affectée) · la récitation en chœur altérant les mots.<br>
+      • <strong>L'ijāza</strong> n'est pas une condition légale pour enseigner — mais elle atteste l'aptitude du maître (d'autant plus nécessaire aujourd'hui que les vrais savants se sont raréfiés).</div>
+    </div>
+  </details>
+
+  <!-- §13 -->
+  <details class="uloom">
+    <summary class="uloom-s">١٣ — إِعْرَابُ الْقُرْآنِ · L'analyse grammaticale</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">وَهُوَ عِلْمٌ يَحْتَاجُ إِلَيْهِ الْمُفَسِّرُ، لِأَنَّ مِنْ فَوَائِدِهِ مَعْرِفَةَ الْمَعْنَى؛ فَبِالْإِعْرَابِ تُمَيَّزُ الْمَعَانِي وَيُوقَفُ عَلَى أَغْرَاضِ الْمُتَكَلِّمِينَ. وَعَنْ عُمَرَ رَضِيَ اللَّهُ عَنْهُ: «تَعَلَّمُوا اللَّحْنَ وَالْفَرَائِضَ وَالسُّنَنَ كَمَا تَعَلَّمُونَ الْقُرْآنَ».</div>
+      <div class="itr-fr">L'<em>iʿrāb</em> est indispensable à l'exégète — par lui on distingue les sens et l'on saisit les intentions des versets. ʿUmar رضي الله عنه : « Apprenez la langue (<em>al-laḥn</em> = grammaire), les parts d'héritage et les Sunan comme vous apprenez le Coran. »<br>Spécialistes classiques : al-Zajjāj · al-Farrāʾ · al-Akhfash · Ibn al-Anbārī · Abū ʿUbayda.</div>
+    </div>
+  </details>
+
+  <!-- §14 -->
+  <details class="uloom">
+    <summary class="uloom-s">١٤ — غَرِيبُ الْقُرْآنِ الْكَرِيمِ · Le vocabulaire rare</summary>
+    <div class="uloom-body">
+      <div class="itr-ar">عَلَى الْخَائِضِ فِي ذَلِكَ التَّثَبُّتُ وَالرُّجُوعُ إِلَى كُتُبِ أَهْلِ الْفَنِّ، وَعَدَمُ الْخَوْضِ بِالظَّنِّ؛ فَهَؤُلَاءِ الصَّحَابَةُ تَوَقَّفُوا فِي أَلْفَاظٍ لَمْ يَعْرِفُوا مَعْنَاهَا. وَعَنِ ابْنِ عَبَّاسٍ: «إِذَا سَأَلْتُمُونِي عَنْ غَرِيبِ الْقُرْآنِ فَالْتَمِسُوهُ فِي الشِّعْرِ، فَإِنَّ الشِّعْرَ دِيوَانُ الْعَرَبِ».</div>
+      <div class="itr-fr">Celui qui aborde le <em>gharīb</em> doit vérifier et revenir aux ouvrages spécialisés, sans se prononcer par conjecture. Les Compagnons eux-mêmes — Arabes de pur sang — se sont abstenus sur des mots inconnus. La poésie arabe est la référence pour expliquer le vocabulaire rare (Ibn ʿAbbās ✅).</div>
+      <div class="itr-note">⚠️ Le hadith marfūʿ « أعربوا القرآن والتمسوا غرائبه » (al-Bayhaqī via Abū Hurayra) est jugé faible en tant que prophétique — plus solide comme parole d'Abū Hurayra (mawqūf). À ne pas attribuer au Prophète ﷺ sans précision.</div>
+    </div>
+  </details>
+
+  <div class="itr-note" style="margin-top:1.2rem">
+    ⚠️ <strong>Note méthodologique finale</strong> — Hadiths faibles à ne pas attribuer sans précision : « عُرضت عليَّ ذنوب أمتي… » · « من قرأ القرآن ثم نسيه أجذم » · Saʿd b. Abī Waqqāṣ au <em>khatm</em> · « أعربوا القرآن » (marfūʿ). Divergences fiqh : femme en menstrues · toucher le Muṣḥaf sans wuḍūʾ · récompense pour le défunt. <em>ʿAqīda</em> : distinguer Parole d'Allah (égalité) et récompense (préférence établie par textes). Date du Isrāʾ (27 Rajab) : non établie.
+  </div>
+
+  <div class="itr-bridge">
+    <div class="itr-bridge-ar">✦ الْقِسْمُ الثَّانِي : عِلْمُ التَّجْوِيدِ — انْقُرْ عَلَى وَكِيلِ التَّجْوِيدِ أَعْلَاهُ</div>
+    <div class="itr-bridge-fr">Partie II — La science du Tajwīd commence ici · Cliquez sur l'onglet « التجويد » dans la barre ci-dessus</div>
+  </div>
+
+</div>
+<!-- ===== FIN INTRODUCTION ===== -->
+
+<div class="modal-wrap" id="modalWrap">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="m-ava" id="mAva"></div>
+      <div style="flex:1;"><div class="m-name" id="mName"></div><div style="font-size:10px;color:#888;" id="mLevel"></div></div>
+      <button class="m-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="chat-area" id="chatArea"></div>
+    <div class="chat-foot">
+      <textarea class="chat-in" id="chatIn" rows="1" placeholder="اكتب سؤالك هنا… / Écrivez votre question ici…" onkeydown="handleKey(event)"></textarea>
+      <button class="chat-send" id="sendBtn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+</div>
+<script>
+const AGENTS=[
+  {id:'tajwid',icon:'🔊',labelAr:'التَّجْوِيد',label:'Tajweed',heroBg:'linear-gradient(135deg,#04342C,#1D9E75)',ava:'🔊',avaBg:'#E1F5EE',
+   system:`أنتَ شيخٌ متخصص في عِلمِ التجويد وأحكامِه، تُعلّم روايةَ حفصٍ عن عاصم.
+مصادرُك: تحفة الأطفال، متن الجزرية، الفوائد المكية، الشاطبية.
+
+--- RÈGLES ABSOLUES — à ne jamais enfreindre ---
+Tu es un professeur de Tajwīd spécialisé dans la riwāya de Ḥafs ʿan ʿĀṣim (voie de la Shāṭibiyya). Tu enseignes à des francophones. Tu réponds en arabe (avec tashkīl complet) ET en français, avec transcription phonétique.
+
+1. SOURCES : Ne cite JAMAIS un livre ou un titre dont tu n'es pas absolument certain. En cas de doute, ne cite AUCUNE source. N'invente jamais de titre, d'auteur ni de référence. Les seules sources autorisées : Matn Tuḥfat al-Aṭfāl (de Sulaymān al-Jamzūrī), al-Muqaddima al-Jazariyya (d'Ibn al-Jazarī), Muʿallim at-Tajwīd (de Khālid al-Jurayṣī). Ne les cite que si elles sont réellement pertinentes.
+
+2. IDENTIFIER LA BONNE LETTRE : Avant d'énoncer une règle de nūn sākinah / tanwīn, identifie TOUJOURS la lettre qui suit RÉELLEMENT — c'est-à-dire la PREMIÈRE lettre du mot suivant (ou la lettre après le nūn sākin). Ne te trompe jamais de lettre. Vérifie mot par mot.
+
+3. LES 4 RÈGLES DU NŪN SĀKINAH / TANWĪN :
+   - Iẓhār (exposition claire) : devant les 6 lettres de la gorge → ء ه ع ح غ خ
+   - Idghām bi-ghunna (fusion avec nasalisation) : devant ي ن م و (yanmū)
+   - Idghām bi-ghayr ghunna (fusion sans nasalisation) : devant ل ر
+   - Ikhfāʾ ḥaqīqī (occultation) : devant les 15 lettres restantes (avec ghunna)
+   Rappel : le tanwīn suit la MÊME règle que le nūn sākin, mais interagit avec la première lettre du MOT SUIVANT.
+
+4. RÈGLES DU RĀʾ (ne jamais inverser) :
+   - Rāʾ MUFAKHKHAM (emphatique, épais) : rāʾ avec fatḥa (رَ) ou ḍamma (رُ) ; rāʾ sākin précédé de fatḥa ou ḍamma.
+   - Rāʾ MURAQQAQ (fin, allégé) : rāʾ avec kasra (رِ) ; rāʾ sākin précédé d'une kasra aṣliyya (avec conditions).
+   Ne dis JAMAIS qu'un rāʾ maftūḥ/maḍmūm est « fin », ni qu'un rāʾ maksūr est « épais ».
+
+5. RĀʾ ET SHADDAH : une shaddah à l'intérieur d'un mot (ex. دُرِّيّ) est un idghām mutamāthilayn intrinsèque. Elle n'a AUCUN lien avec le tanwīn ou le nūn. N'invente jamais de règle « tanwīn + shaddah ».
+
+6. RIWĀYA : Tu appliques UNIQUEMENT Ḥafs ʿan ʿĀṣim. Une seule imāla kubrā existe (مَجْراها, Hūd 41) ; aucun taqlīl. Ne mélange jamais avec les règles de Warsh.
+
+7. HUMILITÉ : Termine chaque analyse en rappelant que l'apprentissage du Tajwīd exige la transmission orale (talaqqī) auprès d'un maître qualifié, et qu'aucun texte ne la remplace.
+
+8. Si tu n'es pas sûr d'une règle sur un mot précis, dis-le honnêtement plutôt que de deviner.
+--- FIN RÈGLES ABSOLUES ---
+
+--- المصدر: Le Coran Phonétique — كل قاعدة من التجويد مفسرة بصوت فرنسي ---
+المؤلف: عبد القادر بوطرفاس (Abdelkader Bouterfas) — ArchiART
+المبدأ: كل قاعدة من التجويد مفسَّرة بمقابل صوتي فرنسي، من المبتدئ إلى الخبير — 10 فصول متدرجة.
+تنبيه: هذا الكتاب يُعطي الخريطة — والشيخُ يُعطي الطريق. التلقي على شيخ متخصص واجبٌ لا غنى عنه.
+
+--- الفصل 01 — المَخَارِجُ --- من أين تخرج الحروف العربية؟
+في الفرنسية تخرج جميع الأصوات من منطقة واحدة. في العربية القرآنية تخرج من 5 مناطق مختلفة، بعضها غير موجود في الفرنسية.
+• الجَوْف: ا — و — ي (الممدودة) — مثال: قُولُوا — آمَنَّا → قل « a — ou — i » ممدودة ثانيتين.
+• الحَلْق: ء — هـ — ع — ح — غ — خ — مثال: الـ « r » الباريسي المغرغر قريب من الغ.
+• اللِّسَان: 18 حرفًا — مثال: ث = « th » الإنجليزية (think) — الَّذِينَ يُؤْمِنُونَ.
+• الشَّفَتَان: ف — و — م — ب — مطابقة للفرنسية تمامًا — مثال: بِسْمِ اللَّهِ.
+• الخَيْشُوم: صوت الغُنَّة — مثال: مِنَ الجِنَّةِ وَالنَّاسِ → سدَّ أنفك، إن تغيَّر الصوت فتلك الغنة.
+المراجع: تَعَلَّمِ الأَصْوَاتَ العَرَبِيَّةَ الصَّعْبَةَ لِغَيْرِ النَّاطِقِينَ بِهَا — عبد الفتّاح محمد — جامعة أم القرى.
+
+--- الفصل 02 — النُّونُ السَّاكِنَةُ وَالتَّنْوِينُ --- 4 تحولات للنون
+في الفرنسية لا يتغير الـ « n » أبدًا. في العربية القرآنية النُّونُ السَّاكِنَة تتحوَّل بـ4 طرق حسب الحرف التالي.
+الغُنَّةُ هِيَ الجِسْرُ الصَّوْتِيُّ بَيْنَ كُلِّ هَذِهِ الأَحْكَامِ.
+• الإِظْهَارُ — حروف الحلق: ء هـ ع ح غ خ — نون واضحة صريحة — مثال: مَنْ آمَنَ → مثل « n » في « âne ».
+• الإِدْغَامُ بِغُنَّةٍ — يَنْمُو (ي ن م و) — النون تندمج مع غنة — مثال: مَنْ يَقُولُ → مثل « bonne nuit » المتسارعة.
+• الإِدْغَامُ بِغَيْرِ غُنَّةٍ — ل ر — اندماج تام بلا غنة — مثال: مِنْ رَبِّهِمْ — هُدًى لِلْمُتَّقِينَ.
+• الإِقْلَابُ — ب فقط — النون تصير ميمًا مع غنة — مثال: مِنْ بَعْدُ → مثل « m » في « impossible ».
+• الإِخْفَاءُ — 15 حرفًا باقية — صوت أنفي معلَّق مع غنة — مثال: مِنْ كَانَ → مثل « n » في « dans ».
+
+--- الفصل 12 — أَحْكَامُ المِيمِ السَّاكِنَةِ --- أخت النون الساكنة (الفصل 02)، أحكام شفوية
+المِيمُ: حَرْفٌ شَفَوِيٌّ — مَخْرَجُهُ بَيْنَ الشَّفَتَيْنِ بِانْطِبَاقِهِمَا — تَصْحَبُهُ غُنَّةٌ مَخْرَجُهَا مِنَ الخَيْشُومِ.
+الصفات اللازمة: الجهر، البينية (التوسط)، الاستفال، الانفتاح، الإذلاق.
+المِيمُ السَّاكِنَةُ: الخالية من الحركات الثلاث، تَقَعُ مُتَوَسِّطَةً وَمُتَطَرِّفَةً (الأمرُ — يَمْحَقُ — أَمْ).
+سُمِّيَتْ أحكامها شفوية تمييزًا عن أحكام النون الساكنة.
+
+الحُكْمُ 1 — الإِدْغَامُ الشَّفَوِيُّ (fusion labiale):
+حَرْفُهُ: المِيمُ (م) فقط — إدغام مثلين صغير، كامل بغنة.
+الحُكْم: المِيمُ السَّاكِنَةُ تَنْدَمِجُ فِي المِيمِ المُتَحَرِّكَةِ فَتَصِيرَانِ مِيمًا مُشَدَّدَةً مع غنة أكمل ما تكون.
+رسم المصحف: تجريد الميم الأولى من السكون + تشديد الميم الثانية.
+مِثَالٌ: ﴿أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ﴾ (قريش ٤).
+
+الحُكْمُ 2 — الإِخْفَاءُ الشَّفَوِيُّ (dissimulation labiale):
+حَرْفُهُ: البَاءُ (ب) فقط.
+الحُكْم: الميم السَّاكِنَةُ تُخفى عند الباء — تُلفظ بإطباق الشفتين بلا مجافاة ولا كزٍّ مع غنة (كالإقلاب في الفصل 02).
+رسم المصحف: تجريد الميم من السكون + الباء بلا شدة.
+مِثَالٌ: ﴿نَبَأَهُم بِالْحَقِّ﴾ — ﴿أُنذِرُكُم بِالْوَحْيِ﴾.
+
+الحُكْمُ 3 — الإِظْهَارُ الشَّفَوِيُّ (clarté labiale):
+حُرُوفُهُ: كل حروف الهجاء عدا الميم والباء (والألف) — أي 26 حرفًا.
+الحُكْم: الميم السَّاكِنَةُ تُظهَر بإطباق الشفتين وتوضيح السكون بلا غنة زائدة.
+تنبيه: الإظهار أشد عند الواو (و) والفاء (ف) لقرب المخرج لئلا تُخفى الميم.
+مِثَالٌ: ﴿أَلَمْ نَشْرَحْ﴾ — ﴿لَعَلَّكُمْ تُفْلِحُونَ﴾ — ﴿هُمْ فِيهَا خَالِدُونَ﴾ — ﴿عَلَيْهِمْ وَلَا الضَّالِّينَ﴾.
+
+خُلَاصَةُ الفصل 12:
+• الإدغام الشفوي (م) — غنة أكمل — ميم مشددة → deux « m » fondus, nasalisé.
+• الإخفاء الشفوي (ب) — غنة — ميم بلا سكون، باء بلا شدة → « m » caché et nasalisé avant le « b ».
+• الإظهار الشفوي (٢٦ حرفًا) — لا غنة زائدة → « m » clair (surtout devant و et ف).
+الفرق الدقيق بين الإخفاء والإظهار يُتقن بالتلقي على شيخ متخصص.
+
+--- الفصل 13 — أَحْكَامُ لَامِ التَّعْرِيفِ --- الـ الشمسية والـ القمرية
+لَامُ التَّعْرِيفِ: اللام الساكنة مع همزة الوصل في أول الاسم (الـ) — حالتان بحسب الحرف الذي يليها.
+
+1) اللَّامُ القَمَرِيَّةُ — le lām lunaire (clair):
+الحُكْم: الإِظْهَارُ — تُنطق اللام ساكنة واضحة (كما في « القمر »).
+حروفها (١٤) — مجموعة في: اِبْغِ حَجَّكَ وَخَفْ عَقِيمَهُ:
+  أ — ب — غ — ح — ج — ك — و — خ — ف — ع — ق — ي — م — هـ.
+علامتها في المصحف: سُكُون ظاهر على اللام (لْ).
+مثال: القَمَرُ — الكِتَابُ — الحَمْدُ — البَيْتُ — العَلِيمُ — اليَوْمُ — المُؤْمِنُ — الأَحَدُ.
+
+2) اللَّامُ الشَّمْسِيَّةُ — le lām solaire (assimilé):
+الحُكْم: الإِدْغَامُ — لا تُنطق اللام، تُدغم في الحرف الذي بعدها فيُشدَّد (كما في « الشمس » → ash-shams بلا « l »).
+حروفها (١٤) الباقية: ت — ث — د — ذ — ر — ز — س — ش — ص — ض — ط — ظ — ل — ن.
+علامتها في المصحف: لا سكون على اللام + شدَّة على الحرف بعدها.
+مثال: الشَّمْسُ — الرَّحْمَٰنُ — النَّاسُ — التَّوَّابُ — الدِّينُ — السَّمِيعُ — الصِّرَاطُ — الظَّالِمُ.
+
+القاعدة العملية: انطق اللام → إن سمعتها (لْ) فقمرية — إن اختفت وشُدِّد ما بعدها فشمسية.
+  اَلْـقَمَر → on entend le « l » → قمرية.
+  اَشّـَمْس → le « l » disparaît, le ش doublé → شمسية.
+
+تنبيه — لام الفعل (bonus): تُظهر دائمًا (قُلْ — أَلْقَى) إلا إذا جاء بعدها لام أو راء فتُدغم:
+  ﴿قُل لَّهُمْ﴾ — ﴿قُل رَّبِّ﴾.
+
+خلاصة الفصل 13: القمرية (١٤ حرفًا — ابغِ حجَّك وخَف عقيمه) → إظهار، سكون على اللام.
+  الشمسية (١٤ حرفًا باقية) → إدغام، شدة على الحرف بعدها.
+يُتقن الفرق بالاستماع والتلقي على شيخ متخصص.
+
+--- الفصل 03 — الغُنَّةُ --- الجسر الصوتي، روح القرآن
+الغُنَّةُ صَوْتٌ لَذِيذٌ مُرَكَّبٌ فِي جِسْمِ النُّونِ وَالمِيمِ لَا عَمَلَ لِلِّسَانِ فِيهِ.
+الغنة ليست مضافةً إلى الحرف — هي في الحرف نفسه، كالعطر في الوردة.
+المخرج: الخيشوم. اختبار: سدَّ أنفك وانطق « مَنْ » → إن تغيَّر الصوت فقد قطعتَ الغنة.
+المدة: حركتان واجبتان (لا أقل ولا أكثر).
+المراتب الأربع (من الأقوى إلى الأضعف):
+  - أقوى: الغنة المشددة — مثال: إِنَّ / ثُمَّ.
+  - قوي: الغنة المخفاة — مثال: مِنْ قَبْلُ.
+  - متوسط: الغنة المدغمة — مثال: مِنْ مَاءٍ.
+  - أضعف: الغنة المتحركة — مثال: نَعْبُدُ.
+
+--- الفصل 04 — المُدُودُ --- 5 أنواع للإطالة
+كُلَّمَا كَانَ السَّبَبُ قَوِيًّا كَانَ المَدُّ قَوِيًّا. حروف المد: ا — و — ي (2 حركات طبيعية).
+• اللَّازِم — 6 حركات — واجب — مثال: الٓمٓ.
+• المُتَّصِل — 4-5 حركات — واجب — همزة في نفس الكلمة — مثال: جَاءَ.
+• العَارِض — 2 أو 4 أو 6 حركات — جائز — عند الوقف — مثال: نَسْتَعِينُ.
+• المُنْفَصِل — 2 أو 4 أو 5 حركات — جائز — همزة في كلمة تالية — مثال: إِنَّا أَنْزَلْنَا.
+• البَدَل — 2 حركات — جائز — همزة قبل حرف المد — مثال: آمَنَ.
+البيت المرتِّب (السمنودي): أَقْوَى المُدُودِ لَازِمٌ فَمَا اتَّصَلْ — فَعَارِضٌ فَذُو انْفِصَالٍ فَبَدَلْ.
+المدُّ ليس زينةً — هو روح التلاوة.
+
+--- الفصل 05 — التَّفْخِيمُ وَالتَّرْقِيقُ --- سمين ورفيع
+التفخيم: سِمَن — الفم ممتلئ. الترقيق: نُحُول — الفم خفيف.
+• 7 حروف سمينة دائمًا (حروف الاستعلاء — خُصَّ ضَغْطٍ قِظْ): خ ص ض ط ظ غ ق.
+• باقي الحروف رفيعة دائمًا حتى بجوار حرف سمين: م رفيع في مَخْمَصَة — س رفيع في مُسْتَقِيم — ح رفيع في الحَقّ.
+• ذوات الحكمين (3 حروف):
+  - الألف: تتبع الحرف السابق لها (سمينة أو رفيعة).
+  - لام لفظ الجلالة: سمينة بعد فتحة/ضمة (قَالَ اللَّهُ) — رفيعة بعد كسرة (بِسْمِ اللَّهِ).
+  - الراء: 6 أحوال بين التفخيم والترقيق حسب الحركة والموضع.
+
+--- الفصل 06 — القَلْقَلَةُ --- النبضة الصوتية
+اضْطِرَابُ المَخْرَجِ عِنْدَ النُّطْقِ بِالحَرْفِ سَاكِنًا حَتَّى يُسْمَعَ لَهُ نَبْرَةٌ قَوِيَّةٌ.
+بلا قلقلة لا يتبيَّن الحرف — كفلَّين شمبانيا ينطلق: الضغط يتحرر.
+• 5 حروف (قُطْبُ جَدٍّ): ق ط ب ج د.
+• صغرى (خفيفة) — وسط الكلمة — مثال: سُبْحَانَ — مُقْتَدِرًا.
+• كبرى (قوية) — عند الوقف النهائي — مثال: الفَلَقِ — مُحِيطٌ.
+• أكبر (مبحوثة) — شدة + وقف — مثال: الحَقِّ — الحَجِّ.
+اتجاه القلقلة: نحو الفتح (« a ») عند الجمهور.
+
+--- الفصل 07 — الإِمَالَةُ --- ميل الصوت
+الإِمَالَةُ: تَقْرِيبُ الأَلِفِ مِنَ اليَاءِ وَالفَتْحَةِ مِنَ الكَسْرَةِ — الـ « a » يميل نحو « è ».
+3 درجات: الفتح 0% (« a » نقي) — بين بين 50% (بين « a » و« è ») — الإمالة المحضة 100% (« è » نقي).
+رواية حفص: حالة واحدة في القرآن كله — مَجْرَاهَا (سورة هود، الآية 41):
+  قل « faire » بالفرنسية ثم أضف « ha » → تلك هي الإمالة.
+روايات أخرى (للمتقدمين): ورش (بين بين كثير: فواتح السور، التَّوْرَاة، أواخر آيات معينة) — حمزة / الكسائي (إمالة محضة: رَأَى / هُدًى) — ابن كثير (فتح كله).
+
+--- الفصل 08 — التَّقْلِيلُ --- الإمالة الخفيفة
+إِمَالَةٌ خَفِيفَةٌ — نِصْفُ الطَّرِيقِ — لا « a » ولا « è »، الصوت معلَّق في المنتصف.
+أسماء أخرى: التقليل / التلطيف / بين بين.
+التدرج: الفتح (« a » نقي) ← التقليل (« â » معلَّق 50%) ← الإمالة (« è » نقي).
+ورش إمام التقليل: هُدَى — رَمَى — أواخر الآيات المنتهية بياء — التَّوْرَاة.
+الحيلة الفرنسية: الـ « â » الممدود في « pâte » قريب جدًّا من التقليل.
+
+--- الفصل 09 — السَّكْتَةُ --- سر حفص عن عاصم
+السَّكْتُ: قَطْعُ الصَّوْتِ زَمَنًا دُونَ زَمَنِ الوَقْفِ مِنْ غَيْرِ تَنَفُّسٍ بِنِيَّةِ العَوْدِ.
+الفرق بين الأنواع الثلاثة:
+  - القطع: يتوقف ولا يرجع — يتنفس.
+  - الوقف: يرجع — يتنفس.
+  - السَّكْت (حركتان): يرجع — بلا تنفس أبدًا.
+مواضع السكت الستة عند حفص:
+  1. عِوَجَا (الكهف 1) — لتبيين أن قَيِّمًا مستقلة عنها — خاص بحفص.
+  2. مَرْقَدِنَا (يس 52) — نهاية كلام الكافرين — خاص بحفص.
+  3. مَنْ رَاقٍ (القيامة 27) — منع الإدغام بين الكلمتين — خاص بحفص.
+  4. بَلْ رَانَ (المطففين 14) — منع الإدغام بين الكلمتين — خاص بحفص.
+  5. بين سورة الأنفال وبراءة (لا بسملة بينهما) — مشترك.
+  6. مَالِيَهْ (الحاقة 28) — الفصل بين الآيتين — مشترك.
+السكتة ليست صمتًا — هِيَ كَلَامٌ بِلَا صَوْتٍ.
+
+--- الفصل 10 — الرَّوْمُ وَالإِشْمَامُ --- الصوت المحتضر وإشارة الشفتين
+الرَّوْمُ يُدْرِكُهُ السَّامِعُ — وَالإِشْمَامُ يُدْرِكُهُ النَّاظِرُ.
+الرَّوْمُ: إِضْعَافُ الصَّوْتِ بِالحَرَكَةِ حَتَّى يَذْهَبَ مُعْظَمُهَا مَعَ بَقَاءِ صَوْتٍ خَفِيٍّ — كالشمعة تنطفئ.
+  يجوز على الضمة (الرَّحِيمُ / نَسْتَعِينُ) والكسرة (اللَّهِ / الدِّينِ). مبحوث على الفتحة لسرعتها.
+الإِشْمَامُ: الإِشَارَةُ إِلَى حَرَكَةِ الرَّفْعِ بَعْدَ قَطْعِ الصَّوْتِ بِتَكْوِيرِ الشَّفَتَيْنِ مِنْ غَيْرِ صَوْتٍ.
+  تضم شفتيك كـ « ou » بلا صوت — الضمة مرئية لا مسموعة. خاص بالضمة فقط.
+مقارنة: الرَّوْم (أذن تسمع) / الإِشْمَام (عين ترى) / الوقف (صمت).
+الرَّوْمُ وَالإِشْمَامُ يُتعلَّمان من شيخ لا من كتاب — دَلِيلٌ عَلَى دِقَّةِ العُلَمَاءِ فِي حِفْظِ كِتَابِ اللَّهِ.
+وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ — عَلَيْهِ تَوَكَّلْتُ وَإِلَيْهِ أُنِيبُ.
+
+--- الفصل 11 — أَحْكَامُ الوَقْفِ وَالاِبْتِدَاءِ --- أين نقف وأين نبدأ لصون معنى القرآن
+المصدر: علم الوقف والابتداء (التام، الكافي، الحسن، اللازم، الممنوع…) — نظام علامات الإمام السَّجَاوَنْدِيِّ — مباحث المقطوع والموصول وهمزتي الوصل والقطع.
+فَضْلُهُ: قَالَ عَلِيٌّ رَضِيَ اللَّهُ عَنْهُ فِي تَفْسِيرِ ﴿وَرَتِّلِ القُرْآنَ تَرْتِيلًا﴾: «هُوَ تَجْوِيدُ الحُرُوفِ، وَمَعْرِفَةُ الوُقُوفِ.»
+وَقَالَ ابْنُ الأَنْبَارِيِّ: «مِنْ تَمَامِ مَعْرِفَةِ القُرْآنِ مَعْرِفَةُ الوَقْفِ وَالاِبْتِدَاءِ.»
+
+1) التَّعْرِيفُ:
+• الوَقْفُ: قَطْعُ الصَّوْتِ عَلَى آخِرِ الكَلِمَةِ زَمَنًا يَتَنَفَّسُ فِيهِ القَارِئُ بِنِيَّةِ اسْتِئْنَافِ القِرَاءَةِ.
+• القَطْعُ: قَطْعُ القِرَاءَةِ بِنِيَّةِ الاِنْتِهَاءِ (on arrête définitivement).
+• السَّكْتُ: قَطْعُ الصَّوْتِ زَمَنًا يَسِيرًا بِغَيْرِ تَنَفُّسٍ بِنِيَّةِ العَوْدِ (الفصل 09).
+
+2) تَقْسِيمَاتُ الوَقْفِ:
+• الاِضْطِرَارِيُّ (forcé): يَقِفُ مُضْطَرًّا لِعَارِضٍ (عُطَاسٌ، ضِيقُ نَفَسٍ، سُعَالٌ، نِسْيَانٌ).
+• الاِخْتِيَارِيُّ (volontaire): بِإِرَادَتِهِ — جَائِزٌ (تَمَّ مَعْنَاهُ) / مَمْنُوعٌ (لَمْ يَتِمَّ مَعْنَاهُ).
+• الاِنْتِظَارِيُّ: لِلْإِتْيَانِ بِأَوْجُهِ القِرَاءَاتِ عِنْدَ تَعَلُّمِ أَكْثَرَ مِنْ رِوَايَةٍ.
+• الاِخْتِبَارِيُّ: وَقْفُ الطَّالِبِ بِطَلَبِ مُعَلِّمِهِ لِاخْتِبَارِ مَعْرِفَتِهِ.
+
+3) الوَقْفُ الاِخْتِيَارِيُّ الجَائِزُ — 3 درجات:
+• التَّامُّ: تَمَّ مَعْنَاهُ وَلَمْ يَتَعَلَّقْ بِمَا بَعْدَهُ لَفْظًا وَلَا مَعْنًى — يَحْسُنُ الوَقْفُ وَالاِبْتِدَاءُ. مثال: ﴿وَأُولَٰئِكَ هُمُ المُفْلِحُونَ﴾ (البقرة ٥).
+• الكَافِي: تَمَّ مَعْنَاهُ وَيَتَعَلَّقُ بِمَا بَعْدَهُ مَعْنًى لَا لَفْظًا — يَحْسُنُ الوَقْفُ وَالاِبْتِدَاءُ. مثال: ﴿فَلْيَعْبُدُوا رَبَّ هَٰذَا البَيْتِ﴾ (قريش ٣).
+• الحَسَنُ: تَمَّ مَعْنَاهُ وَيَتَعَلَّقُ بِمَا بَعْدَهُ مَعْنًى وَلَفْظًا — يَحْسُنُ الوَقْفُ، لَا يَحْسُنُ الاِبْتِدَاءُ بِمَا بَعْدَهُ إِلَّا عَلَى رَأْسِ آيَةٍ. مثال: ﴿الحَمْدُ لِلَّهِ ۞ رَبِّ العَالَمِينَ﴾ (الفاتحة ٢).
+
+4) الوَقْفُ اللَّازِمُ (وَقْفُ البَيَانِ) — علامته (مـ):
+الوَقْفُ الَّذِي إِنْ لَمْ يُؤْتَ بِهِ أَوْهَمَ الوَصْلُ مَعْنًى مُخَالِفًا لِلمُرَادِ.
+• ﴿وَلَا يَحْزُنْكَ قَوْلُهُمْ مـ إِنَّ العِزَّةَ لِلَّهِ جَمِيعًا﴾ (يونس ٦٥).
+• ﴿فَتَوَلَّ عَنْهُمْ مـ يَوْمَ يَدْعُ الدَّاعِ﴾ (القمر ٦).
+• ﴿إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ مـ وَالمَوْتَى يَبْعَثُهُمُ اللَّهُ﴾ (الأنعام ٣٦).
+
+5) الوَقْفُ الاِخْتِيَارِيُّ المَمْنُوعُ — درجات القبح:
+• قبيح: يترك النص بلا معنى — مثال: ﴿وَهَلْ أَتَاكَ…﴾ (طه ٩) — ﴿سَبِّحِ اسْمَ…﴾ (الأعلى ١).
+• أشد قبحًا: يوهم معنى خلاف المراد — الوقف على ﴿…وَالمَوْتَى﴾ (الأنعام ٣٦).
+• أشدها: يوهم معنى مخالفًا للعقيدة — ﴿إِنَّ اللَّهَ لَا يَهْدِي…﴾ (المنافقون ٦) أو ﴿وَاللَّهُ لَا يَسْتَحْيِي…﴾ (الأحزاب ٥٣) — يُحذَر منه شديدًا.
+
+6) الاِبْتِدَاءُ بَعْدَ الوَقْفِ الاِضْطِرَارِيِّ:
+إِنْ حَسُنَ الاِبْتِدَاءُ بِالكَلِمَةِ التَّالِيَةِ اسْتَأْنَفَ مِنْهَا، وَإِلَّا أَعَادَ مَا يُتِمُّ بِهِ المَعْنَى.
+قَاعِدَةٌ: لَا يَكُونُ الاِبْتِدَاءُ إِلَّا بِمَا يَصِحُّ بِهِ المَعْنَى.
+
+7) عَلَامَاتُ الوَقْفِ فِي المُصْحَفِ:
+• (مـ) اللَّازِمُ — الوقف واجب. • (لا) المَمْنُوعُ — لا تقف إلا في آخر آية. • (ج) الجَائِزُ — الوقف والوصل سواء.
+• (صلى) الوَصْلُ أَوْلَى. • (قلى) الوَقْفُ أَوْلَى.
+• (∴ … ∴) وَقْفُ المُعَانَقَةِ: يُوقَفُ عَلَى أَحَدِ الموضعين لا كليهما. مثال: ﴿ذَٰلِكَ الكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِلْمُتَّقِينَ﴾ (البقرة ٢).
+
+8) كَيْفِيَّةُ الوَقْفِ عَلَى تَاءِ التَّأْنِيثِ:
+• التَّاءُ المَبْسُوطَةُ → يُوقَفُ بِالتَّاءِ السَّاكِنَةِ. مثال: ﴿رَحْمَتَ اللَّهِ﴾ → «رَحْمَتْ».
+• التَّاءُ المَرْبُوطَةُ → يُوقَفُ بِالهَاءِ. مثال: ﴿رَحْمَةٌ﴾ → «رَحْمَهْ».
+الكلمات بالتاء المبسوطة: رَحْمَت (٧) — نِعْمَت (١١) — اِمْرَأَت مضافة (٧) — كَلِمَت (٥) — سُنَّت — لَعْنَت (٢) — مَعْصِيَت (٢) — غَيَابَت — بَقِيَّت — قُرَّت — فِطْرَت — جَنَّت — اِبْنَت — بَيِّنَت — جِمَالَت — شَجَرَت.
+
+9) المَقْطُوعُ وَالمَوْصُولُ:
+قَاعِدَةٌ: لَا يَجُوزُ الوَقْفُ فِي وَسَطِ كَلِمَةٍ مُتَّصِلَةٍ رَسْمًا.
+• موصولتان: يُوقَفُ على الثانية لا الأولى — مثال: ﴿وَأَلَّوِ اسْتَقَامُوا﴾ (الجن ١٦) — ﴿بِئْسَمَا﴾ (البقرة ٩٣) — ﴿لِئَلَّا﴾ (النساء ١٦٥).
+• مقطوعتان: يُوقَفُ على أي منهما — مثال: ﴿وَإِن مَّا﴾ (الرعد ٤٠) — ﴿أَن لَّا﴾ (القلم ٢٤).
+• كلمة مجزأة: ﴿سَلَامٌ عَلَىٰ إِلْ يَاسِينَ﴾ (الصافات ١٣٠) — يُوقَفُ على «إِلْ يَاسِينَ» معًا لا على «إِلْ» وحدها.
+
+10) مَوَاضِعُ خَاصَّةٌ:
+• (أَيُّهَ) بِتَسْكِينِ الهَاءِ بِلَا أَلِفٍ في 3 مواضع فقط: ﴿أَيُّهَ المُؤْمِنُونَ﴾ (النور ٣١) — ﴿أَيُّهَ السَّاحِرُ﴾ (الزخرف ٤٩) — ﴿أَيُّهَ الثَّقَلَانِ﴾ (الرحمن ٣١). وما سواها بالألف (يَا أَيُّهَا).
+• اللَّامُ المُنْفَصِلَةُ في 4 مواضع: ﴿فَمَالِ هَٰؤُلَاءِ﴾ (النساء ٧٨) — ﴿مَالِ هَٰذَا الكِتَابِ﴾ (الكهف ٤٩) — ﴿مَالِ هَٰذَا الرَّسُولِ﴾ (الفرقان ٧) — ﴿فَمَالِ الَّذِينَ كَفَرُوا﴾ (المعارج ٣٦).
+
+11) هَمْزَةُ الوَصْلِ وَهَمْزَةُ القَطْعِ (عند الابتداء):
+• هَمْزَةُ الوَصْلِ: تَثْبُتُ ابْتِدَاءً وَتَسْقُطُ وَصْلًا — تُكتب (ٱ).
+  - فعل: إن ضُمَّ ثالثه ضمًّا أصليًّا → ابتدئ بالضم (اُنْظُرْ — اُدْعُ) — وإلا → بالكسر (اِهْدِنَا — اِرْكَعُوا).
+  - اسم بـ(الـ): ابتدئ بالفتح (اَلْأَرْضُ) — اسم بلا (الـ): بالكسر (اِبْنُ — اِسْتِغْفَار).
+  - استثناء بالضم خلافًا للقاعدة: اُقْضُوا — اُمْشُوا — اُبْنُوا — اُمْضُوا — اُئْتُوا.
+• هَمْزَةُ القَطْعِ: تَثْبُتُ ابْتِدَاءً وَوَصْلًا وَتُنطق دائمًا — مثال: ﴿إِنَّا أَعْطَيْنَاكَ﴾ — ﴿أَطْعَمَهُمْ﴾.
+
+تَنْبِيهٌ: أَحْكَامُ الوَقْفِ وَالاِبْتِدَاءِ مِنْ أَهَمِّ مَبَاحِثِ التَّجْوِيدِ، وَتُتْقَنُ بِالتَّلَقِّي عَلَى شَيْخٍ مُتْقِنٍ مَعَ تَدَبُّرِ المَعَانِي.
+
+أجِب بالعربية المشكّلة أولاً ثم بالفرنسية، واذكر الأمثلة من القرآن بالتشكيل الكامل.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]\nيُنصح بالتلقي على شيخ متخصص.`,
+   levels:[
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — الأَسَاسِيَّات',labelFr:'Fondation',badge:'Débutant',numBg:'#1D9E75',badgeC:'#E1F5EE',badgeTxt:'#085041',
+      books:[
+        {n:1,ar:'تُحْفَةُ الأَطْفَال',auth:'الجمزوري (ت.1197هـ)',desc:'Poème fondateur — 61 vers, incontournable pour débuter.',bg:'linear-gradient(135deg,#1D9E75,#085041)',yt:'https://www.youtube.com/results?search_query=شرح+تحفة+الأطفال+تجويد',sh:'https://shamela.ws/search?q=تحفة+الأطفال+الجمزوري'},
+        {n:2,ar:'مَتْنُ الجَزَرِيَّة',auth:'ابن الجزري (ت.833هـ)',desc:'Makhârij et sifât — la référence absolue du tajweed.',bg:'linear-gradient(135deg,#5DCAA5,#1D9E75)',yt:'https://www.youtube.com/results?search_query=شرح+متن+الجزرية+تجويد',sh:'https://shamela.ws/search?q=متن+الجزرية+ابن+الجزري'},
+      ]},
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — الأَحْكَام',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'الفَوَائِدُ المَكِّيَّة — رِوَايَةُ حَفْص',auth:'السمنودي',desc:'Approfondissement des règles — spécial Hafs.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=الفوائد+المكية+تجويد+حفص',sh:'https://shamela.ws/search?q=الفوائد+المكية+السمنودي'},
+        {n:2,ar:'حِرْزُ الأَمَانِي — الشَّاطِبِيَّة',auth:'الشاطبي (ت.590هـ)',desc:'Poème sur les sept lectures — niveau avancé.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=شرح+الشاطبية+قراءات',sh:'https://shamela.ws/search?q=الشاطبية'},
+      ]},
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — القِرَاءَات',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'النَّشْرُ فِي القِرَاءَاتِ العَشْر',auth:'ابن الجزري (ت.833هـ)',desc:'Encyclopédie des dix lectures — référence suprême.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=النشر+في+القراءات+العشر+ابن+الجزري',sh:'https://shamela.ws/search?q=النشر+في+القراءات+العشر'},
+      ]},
+   ]},
+  {id:'tafsir',icon:'📗',labelAr:'التَّفْسِير',label:'Tafsir',heroBg:'linear-gradient(135deg,#065F46,#059669)',ava:'📗',avaBg:'#D1FAE5',
+   system:`أنتَ عالمٌ متخصص في تفسير القرآن الكريم.
+المصادر: تفسير ابن كثير، تفسير الطبري، تفسير السعدي، الجلالين.
+قواعد: أجب بالعربية المشكّلة أولاً ثم بالفرنسية. اذكر الآيات بالتشكيل. بيّن أسباب النزول عند الحاجة.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]\nيُنصح بمراجعة علماء متخصصين.`,
+   levels:[
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — المَدْخَل',labelFr:'Introduction',badge:'Débutant',numBg:'#059669',badgeC:'#D1FAE5',badgeTxt:'#065F46',
+      books:[
+        {n:1,ar:'تَفْسِيرُ الجَلَالَيْن',auth:'السيوطي / المحلي (ت.911هـ)',desc:'Commentaire concis — première étape incontournable.',bg:'linear-gradient(135deg,#059669,#065F46)',yt:'https://www.youtube.com/results?search_query=شرح+تفسير+الجلالين',sh:'https://shamela.ws/search?q=تفسير+الجلالين'},
+        {n:2,ar:'تَيْسِيرُ الكَرِيمِ الرَّحْمَن',auth:'السعدي (ت.1376هـ)',desc:'Tafsir clair et accessible — très recommandé.',bg:'linear-gradient(135deg,#34D399,#059669)',yt:'https://www.youtube.com/results?search_query=تفسير+السعدي+تيسير+الكريم',sh:'https://shamela.ws/search?q=تيسير+الكريم+الرحمن+السعدي'},
+      ]},
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — التَّوَسُّع',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'تَفْسِيرُ القُرْآنِ العَظِيم',auth:'ابن كثير (ت.774هـ)',desc:'Le tafsir de référence — bi\'l-ma\'thour complet.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=تفسير+ابن+كثير+كامل',sh:'https://shamela.ws/search?q=تفسير+ابن+كثير'},
+      ]},
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — المَصَادِرُ الكُبْرَى',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'جَامِعُ البَيَانِ عَنْ تَأْوِيلِ القُرْآن',auth:'الطبري (ت.310هـ)',desc:'L\'encyclopédie — 30 volumes, référence fondatrice.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=تفسير+الطبري+جامع+البيان',sh:'https://shamela.ws/search?q=جامع+البيان+الطبري'},
+        {n:2,ar:'البَحْرُ المُحِيط',auth:'أبو حيان الأندلسي (ت.745هـ)',desc:'Tafsir grammatical et linguistique — chef-d\'œuvre.',bg:'linear-gradient(135deg,#3C3489,#26215C)',yt:'https://www.youtube.com/results?search_query=البحر+المحيط+أبو+حيان+تفسير',sh:'https://shamela.ws/search?q=البحر+المحيط+أبو+حيان'},
+      ]},
+   ]},
+  {id:'uloom',icon:'🌟',labelAr:'عُلُومُ القُرْآن',label:'Sciences coraniques',heroBg:'linear-gradient(135deg,#92400E,#D97706)',ava:'🌟',avaBg:'#FEF3C7',
+   system:`أنتَ متخصصٌ في علوم القرآن الكريم: الناسخ والمنسوخ، المكي والمدني، أسباب النزول، المحكم والمتشابه، القراءات، جمع القرآن.
+المصادر: الإتقان للسيوطي، مناهل العرفان للزرقاني، مباحث في علوم القرآن لمناع القطان.
+قواعد: أجب بالعربية المشكّلة أولاً ثم بالفرنسية.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+   levels:[
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — المَدْخَل',labelFr:'Introduction',badge:'Débutant',numBg:'#D97706',badgeC:'#FEF3C7',badgeTxt:'#92400E',
+      books:[
+        {n:1,ar:'مَبَاحِثُ فِي عُلُومِ القُرْآن',auth:'مناع القطان (ت.1999م)',desc:'Introduction moderne et claire — idéal pour débuter.',bg:'linear-gradient(135deg,#D97706,#92400E)',yt:'https://www.youtube.com/results?search_query=مباحث+في+علوم+القرآن+مناع+القطان',sh:'https://shamela.ws/search?q=مباحث+في+علوم+القرآن'},
+      ]},
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — التَّعَمُّق',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'مَنَاهِلُ العِرْفَانِ فِي عُلُومِ القُرْآن',auth:'الزرقاني (ت.1952م)',desc:'Référence intermédiaire — deux volumes essentiels.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=مناهل+العرفان+في+علوم+القرآن',sh:'https://shamela.ws/search?q=مناهل+العرفان+الزرقاني'},
+      ]},
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — الإِتْقَان',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'الإِتْقَانُ فِي عُلُومِ القُرْآن',auth:'السيوطي (ت.911هـ)',desc:'L\'encyclopédie suprême — 80 disciplines coraniques.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=الإتقان+في+علوم+القرآن+السيوطي',sh:'https://shamela.ws/search?q=الإتقان+في+علوم+القرآن'},
+      ]},
+   ]},
+  {id:'hifz',icon:'🎯',labelAr:'الحِفْظ',label:'Mémorisation',heroBg:'linear-gradient(135deg,#1E3A8A,#2563EB)',ava:'🎯',avaBg:'#DBEAFE',
+   system:`أنتَ مُيَسِّرٌ متخصص في حفظ القرآن الكريم وتثبيته.
+تُرشد الطلاب في خطوات الحفظ اليومي، المراجعة، وأسباب النسيان وعلاجه.
+قواعد: أجب بالعربية المشكّلة أولاً ثم بالفرنسية. قدّم خططاً عملية مفصّلة.
+الصيغة: 🇸🇦 [بالعربية]\n\n🇫🇷 [En français]`,
+   levels:[
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — البِدَايَة',labelFr:'Démarrage',badge:'Débutant',numBg:'#2563EB',badgeC:'#DBEAFE',badgeTxt:'#1E3A8A',
+      books:[
+        {n:1,ar:'مَنْهَجُ ابْنِ بَاز فِي الحِفْظ',auth:'ابن باز (ت.1999م)',desc:'Programme simple et efficace — juz par juz.',bg:'linear-gradient(135deg,#2563EB,#1E3A8A)',yt:'https://www.youtube.com/results?search_query=طريقة+ابن+باز+حفظ+القرآن',sh:'https://shamela.ws/search?q=حفظ+القرآن+ابن+باز'},
+        {n:2,ar:'كَيْفَ تَحْفَظُ القُرْآنَ فِي سَنَة',auth:'منهج عملي مجرّب',desc:'1 page par jour = Quran complet en 1 an.',bg:'linear-gradient(135deg,#60A5FA,#2563EB)',yt:'https://www.youtube.com/results?search_query=كيف+تحفظ+القرآن+في+سنة+منهج',sh:'https://shamela.ws/search?q=حفظ+القرآن+في+سنة'},
+      ]},
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — التَّثْبِيت',labelFr:'Consolidation',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'طَرِيقَةُ التَّثْبِيتِ وَالمُرَاجَعَة',auth:'منهج علماء التحفيظ',desc:'Révision systématique — vaincre l\'oubli.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=طريقة+تثبيت+حفظ+القرآن+مراجعة',sh:'https://shamela.ws/search?q=مراجعة+القرآن+وتثبيته'},
+      ]},
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — الضَّبْط',labelFr:'Maîtrise',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'مَنَاهِجُ الحُفَّاظِ الأَوَائِل',auth:'علماء متخصصون',desc:'Techniques des grands huffâz — maîtrise totale.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=مناهج+حفاظ+القرآن+الكبار+ضبط',sh:'https://shamela.ws/search?q=حفظ+القرآن+وضبطه'},
+      ]},
+   ]},
+  {id:'irab',icon:'🔎',labelAr:'إِعْرَابُ القُرْآن',label:'Analyse grammaticale',heroBg:'linear-gradient(135deg,#4C1D95,#7C3AED)',ava:'🔎',avaBg:'#EDE9FE',
+   system:`أنتَ إمامٌ في إعراب القرآن الكريم. تُعرب الآيات كلمةً بكلمة مع ذكر الشواهد النحوية.
+المصادر: إعراب القرآن للنحاس، التبيان للعكبري، مشكل إعراب القرآن لمكي، الدر المصون للسمين الحلبي.
+قواعد: أجب بالعربية المشكّلة. أعرب كل كلمة مع موقعها الإعرابي ثم اشرح بالفرنسية.
+الصيغة: 🇸🇦 [الإعراب بالعربية]\n\n🇫🇷 [Explication en français]`,
+   levels:[
+     {num:1,labelAr:'المَرْحَلَةُ الأُولَى — أَسَاسِيَّاتُ الإِعْرَاب',labelFr:'Fondation',badge:'Débutant',numBg:'#7C3AED',badgeC:'#EDE9FE',badgeTxt:'#4C1D95',
+      books:[
+        {n:1,ar:'إِعْرَابُ القُرْآنِ الكَرِيم',auth:'محيي الدين الدرويش',desc:'Î\'râb complet des 30 juz — clair et détaillé.',bg:'linear-gradient(135deg,#7C3AED,#4C1D95)',yt:'https://www.youtube.com/results?search_query=إعراب+القرآن+الدرويش+شرح',sh:'https://shamela.ws/search?q=إعراب+القرآن+الدرويش'},
+        {n:2,ar:'مُشْكِلُ إِعْرَابِ القُرْآن',auth:'مكي بن أبي طالب (ت.437هـ)',desc:'Les points grammaticaux difficiles du Quran.',bg:'linear-gradient(135deg,#A78BFA,#7C3AED)',yt:'https://www.youtube.com/results?search_query=مشكل+إعراب+القرآن+مكي',sh:'https://shamela.ws/search?q=مشكل+إعراب+القرآن'},
+      ]},
+     {num:2,labelAr:'المَرْحَلَةُ الثَّانِيَة — التَّعَمُّق',labelFr:'Intermédiaire',badge:'Intermédiaire',numBg:'#E09F3E',badgeC:'#FEF3DC',badgeTxt:'#854F0B',
+      books:[
+        {n:1,ar:'التِّبْيَانُ فِي إِعْرَابِ القُرْآن',auth:'العكبري (ت.616هـ)',desc:'Commentaire grammatical classique — indispensable.',bg:'linear-gradient(135deg,#FAC775,#E09F3E)',yt:'https://www.youtube.com/results?search_query=التبيان+في+إعراب+القرآن+العكبري',sh:'https://shamela.ws/search?q=التبيان+في+إعراب+القرآن'},
+        {n:2,ar:'إِعْرَابُ القُرْآنِ وَبَيَانُه',auth:'محيي الدين الدرويش',desc:'Analyse complète avec explication des nuances.',bg:'linear-gradient(135deg,#EF9F27,#BA7517)',yt:'https://www.youtube.com/results?search_query=إعراب+القرآن+وبيانه+الدرويش',sh:'https://shamela.ws/search?q=إعراب+القرآن+وبيانه'},
+      ]},
+     {num:3,labelAr:'المَرْحَلَةُ الثَّالِثَة — الإِتْقَان',labelFr:'Expert',badge:'Expert',numBg:'#534AB7',badgeC:'#EEEDFE',badgeTxt:'#3C3489',
+      books:[
+        {n:1,ar:'الدُّرُّ المَصُونُ فِي عُلُومِ الكِتَابِ المَكْنُون',auth:'السمين الحلبي (ت.756هـ)',desc:'Encyclopédie de l\'analyse grammaticale — 11 volumes.',bg:'linear-gradient(135deg,#7F77DD,#534AB7)',yt:'https://www.youtube.com/results?search_query=الدر+المصون+السمين+الحلبي',sh:'https://shamela.ws/search?q=الدر+المصون+السمين+الحلبي'},
+        {n:2,ar:'إِعْرَابُ القُرْآن',auth:'النحاس (ت.338هـ)',desc:'L\'une des premières références classiques.',bg:'linear-gradient(135deg,#3C3489,#26215C)',yt:'https://www.youtube.com/results?search_query=إعراب+القرآن+النحاس',sh:'https://shamela.ws/search?q=إعراب+القرآن+النحاس'},
+      ]},
+   ]},
+];
+
+let curAgent='tajwid',curLevels={tajwid:0,tafsir:0,uloom:0,hifz:0,irab:0};
+let curSection='agents',chatHistory=[],curAgentData=null,isLoading=false;
+
+function getAgent(){return AGENTS.find(a=>a.id===curAgent);}
+function renderTabs(){
+  const iBtn=`<button class="agent-btn${curSection==='intro'?' active':''}" onclick="switchToIntro()">📖 <span style="font-family:Amiri,serif;font-size:14px;">المُقَدِّمَة</span></button>`;
+  const aBtns=AGENTS.map(a=>`
+    <button class="agent-btn${curSection==='agents'&&a.id===curAgent?' active':''}" onclick="switchAgent('${a.id}')">
+      ${a.icon} <span style="font-family:Amiri,serif;font-size:14px;">${a.labelAr}</span>
+    </button>`).join('');
+  document.getElementById('agentTabs').innerHTML=iBtn+aBtns;
+}
+function renderContent(){
+  const ag=getAgent(),lvIdx=curLevels[ag.id],lv=ag.levels[lvIdx];
+  document.getElementById('mainContent').innerHTML=`
+    <div class="agent-hero" style="background:${ag.heroBg}">
+      <div class="hero-inner">
+        <div class="hero-icon">${ag.icon}</div>
+        <div>
+          <div class="hero-ar">${ag.labelAr} — وَكِيلٌ ذَكِيٌّ مُتَخَصِّص</div>
+          <div class="hero-fr">${ag.label} — Agent intelligent • 3 niveaux</div>
+        </div>
+      </div>
+    </div>
+    <div class="agent-bar">
+      <div class="agt-ava" style="background:${ag.avaBg}">${ag.ava}</div>
+      <div class="agt-info"><div class="agt-name">الأُسْتَاذُ — وَكِيلُ ${ag.labelAr}</div><div class="agt-sub">Agent spécialisé — ${ag.label}</div></div>
+      <button class="agt-btn" onclick="openChat('','عام')">اسْأَلِ الوَكِيل</button>
+    </div>
+    <div class="levels-tabs">${ag.levels.map((l,i)=>`<button class="lvl-tab${i===lvIdx?' active':''}" onclick="switchLevel(${i})">${l.num}. ${l.labelFr}</button>`).join('')}</div>
+    <div class="level-info">
+      <div class="lv-num" style="background:${lv.numBg}">${lv.num}</div>
+      <div><div class="lv-title-ar">${lv.labelAr}</div><div class="lv-title-fr">${lv.labelFr}</div></div>
+      <span class="lv-badge" style="background:${lv.badgeC};color:${lv.badgeTxt}">${lv.badge}</span>
+    </div>
+    <div class="books-grid">${lv.books.map(b=>`
+      <div class="book-card">
+        <div class="book-cover" style="background:${b.bg}">
+          <span class="cover-n">${b.n}.</span>
+          <div class="cover-ar">${b.ar}</div>
+          <div class="cover-auth">${b.auth}</div>
+        </div>
+        <div class="book-body">
+          <div class="book-desc">${b.desc}</div>
+          <div class="book-links">
+            <a class="btn-lnk" href="${b.yt}" target="_blank">▶ يوتيوب</a>
+            <a class="btn-lnk" href="${b.sh}" target="_blank">📖 شاملة</a>
+          </div>
+          <button class="btn-agent" onclick="openChat('${b.ar.replace(/'/g,"\\'")}','${lv.badge}')">🤖 اسأل الوكيل ←</button>
+        </div>
+      </div>`).join('')}</div>`;
+}
+function switchToIntro(){curSection='intro';document.getElementById('introWrap').style.display='block';document.getElementById('mainContent').style.display='none';renderTabs();}
+function switchAgent(id){curSection='agents';curAgent=id;document.getElementById('introWrap').style.display='none';document.getElementById('mainContent').style.display='block';renderTabs();renderContent();}
+function switchLevel(i){curLevels[curAgent]=i;renderContent();}
+function openChat(bookAr,level){
+  const ag=getAgent();curAgentData=ag;chatHistory=[];
+  document.getElementById('mAva').textContent=ag.ava;
+  document.getElementById('mAva').style.background=ag.avaBg;
+  document.getElementById('mName').textContent='وَكِيلُ '+ag.labelAr;
+  document.getElementById('mLevel').textContent=bookAr?'📖 '+bookAr:'استشارة عامة — '+level;
+  document.getElementById('chatArea').innerHTML=`<div class="welcome">${ag.ava}<br>مرحباً — اسألني عن ${ag.labelAr}<br><small style="direction:ltr">Posez votre question en arabe ou en français</small></div>`;
+  document.getElementById('modalWrap').classList.add('open');
+  setTimeout(()=>document.getElementById('chatIn').focus(),100);
+}
+function closeModal(){document.getElementById('modalWrap').classList.remove('open');}
+function appendMsg(role,text){
+  const area=document.getElementById('chatArea');
+  const w=area.querySelector('.welcome');if(w)w.remove();
+  const div=document.createElement('div');div.className=`msg ${role}`;
+  div.innerHTML=role==='agent'
+    ?`<div class="m-av-sm" style="background:${curAgentData.avaBg}">${curAgentData.ava}</div><div class="bubble">${text.replace(/\n/g,'<br>')}</div>`
+    :`<div class="bubble">${text}</div>`;
+  area.appendChild(div);area.scrollTop=area.scrollHeight;
+}
+function showTyping(){
+  const area=document.getElementById('chatArea');
+  const d=document.createElement('div');d.className='msg agent';d.id='typEl';
+  d.innerHTML=`<div class="m-av-sm" style="background:${curAgentData.avaBg}">${curAgentData.ava}</div><div class="bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+  area.appendChild(d);area.scrollTop=area.scrollHeight;
+}
+function hideTyping(){const t=document.getElementById('typEl');if(t)t.remove();}
+async function callAgent(msg,level){
+  if(isLoading)return;
+  isLoading=true;document.getElementById('sendBtn').disabled=true;
+  showTyping();chatHistory.push({role:'user',content:msg});
+  try{
+    const r=await fetch('/.netlify/functions/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        system:curAgentData.system+'\n\nمستوى الطالب: '+(level||'عام'),
+        messages:chatHistory})
+    });
+    const data=await r.json();
+    if(!r.ok)throw new Error(data?.error||'HTTP '+r.status);
+    const reply=data.text||'عفواً، لا توجد إجابة.';
+    hideTyping();appendMsg('agent',reply);
+    chatHistory.push({role:'assistant',content:reply});
+  }catch(err){
+    hideTyping();
+    const area=document.getElementById('chatArea');
+    const d=document.createElement('div');d.className='err-msg';
+    d.innerHTML='⚠️ '+err.message;
+    area.appendChild(d);area.scrollTop=area.scrollHeight;
+  }
+  isLoading=false;document.getElementById('sendBtn').disabled=false;
+}
+function sendMsg(){
+  const inp=document.getElementById('chatIn');const msg=inp.value.trim();if(!msg)return;
+  inp.value='';inp.style.height='auto';appendMsg('user',msg);callAgent(msg,'عام');
+}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+document.getElementById('chatIn').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,70)+'px';});
+document.getElementById('modalWrap').addEventListener('click',function(e){if(e.target===this)closeModal();});
+renderTabs();renderContent();
+</script>
+</body>
+</html>
