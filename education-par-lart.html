@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Éducation par l'Art — La lettre et le Nom</title>
+<meta name="description" content="Comprendre la calligraphie arabe et les Noms divins qu'elle porte. Accès libre.">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#131A2B; --ink-soft:#2A3348; --parchment:#F7F5EF;
+  --rule:#C9C4B4; --verdigris:#2E6B5E; --carmine:#93303A;
+  --gold:#A8863F; --shadow:rgba(19,26,43,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--ink);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;line-height:1.6;padding-bottom:4rem}
+.wrap{max-width:820px;margin:0 auto;padding:0 1.1rem}
+
+header{padding:3.6rem 0 2.8rem;color:var(--parchment)}
+.eyebrow{font-family:'Archivo Narrow',sans-serif;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem}
+h1{font-family:'Amiri',serif;font-weight:700;font-size:clamp(2rem,5.6vw,2.9rem);line-height:1.15}
+h1 .ar{display:block;font-size:.6em;color:var(--rule);margin-top:.3rem;font-weight:400}
+.lede{margin-top:1.1rem;max-width:56ch;color:#D9D5C8;font-size:1.02rem}
+.libre{display:inline-flex;margin-top:1.5rem;padding:.5rem .9rem;border:1px solid rgba(168,134,63,.45);border-radius:2px;font-family:'Archivo Narrow',sans-serif;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
+
+
+/* ---- retour accueil ---- */
+.retour{display:inline-flex;align-items:center;gap:.45rem;margin-bottom:1.5rem;padding:.45rem .85rem;border:1px solid rgba(168,134,63,.4);border-radius:2px;font-family:'Archivo Narrow',sans-serif;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:background .18s}
+.retour:hover,.retour:focus-visible{background:rgba(168,134,63,.12)}
+.retour-bas{display:block;text-align:center;margin-top:1.8rem;color:var(--rule);text-decoration:none;font-size:.9rem}
+.retour-bas:hover{color:var(--gold)}
+
+.panel{background:var(--parchment);border-radius:3px;padding:1.9rem 1.6rem;margin-bottom:1.15rem;box-shadow:0 1px 3px var(--shadow)}
+.panel h2{font-family:'Amiri',serif;font-size:1.42rem;font-weight:700;padding-bottom:.6rem;margin-bottom:1.1rem;border-bottom:1px solid var(--rule)}
+.panel h3{font-family:'Archivo Narrow',sans-serif;font-size:.82rem;letter-spacing:.13em;text-transform:uppercase;color:var(--verdigris);margin:1.6rem 0 .55rem}
+.panel h3:first-of-type{margin-top:0}
+.panel p{margin-bottom:.85rem}
+.panel p:last-child{margin-bottom:0}
+
+/* styles calligraphiques */
+.styles{display:grid;gap:.9rem;margin-top:.5rem}
+.style{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:start;padding-bottom:.9rem;border-bottom:1px solid #E4E0D4}
+.style:last-child{border-bottom:none;padding-bottom:0}
+.style .glyph{font-family:'Amiri',serif;font-size:2.4rem;line-height:1;color:var(--gold);min-width:3.4rem;text-align:center}
+.style .n{font-weight:600;display:block}
+.style .n em{font-family:'Amiri',serif;font-style:normal;color:var(--ink-soft);font-weight:400;margin-left:.4rem}
+.style .d{font-size:.94rem;color:var(--ink-soft)}
+
+/* vidéos */
+.films{display:grid;gap:.8rem;margin-top:.4rem}
+.film{display:block;padding:1rem 1.1rem;background:#EFEDE4;border:1px solid var(--rule);border-radius:3px;text-decoration:none;color:var(--ink);transition:border-color .18s}
+.film:hover,.film:focus-visible{border-color:var(--verdigris)}
+.film .src{font-family:'Archivo Narrow',sans-serif;font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--verdigris)}
+.film .t{font-weight:600;display:block;margin:.15rem 0 .2rem}
+.film .d{font-size:.9rem;color:var(--ink-soft)}
+
+/* toiles */
+.toile{background:var(--parchment);border-radius:3px;margin-bottom:1.15rem;box-shadow:0 1px 3px var(--shadow);overflow:hidden}
+.planche{position:relative;background:var(--ink);display:grid;place-items:center;padding:1.6rem}
+.planche img{width:100%;max-width:420px;height:auto;display:block}
+.serie{position:absolute;top:.9rem;right:1rem;font-family:'Archivo Narrow',sans-serif;font-size:.72rem;letter-spacing:.12em;color:var(--gold);border:1px solid rgba(168,134,63,.4);padding:.2rem .5rem;border-radius:2px}
+.lecture{padding:1.7rem 1.6rem}
+.translit{font-family:'Archivo Narrow',sans-serif;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--verdigris)}
+.nom-ar{font-family:'Amiri',serif;font-size:2.1rem;font-weight:700;line-height:1.3;margin:.1rem 0 .3rem;direction:rtl}
+.sens{font-size:1.02rem;color:var(--ink-soft);padding-bottom:.9rem;margin-bottom:1rem;border-bottom:1px solid var(--rule)}
+.lecture h4{font-family:'Archivo Narrow',sans-serif;font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;color:var(--verdigris);margin:1.2rem 0 .4rem}
+.lecture p{margin-bottom:.6rem;font-size:.97rem}
+.verset{background:#EFEDE4;border-left:3px solid var(--gold);padding:.9rem 1.1rem;border-radius:0 3px 3px 0;margin-bottom:.9rem}
+.v-ar{font-family:'Amiri',serif;font-size:1.3rem;direction:rtl;text-align:right;line-height:1.9;margin-bottom:.4rem!important}
+.v-fr{font-size:.95rem;font-style:italic;margin-bottom:.25rem!important}
+.verset cite,.hadith cite{display:block;font-family:'Archivo Narrow',sans-serif;font-size:.75rem;letter-spacing:.06em;color:var(--ink-soft);font-style:normal}
+.hadith{border-left:3px solid var(--verdigris);padding:.8rem 1.1rem;background:#EDF1EF;border-radius:0 3px 3px 0;margin-bottom:.9rem}
+.hadith p{font-size:.95rem;font-style:italic;margin-bottom:.25rem!important}
+.fruit{color:var(--ink-soft)}
+
+.garde{background:#FBF3F0;border-left:3px solid var(--carmine);padding:1.1rem 1.2rem;margin:1.3rem 0;border-radius:0 3px 3px 0}
+.garde b{color:var(--carmine)}
+.garde p{font-size:.95rem}
+
+.soutien{background:#EFEDE4;border:1px solid var(--rule);box-shadow:none}
+.soutien h3{margin-top:0;color:var(--gold)}
+.soutien p{font-size:.95rem}
+.soutien a{font-weight:600;text-decoration:none;border-bottom:1px solid var(--verdigris);color:var(--verdigris)}
+
+.note{font-size:.88rem;color:var(--ink-soft);font-style:italic}
+footer{color:var(--rule);text-align:center;padding:2.4rem 0 0;font-size:.85rem;line-height:1.8}
+footer .ar{font-family:'Amiri',serif;font-size:1.15rem;color:var(--gold);display:block;margin-bottom:.7rem}
+a{color:var(--verdigris)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media(max-width:560px){
+  .panel,.lecture{padding:1.5rem 1.15rem}
+  .planche{padding:1.1rem}
+  .style{grid-template-columns:1fr;gap:.3rem}
+  .style .glyph{text-align:left;font-size:2rem}
+  .nom-ar{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <a class="retour" href="index.html">← Bibliothèque</a>
+  <p class="eyebrow">ArchiART — accès libre, sans compte</p>
+  <h1>Éducation par l'Art<span class="ar">التربية بالفن</span></h1>
+  <p class="lede">La calligraphie islamique n'est pas une décoration : c'est un savoir. La lettre porte le sens, la forme enseigne. Cette page transmet d'abord ce qu'il faut comprendre pour lire une œuvre — le reste vient après.</p>
+  <span class="libre">Le savoir se donne</span>
+</header>
+
+<!-- ===== POURQUOI LA LETTRE ===== -->
+<section class="panel">
+  <h2>Pourquoi la lettre est devenue un art</h2>
+  <p>Dans l'islam, le Coran est Parole révélée. Écrire cette Parole engage donc une responsabilité : la forme doit être à la hauteur de ce qu'elle porte. C'est de cette exigence qu'est née la calligraphie arabe — non d'un goût pour l'ornement, mais d'un respect du texte.</p>
+  <p>Peu à peu, l'écriture est devenue une discipline transmise de maître à élève, avec ses règles de proportion, ses instruments et son <i>ijāza</i> — l'autorisation d'enseigner accordée par le maître à l'élève accompli. Cette chaîne de transmission est vivante depuis plus de mille ans.</p>
+  <p>L'UNESCO a inscrit la calligraphie arabe au patrimoine culturel immatériel de l'humanité en 2021, sur un dossier porté par seize pays — dont l'Algérie.</p>
+</section>
+
+<!-- ===== LES PROPORTIONS ===== -->
+<section class="panel">
+  <h2>Le système des proportions</h2>
+  <p>La calligraphie arabe classique ne se trace pas à l'œil. Elle repose sur une unité de mesure : le <b>point rhomboïdal</b> — la marque losangée laissée par le calame posé une fois sur le papier. Sa taille dépend de la largeur du calame taillé.</p>
+  <p>À partir de ce point, tout se mesure. L'<i>alif</i> vaut un nombre déterminé de points selon le style — sept en naskh, davantage en thuluth. Le cercle imaginaire dont l'alif est le diamètre gouverne ensuite la courbure des autres lettres.</p>
+  <p>Ce système, codifié par <b>Ibn Muqla</b> (mort en 940) puis affiné par <b>Ibn al-Bawwāb</b> et <b>Yāqūt al-Mustaʿṣimī</b>, fait que deux calligraphes séparés par des siècles peuvent tracer la même lettre avec les mêmes proportions.</p>
+  <p class="note">C'est ce qui distingue la calligraphie du simple dessin de lettres : elle est mesurable, enseignable, vérifiable.</p>
+</section>
+
+<!-- ===== LES STYLES ===== -->
+<section class="panel">
+  <h2>Reconnaître les grands styles</h2>
+  <p>Chaque style a son usage et son caractère. Savoir les distinguer, c'est déjà lire une œuvre autrement.</p>
+
+  <div class="styles">
+    <div class="style">
+      <span class="glyph">ك</span>
+      <div><span class="n">Kūfī <em>الكوفي</em></span>
+      <span class="d">Le plus ancien. Anguleux, architectural, construit à l'équerre. C'est le style des premiers manuscrits coraniques et des inscriptions monumentales sur les mosquées. Sa force est la solennité.</span></div>
+    </div>
+    <div class="style">
+      <span class="glyph">ن</span>
+      <div><span class="n">Naskh <em>النسخ</em></span>
+      <span class="d">Le style de la copie et de la lecture. Lisible, régulier, économe. C'est en naskh que sont imprimés la plupart des Corans aujourd'hui. Sa qualité est la clarté.</span></div>
+    </div>
+    <div class="style">
+      <span class="glyph">ث</span>
+      <div><span class="n">Thuluth <em>الثلث</em></span>
+      <span class="d">Le style majestueux, aux hampes élancées et aux courbes amples. Réservé aux titres, aux frises et aux compositions ornementales. On l'a appelé « la mère des calligraphies » : maîtriser le thuluth, c'est maîtriser l'art.</span></div>
+    </div>
+    <div class="style">
+      <span class="glyph">د</span>
+      <div><span class="n">Dīwānī <em>الديواني</em></span>
+      <span class="d">Né dans les chancelleries ottomanes. Lettres liées, lignes montantes, densité serrée — il était difficile à falsifier, ce qui convenait aux documents officiels.</span></div>
+    </div>
+    <div class="style">
+      <span class="glyph">ر</span>
+      <div><span class="n">Ruqʿa <em>الرقعة</em></span>
+      <span class="d">Le style de l'écriture quotidienne dans le monde arabe. Court, rapide, sans fioriture. C'est celui qu'on apprend en premier pour écrire vite et bien.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VIDÉOS ===== -->
+<section class="panel">
+  <h2>Deux films pour aller plus loin</h2>
+  <div class="films">
+    <a class="film" href="https://ich.unesco.org/fr/video/58133" target="_blank" rel="noopener">
+      <span class="src">UNESCO — patrimoine immatériel</span>
+      <span class="t">La calligraphie arabe : connaissances, compétences et pratiques</span>
+      <span class="d">Le film officiel de l'inscription au patrimoine de l'humanité. Ce que la transmission de cet art représente pour seize pays.</span>
+    </a>
+    <a class="film" href="https://www.youtube.com/watch?v=_2pOE1Uce0o" target="_blank" rel="noopener">
+      <span class="src">Documentaire</span>
+      <span class="t">Le dernier calligraphe</span>
+      <span class="d">La rencontre avec un maître : le geste, l'atelier, et ce que signifie porter une chaîne de transmission aujourd'hui.</span>
+    </a>
+  </div>
+  <p class="note" style="margin-top:1rem">Pour apprendre à tracer les lettres vous-même, la section Langue Arabe de la bibliothèque propose un parcours en trois niveaux avec un agent dédié.</p>
+</section>
+
+<!-- ===== LA COLLECTION ===== -->
+<section class="panel">
+  <h2>La collection — les Noms divins</h2>
+  <p>Treize Noms composés à ce jour, sur les quatre-vingt-dix-neuf. Chaque planche porte son numéro dans la série.</p>
+  <p>Sous chaque œuvre : le verset qui fonde le Nom, le hadith qui l'éclaire, son sens d'après <i>Sharḥ Asmāʾ Allāh al-Ḥusnā</i> d'al-Qaḥṭānī, et le fruit de sa contemplation. C'est cela, l'éducation par l'art — l'œuvre ne se regarde pas seulement, elle se lit.</p>
+  <div class="garde">
+    <p><b>Un rappel nécessaire.</b> La contemplation des Noms est une adoration : elle se fait avec ce qui est établi dans le Coran et la Sunna, sans excès ni innovation. Ces textes sont donnés pour instruire, non pour être récités comme une formule.</p>
+  </div>
+</section>
+
+
+<article class="toile" id="allah">
+  <div class="planche">
+    <img src="noms/2-allah.png" alt="Calligraphie du Nom Allah" loading="lazy">
+    <span class="serie">01 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">Allah</p>
+    <h3 class="nom-ar">اللَّه</h3>
+    <p class="sens">Le Nom Divin Suprême — L&#x27;Être Qui Mérite l&#x27;Adoration</p>
+    <div class="verset">
+      <p class="v-ar">قُلْ هُوَ اللَّهُ أَحَدٌ</p>
+      <p class="v-fr">« Dis : Il est Allah, Unique »</p>
+      <cite>Sourate Al-Ikhlas (112), verset 1</cite>
+    </div>
+    <div class="hadith"><p>« Les noms les plus aimés d&#x27;Allah auprès de Lui sont &#x27;Abdullah et &#x27;Abdurrahman. »</p><cite>Muslim, n° 2132</cite></div>
+    <h4>Le sens</h4>
+    <p>Allah est le Grand Nom (Al-Ism Al-A&#x27;zam), source de tous les 99 Noms. Il désigne l&#x27;Être divin qui seul mérite l&#x27;adoration absolue. Al-Qahtânî précise qu&#x27;il est le plus englobant des Noms : il réunit tous les attributs de perfection, de majesté et de beauté.</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">Répéter ce Nom avec présence du cœur ouvre les portes de la connaissance divine et clarifie le cœur dans la contemplation.</p>
+  </div>
+</article>
+
+<article class="toile" id="ar-rahman">
+  <div class="planche">
+    <img src="noms/3-ar-rahman.png" alt="Calligraphie du Nom Ar-Rahmân" loading="lazy">
+    <span class="serie">02 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">Ar-Rahmân</p>
+    <h3 class="nom-ar">الرَّحْمَٰن</h3>
+    <p class="sens">Le Tout-Miséricordieux — La Miséricorde universelle</p>
+    <div class="verset">
+      <p class="v-ar">قُلِ ادْعُوا اللَّهَ أَوِ ادْعُوا الرَّحْمَٰنَ</p>
+      <p class="v-fr">« Invoquez Allah ou invoquez Ar-Rahmân — Il a les plus beaux Noms. »</p>
+      <cite>Sourate Al-Isra (17), verset 110</cite>
+    </div>
+    <div class="hadith"><p>« Allah est plus miséricordieux envers Ses serviteurs que cette mère envers son enfant. »</p><cite>Al-Bukhari, n° 5999</cite></div>
+    <h4>Le sens</h4>
+    <p>Ar-Rahmân est la miséricorde de l&#x27;essence divine, s&#x27;étendant à toutes les créatures sans distinction. Al-Qahtânî précise que c&#x27;est la miséricorde universelle du monde, accordée au croyant comme à l&#x27;incroyant.</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">Contempler cet attribut amène le serviteur à élargir sa miséricorde envers toutes les créatures d&#x27;Allah.</p>
+  </div>
+</article>
+
+<article class="toile" id="ar-rahim">
+  <div class="planche">
+    <img src="noms/4-ar-rahim.png" alt="Calligraphie du Nom Ar-Rahîm" loading="lazy">
+    <span class="serie">03 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">Ar-Rahîm</p>
+    <h3 class="nom-ar">الرَّحِيم</h3>
+    <p class="sens">Le Très-Miséricordieux — Miséricorde particulière aux croyants</p>
+    <div class="verset">
+      <p class="v-ar">إِنَّ اللَّهَ بِالنَّاسِ لَرَءُوفٌ رَّحِيمٌ</p>
+      <p class="v-fr">« Certes, Allah est pour les gens Plein de bonté, Très Miséricordieux. »</p>
+      <cite>Sourate Al-Baqara (2), verset 143</cite>
+    </div>
+    <div class="hadith"><p>« Allah a divisé Sa miséricorde en cent parts. Il en a retenu quatre-vingt-dix-neuf et n&#x27;en a envoyé qu&#x27;une dans ce monde. »</p><cite>Al-Bukhari, n° 6000</cite></div>
+    <h4>Le sens</h4>
+    <p>Ar-Rahîm est la miséricorde en acte, perpétuelle et ciblée sur les croyants. Al-Qahtânî distingue : Ar-Rahmân est la miséricorde de l&#x27;essence (universelle), Ar-Rahîm est la miséricorde de l&#x27;action (spéciale aux croyants).</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">S&#x27;accrocher à cet attribut dans la supplication renforce l&#x27;espérance du pardon divin.</p>
+  </div>
+</article>
+
+<article class="toile" id="al-malik">
+  <div class="planche">
+    <img src="noms/5-al-malik.png" alt="Calligraphie du Nom Al-Malik" loading="lazy">
+    <span class="serie">04 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">Al-Malik</p>
+    <h3 class="nom-ar">الْمَلِك</h3>
+    <p class="sens">Le Souverain Absolu — Le Roi parfait de toute chose</p>
+    <div class="verset">
+      <p class="v-ar">هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْمَلِكُ الْقُدُّوسُ</p>
+      <p class="v-fr">« Il est Allah — le Souverain, le Très-Saint. »</p>
+      <cite>Sourate Al-Hashr (59), verset 23</cite>
+    </div>
+    <div class="hadith"><p>« Le pire des noms auprès d&#x27;Allah sera celui d&#x27;un homme qui se sera appelé Roi des rois. »</p><cite>Al-Bukhari, n° 6206</cite></div>
+    <h4>Le sens</h4>
+    <p>Al-Malik est le Souverain parfait dont la royauté ne dépend de personne. Al-Qahtânî précise que contrairement aux rois créés, la royauté d&#x27;Allah est absolue, éternelle et sans limite.</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">Méditer sur cet attribut libère le cœur de la servitude envers les créatures.</p>
+  </div>
+</article>
+
+<article class="toile" id="al-quddus">
+  <div class="planche">
+    <img src="noms/6-al-quddus.png" alt="Calligraphie du Nom Al-Quddûs" loading="lazy">
+    <span class="serie">05 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">Al-Quddûs</p>
+    <h3 class="nom-ar">الْقُدُّوس</h3>
+    <p class="sens">Le Très-Saint — Absolument pur de toute imperfection</p>
+    <div class="verset">
+      <p class="v-ar">هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْمَلِكُ الْقُدُّوسُ</p>
+      <p class="v-fr">« Il est Allah — le Souverain, le Très-Saint, la Source de Paix. »</p>
+      <cite>Sourate Al-Hashr (59), verset 23</cite>
+    </div>
+    <div class="hadith"><p>« سُبُّوحٌ قُدُّوسٌ رَبُّ الْمَلَائِكَةِ وَالرُّوحِ » — dit dans la prière nocturne.</p><cite>Muslim, n° 487</cite></div>
+    <h4>Le sens</h4>
+    <p>Al-Quddûs signifie Celui qui est absolument pur, exempt de toute imperfection et de toute similitude avec Ses créatures. Al-Qahtânî précise qu&#x27;Il transcende toute comparaison : Sa sainteté est infinie et incomparable.</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">Invoquer Al-Quddûs purifie le cœur et rappelle au serviteur de s&#x27;élever au-dessus des bassesses.</p>
+  </div>
+</article>
+
+<article class="toile" id="as-salam">
+  <div class="planche">
+    <img src="noms/7-al-salm.png" alt="Calligraphie du Nom As-Salâm" loading="lazy">
+    <span class="serie">06 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">As-Salâm</p>
+    <h3 class="nom-ar">السَّلَام</h3>
+    <p class="sens">La Source de Paix — Exempt de tout défaut et de toute fin</p>
+    <div class="verset">
+      <p class="v-ar">الْمَلِكُ الْقُدُّوسُ السَّلَامُ الْمُؤْمِنُ</p>
+      <p class="v-fr">« Le Souverain, le Très-Saint, la Source de Paix, le Donneur de Sécurité. »</p>
+      <cite>Sourate Al-Hashr (59), verset 23</cite>
+    </div>
+    <div class="hadith"><p>« Ô Allah, Tu es As-Salâm, et de Toi vient la paix ; Tu es béni, Possesseur de la majesté et de la générosité. »</p><cite>Muslim, n° 591 — après la prière</cite></div>
+    <h4>Le sens</h4>
+    <p>As-Salâm est Celui dont l&#x27;essence est exempte de tout défaut et de toute limite. Al-Qahtânî précise qu&#x27;Il est la source de toute paix et sécurité. Le Paradis est appelé Dâr As-Salâm (Demeure de la Paix).</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">Contempler As-Salâm apporte la sérénité intérieure et libère le cœur des angoisses du monde.</p>
+  </div>
+</article>
+
+<article class="toile" id="al-mumin">
+  <div class="planche">
+    <img src="noms/8-al-mu-min.png" alt="Calligraphie du Nom Al-Muʾmin" loading="lazy">
+    <span class="serie">07 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">Al-Muʾmin</p>
+    <h3 class="nom-ar">المُؤْمِن</h3>
+    <p class="sens">Le Garant de la Sécurité — Celui qui atteste la vérité et rassure les cœurs</p>
+    <div class="verset">
+      <p class="v-ar">هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ المَلِكُ القُدُّوسُ السَّلَامُ المُؤْمِنُ المُهَيْمِنُ</p>
+      <p class="v-fr">« C&#x27;est Lui, Allah. Nulle divinité autre que Lui, le Souverain, le Très-Saint, la Paix, Celui qui donne la sécurité, le Gardien »</p>
+      <cite>Sourate Al-Hashr (59), verset 23</cite>
+    </div>
+    <div class="hadith"><p>« Le musulman est celui dont les musulmans sont à l&#x27;abri de la langue et de la main. »</p><cite>Al-Bukhari, n° 10</cite></div>
+    <h4>Le sens</h4>
+    <p>Al-Muʾmin porte deux sens indissociables. Il est Celui qui atteste la véracité de Ses messagers et confirme Sa propre parole par les signes qu&#x27;Il envoie. Il est aussi Celui qui accorde la sécurité à Ses serviteurs — la sécurité du croyant contre le châtiment, et la sérénité du cœur contre la peur. Al-Qahtânî souligne que la racine ءمن réunit la foi et la sûreté : croire en Allah, c&#x27;est être mis à l&#x27;abri.</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">Contempler ce Nom apaise la crainte et enracine la confiance : celui qui sait de qui vient la sécurité cesse de la chercher où elle n&#x27;est pas.</p>
+  </div>
+</article>
+
+<article class="toile" id="al-muhaymin">
+  <div class="planche">
+    <img src="noms/9-al-muhaymin.png" alt="Calligraphie du Nom Al-Muhaymin" loading="lazy">
+    <span class="serie">08 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">Al-Muhaymin</p>
+    <h3 class="nom-ar">الْمُهَيْمِن</h3>
+    <p class="sens">Le Gardien Suprême — Le Veilleur sur toute chose</p>
+    <div class="verset">
+      <p class="v-ar">الْمُؤْمِنُ الْمُهَيْمِنُ الْعَزِيزُ الْجَبَّارُ</p>
+      <p class="v-fr">« Le Donneur de Sécurité, le Gardien, le Tout-Puissant, le Contraignant. »</p>
+      <cite>Sourate Al-Hashr (59), verset 23</cite>
+    </div>
+    <div class="hadith"><p>« Rien n&#x27;est caché à Allah, ni dans les cieux ni sur la terre. »</p><cite>Sourate Ibrahim (14), verset 38</cite></div>
+    <h4>Le sens</h4>
+    <p>Al-Muhaymin est Celui qui surveille, préserve et protège toutes choses dans leurs états. Al-Qahtânî : Il est le Témoin de toutes choses, le Conservateur de tout ce qui se passe dans l&#x27;univers — rien ne Lui échappe, ni acte, ni parole, ni pensée.</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">Savoir qu&#x27;Al-Muhaymin veille incite à la vigilance spirituelle et à la rectitude en tout état.</p>
+  </div>
+</article>
+
+<article class="toile" id="ash-shahid">
+  <div class="planche">
+    <img src="noms/10-al-chahid.png" alt="Calligraphie du Nom Ash-Shahîd" loading="lazy">
+    <span class="serie">09 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">Ash-Shahîd</p>
+    <h3 class="nom-ar">الشَّهِيد</h3>
+    <p class="sens">Le Témoin — Qui voit et entend tout en tout lieu</p>
+    <div class="verset">
+      <p class="v-ar">وَاللَّهُ عَلَىٰ كُلِّ شَيْءٍ شَهِيدٌ</p>
+      <p class="v-fr">« Et Allah est Témoin de toute chose. »</p>
+      <cite>Sourate Al-Buruj (85), verset 9</cite>
+    </div>
+    <div class="hadith"><p>« Prends garde à Allah où que tu sois. Suis la mauvaise action par une bonne qui l&#x27;effacera. »</p><cite>Tirmidhi, n° 1987</cite></div>
+    <h4>Le sens</h4>
+    <p>Ash-Shahîd est Celui qui est présent, voyant et entendant en tout lieu et à tout moment. Al-Qahtânî : Il est le Témoin parfait dont le témoignage englobe l&#x27;intégralité de la création — passé, présent et futur.</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">Garder à l&#x27;esprit la présence d&#x27;Ash-Shahîd purifie les intentions et ennoblit chaque acte.</p>
+  </div>
+</article>
+
+<article class="toile" id="al-mutakabbir">
+  <div class="planche">
+    <img src="noms/11-Al-Mutakabbir.png" alt="Calligraphie du Nom Al-Mutakabbir" loading="lazy">
+    <span class="serie">10 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">Al-Mutakabbir</p>
+    <h3 class="nom-ar">المُتَكَبِّر</h3>
+    <p class="sens">Le Suprême de grandeur — Celui à qui seul revient l&#x27;orgueil</p>
+    <div class="verset">
+      <p class="v-ar">الْعَزِيزُ الْجَبَّارُ الْمُتَكَبِّرُ ۚ سُبْحَانَ اللَّهِ عَمَّا يُشْرِكُونَ</p>
+      <p class="v-fr">« Le Puissant, Le Contraignant, Le Suprême de grandeur. Gloire à Allah, Il transcende ce qu&#x27;ils Lui associent »</p>
+      <cite>Sourate Al-Hashr (59), verset 23</cite>
+    </div>
+    <div class="hadith"><p>« La grandeur est Mon manteau et la fierté Mon vêtement : quiconque M&#x27;en dispute l&#x27;un, Je le châtie. »</p><cite>Muslim, n° 2620 — hadith qudsi</cite></div>
+    <h4>Le sens</h4>
+    <p>Al-Mutakabbir désigne Celui dont la grandeur est absolue et qui transcende toute imperfection. Chez Allah, cet attribut est une perfection ; chez la créature, l&#x27;orgueil est un vice, car elle s&#x27;attribue ce qui ne lui appartient pas. Al-Qahtânî précise que ce Nom écarte de Lui toute ressemblance avec la création : Il est trop haut pour qu&#x27;on Lui associe quoi que ce soit.</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">Méditer ce Nom brise l&#x27;orgueil dans le cœur du serviteur : reconnaître que la grandeur appartient à Allah seul, c&#x27;est retrouver sa juste place.</p>
+  </div>
+</article>
+
+<article class="toile" id="al-khaliq">
+  <div class="planche">
+    <img src="noms/12-al-khaliq.png" alt="Calligraphie du Nom Al-Khâliq" loading="lazy">
+    <span class="serie">11 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">Al-Khâliq</p>
+    <h3 class="nom-ar">الْخَالِق</h3>
+    <p class="sens">Le Créateur — Qui crée de rien et décrète toute chose</p>
+    <div class="verset">
+      <p class="v-ar">اللَّهُ خَالِقُ كُلِّ شَيْءٍ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ وَكِيلٌ</p>
+      <p class="v-fr">« Allah est le Créateur de toute chose et Il est Garant de tout. »</p>
+      <cite>Sourate Az-Zumar (39), verset 62</cite>
+    </div>
+    <div class="hadith"><p>« Allah a créé la création, puis Il a écrit dans Son Livre : Ma miséricorde précède Ma colère. »</p><cite>Al-Bukhari, n° 7554</cite></div>
+    <h4>Le sens</h4>
+    <p>Al-Khâliq est Celui qui crée de rien, qui décrète, mesure et planifie toutes choses. Al-Qahtânî : la création divine est unique car elle n&#x27;a nul modèle préalable — Il crée par la Parole « Sois ! »</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">Contempler Al-Khâliq attise l&#x27;émerveillement devant l&#x27;univers et génère une gratitude profonde pour l&#x27;existence.</p>
+  </div>
+</article>
+
+<article class="toile" id="al-wadud">
+  <div class="planche">
+    <img src="noms/13-al-wadoude.png" alt="Calligraphie du Nom Al-Wadûd" loading="lazy">
+    <span class="serie">12 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">Al-Wadûd</p>
+    <h3 class="nom-ar">الوَدُود</h3>
+    <p class="sens">Le Très Aimant — Celui qui aime et qui est Aimé</p>
+    <div class="verset">
+      <p class="v-ar">وَهُوَ الْغَفُورُ الْوَدُودُ</p>
+      <p class="v-fr">« Et Il est le Pardonneur, le Très Aimant. »</p>
+      <cite>Sourate Al-Buruj (85), verset 14</cite>
+    </div>
+    <div class="hadith"><p>« Allah aime et est aimé. Il aime ceux qui se purifient et il aime les bienfaisants. »</p><cite>Al-Baqara (2:222) — Hadith rapporté par At-Tirmidhi</cite></div>
+    <h4>Le sens</h4>
+    <p>Al-Wadûd est Celui dont l&#x27;amour est parfait et éternel. Al-Qahtânî distingue deux dimensions : Allah aime Ses serviteurs croyants d&#x27;un amour incomparable, et les serviteurs L&#x27;aiment en retour. Cet amour est le moteur de toute adoration sincère.</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">Méditer sur Al-Wadûd emplit le cœur d&#x27;un amour sincère pour Allah et transforme toute action en acte d&#x27;amour.</p>
+  </div>
+</article>
+
+<article class="toile" id="shahada">
+  <div class="planche">
+    <img src="noms/1-la-ilaha-illah.png" alt="Calligraphie du Nom La ilaha illa Allah" loading="lazy">
+    <span class="serie">13 / 99</span>
+  </div>
+  <div class="lecture">
+    <p class="translit">La ilaha illa Allah</p>
+    <h3 class="nom-ar">لَا إِلَهَ إِلَّا اللَّه</h3>
+    <p class="sens">Il n&#x27;y a de divinité digne d&#x27;adoration qu&#x27;Allah — La Shahada</p>
+    <div class="verset">
+      <p class="v-ar">فَاعْلَمْ أَنَّهُ لَا إِلَٰهَ إِلَّا اللَّهُ وَاسْتَغْفِرْ لِذَنبِكَ</p>
+      <p class="v-fr">« Sache donc qu&#x27;il n&#x27;y a pas de divinité en dehors d&#x27;Allah et demande pardon pour ton péché. »</p>
+      <cite>Sourate Muhammad (47), verset 19</cite>
+    </div>
+    <div class="hadith"><p>« Le meilleur dhikr est La ilaha illa Allah. » — « Celui qui dit sincèrement La ilaha illa Allah en entrera au Paradis. »</p><cite>Tirmidhi, n° 3383 — Bukhari, n° 3435</cite></div>
+    <h4>Le sens</h4>
+    <p>La ilaha illa Allah est la Parole de la sincérité (Kalimat al-Ikhlas), le fondement de la foi islamique. Al-Qahtânî : elle comprend une négation (lâ ilaha) et une affirmation (illa Allah). C&#x27;est la clé du Paradis.</p>
+    <h4>Le fruit de la contemplation</h4>
+    <p class="fruit">Répéter sincèrement la Shahada renouvelle la foi, purifie le cœur et constitue le meilleur des dhikrs.</p>
+  </div>
+</article>
+
+<!-- ===== SOUTIEN ===== -->
+<section class="panel soutien">
+  <h3>Si ce travail vous a servi</h3>
+  <p>Cette page restera libre, sans compte ni paiement — le savoir ne se vend pas. Ce qui se vend, c'est l'œuvre : les toiles de la série limitée 1/99, avec leur certificat trilingue.</p>
+  <p><a href="https://abdelbouter.gumroad.com" target="_blank" rel="noopener">Voir la collection →</a></p>
+  <p class="note">Rien ici n'est conditionné à un achat. Prenez ce dont vous avez besoin et transmettez-le.</p>
+</section>
+
+<footer>
+  <span class="ar">وَلِلَّهِ الْأَسْمَاءُ الْحُسْنَىٰ فَادْعُوهُ بِهَا</span>
+  « C'est à Allah qu'appartiennent les plus beaux noms. Invoquez-Le par ces noms » — Al-Aʿrāf, 180<br>
+  ArchiART — Éducation par l'Art · Bibliothèque Islamique<br>
+  <span class="ar" style="font-size:1rem">وَاللَّهُ أَعْلَم</span>
+  <a class="retour-bas" href="index.html">← Retour à la bibliothèque</a>
+</footer>
+
+</div>
+</body>
+</html>
