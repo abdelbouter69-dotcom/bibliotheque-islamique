@@ -434,7 +434,7 @@ footer strong{color:rgba(247,245,239,.7);font-weight:500}
       </div>
   <div class="sources">
     <label style="margin-bottom:.6rem">
-      <span class="lab">Ticker pour ouvrir les sources</span>
+      <span class="lab">Ticker pour ouvrir les sources <button type="button" class="aide" data-memo="source" aria-label="Comment remonter à la source">?</button></span>
       <input id="ticker" placeholder="OR.PA · MSFT · ASML.AS">
     </label>
     <div class="liens">
@@ -442,6 +442,17 @@ footer strong{color:rgba(247,245,239,.7);font-weight:500}
       <button type="button" data-src="abc">ABC Bourse — société</button>
       <button type="button" data-src="inv">Investing — profil financier</button>
       <button type="button" data-src="rapport">Rapport annuel</button>
+    </div>
+
+    <div class="memo" id="memo-source">
+      <b>Remonter à la source — le chemin complet</b>
+      Les agrégateurs (Morningstar, Investing, ABC Bourse) servent au premier tri. Pour un verdict, il faut le rapport annuel de la société elle-même.<br><br>
+      <u>1.</u> Cherchez le site investisseurs de la société : « <i>nom de la société</i> + relations investisseurs ». L'adresse ressemble souvent à <i>investor.nom.com</i> ou <i>nom-finance.com</i>.<br>
+      <u>2.</u> Menu <i>Événements et publications</i> → <i>Rapports</i> → <b>Document d'enregistrement universel</b> (le rapport annuel officiel, audité et déposé à l'AMF). Ne prenez pas le « rapport d'entreprise » : c'est la version illustrée, sans les tableaux.<br>
+      <u>3.</u> Dans le PDF, <b>Ctrl + F</b> puis cherchez <i>Total assets</i> — vous tombez sur le bilan consolidé.<br><br>
+      <b>Les lignes à relever</b> (ces documents sont souvent en anglais) :<br>
+      <i>Total assets</i> → total de l'actif · <i>Cash and cash equivalents</i> ou <i>short-term investments</i> → trésorerie · <i>Borrowings</i> ou <i>Debt</i> → dette financière · <i>Trade accounts receivable</i> → créances clients · <i>Total revenue</i> → chiffre d'affaires.
+      <em>Pourquoi ce détour : sur une grande société testée, l'écart entre l'agrégateur et le rapport audité atteignait près d'un milliard d'euros sur la seule trésorerie — de quoi faire passer le ratio de 31 % à 25 %, donc de faire basculer le verdict. Le chiffre approximatif ne suffit pas quand il s'agit du licite.</em>
     </div>
     <p class="hint" style="margin-top:.6rem">Morningstar pour les actifs, la dette et la trésorerie. Le rapport annuel pour la ventilation sectorielle — seul endroit où trouver la part de revenus illicites.</p>
   </div>
